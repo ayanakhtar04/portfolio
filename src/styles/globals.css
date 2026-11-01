@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Spacing Tokens (8px Grid) */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem;  /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem;    /* 16px */
+  --space-5: 1.5rem;  /* 24px */
+  --space-6: 2rem;    /* 32px */
+  --space-7: 3rem;    /* 48px */
+  --space-8: 4rem;    /* 64px */
+
+  /* Type Scale (1.25 Major Third Ratio) */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.25rem;     /* 20px */
+  --text-xl: 1.563rem;    /* 25px */
+  --text-2xl: 1.953rem;   /* 31.25px */
+  --text-3xl: 2.441rem;   /* 39px */
+
+  /* Exact Core Design System Palette (Deep Ink + Aurora + High-Contrast Lime CTA) */
+  --bg:            #070A14;  /* page, deep ink */
+  --surface:       #0E1426;  /* cards, terminal windows */
+  --surface-2:     #151D36;  /* hover, raised */
+  --border:        #1E2745;
+  --border-strong: #35406B;
+
+  --text:          #EEF2FF;  /* 17.7:1 */
+  --text-muted:    #9AA6C8;  /* 8.2:1 */
+
+  --cyan:          #22D3EE;  /* 10.9:1  links, active states, cursor */
+  --indigo:        #818CF8;  /* 6.6:1   secondary accent, IaC keywords */
+  --magenta:       #E879F9;  /* 8.0:1   gradient end, rare highlights */
+  --lime:          #BEF264;  /* 15.1:1  the ONE primary CTA color */
+  --on-lime:       #0A1200;  /* 14.6:1  text on lime buttons */
+
+  --success:       #34D399;  /* build passing */
+  --warning:       #FBBF24;  /* deploying, learning */
+  --danger:        #FB7185;  /* failed */
+
+  --gradient-aurora: linear-gradient(90deg, #22D3EE, #818CF8, #E879F9);
+  --glow-cyan:     0 0 32px rgba(34, 211, 238, 0.22);
+
+  /* Mapped Component Aliases */
+  --bg-base: var(--bg);
+  --bg-surface: var(--surface);
+  --bg-elevated: var(--surface-2);
+  --bg-glass: rgba(14, 20, 38, 0.88);
+  --border-subtle: var(--border);
+  --border-focus: var(--cyan);
+  --text-primary: var(--text);
+  --text-secondary: var(--text-muted);
+  --accent-primary: var(--cyan);
+  --accent-glow: rgba(34, 211, 238, 0.16);
+  --accent-secondary: var(--warning);
+  --status-ok: var(--success);
+  --status-warn: var(--warning);
+  --status-err: var(--danger);
+  --grid-dot: rgba(154, 166, 200, 0.08);
+}
+
+html.light {
+  --bg-base: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #F1F5F9;
+  --bg-glass: rgba(255, 255, 255, 0.90);
+  --border-subtle: #CBD5E1;
+  --border-focus: #0284C7;
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+  --accent-primary: #0369A1;
+  --accent-glow: rgba(3, 105, 161, 0.10);
+  --accent-secondary: #B45309;
+  --status-ok: #047857;
+  --status-warn: #B45309;
+  --status-err: #BE123C;
+  --grid-dot: rgba(15, 23, 42, 0.06);
+}
+
+html[data-accent="green"] {
+  --accent-primary: #10B981;
+  --border-focus: #10B981;
+  --accent-glow: rgba(16, 185, 129, 0.16);
+}
+
+html.light[data-accent="green"] {
+  --accent-primary: #047857;
+  --border-focus: #047857;
+  --accent-glow: rgba(4, 120, 87, 0.10);
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+.font-mono-code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.surface-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  transition: transform 180ms ease;
+}
+
+.surface-card:hover {
+  background-color: var(--surface-2);
+  border-color: var(--border-strong);
+  box-shadow: var(--glow-cyan);
+}
+
+.btn-primary-lime {
+  background-color: var(--lime);
+  color: var(--on-lime);
+  font-weight: 700;
+  box-shadow: 0 0 24px rgba(190, 242, 100, 0.22);
+  transition: transform 150ms ease;
+}
+
+.btn-primary-lime:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 0 32px rgba(190, 242, 100, 0.38);
+}
+
+.aurora-text {
+  background: var(--gradient-aurora);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.aurora-bar {
+  background: var(--gradient-aurora);
+}
+
+.surface-elevated {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+}
+
+.accent-text {
+  color: var(--accent-primary);
+}
+
+.accent-border {
+  border-color: var(--accent-primary);
+}
+
+.accent-bg-soft {
+  background-color: var(--accent-glow);
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Accessible Focus Ring */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+

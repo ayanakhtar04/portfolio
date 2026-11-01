@@ -1,0 +1,68 @@
+import React, { createContext, useContext, useState, useEffect } from 'react';
+
+const PortfolioContext = createContext();
+
+export const usePortfolio = () => {
+  const context = useContext(PortfolioContext);
+  if (!context) {
+    throw new Error('usePortfolio must be used within PortfolioProvider');
+  }
+  return context;
+};
+
+export const PortfolioProvider = ({ children }) => {
+  const [state, setState] = useState({
+    name: "Ayan Akhtar",
+    email: "ayanakhtar37.35@gmail.com",
+    github: "https://github.com/ayanakhtar04",
+    linkedin: "https://www.linkedin.com/in/ayan-akhtar",
+    resume: "/Ayan_Akhtar_Resume.pdf",
+    theme: "dark",
+    accent: "cyan",
+    skillsView: "iac",
+    skillFilter: "all",
+    activeStage: "learn",
+    activePhaseTab: "phase1",
+    activeView: "portfolio",
+  });
+
+  useEffect(() => {
+    const saved = localStorage.getItem('portfolioState');
+    if (saved) {
+      // Older saves hold "[PLACEHOLDER]" identity values; let the real defaults win.
+      const parsed = JSON.parse(saved);
+      Object.keys(parsed).forEach((k) => {
+        if (typeof parsed[k] === 'string' && parsed[k].startsWith('[')) delete parsed[k];
+      });
+      setState(prev => ({ ...prev, ...parsed }));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('portfolioState', JSON.stringify(state));
+  }, [state]);
+
+  const updateState = (updates) => {
+    setState(prev => ({ ...prev, ...updates }));
+  };
+
+  const toggleTheme = () => {
+    setState(prev => ({
+      ...prev,
+      theme: prev.theme === 'dark' ? 'light' : 'dark'
+    }));
+  };
+
+  const toggleAccent = () => {
+    setState(prev => ({
+      ...prev,
+      accent: prev.accent === 'cyan' ? 'green' : 'cyan'
+    }));
+  };
+
+  return (
+    <PortfolioContext.Provider value={{ state, updateState, toggleTheme, toggleAccent }}>
+      {children}
+    </PortfolioContext.Provider>
+  );
+};

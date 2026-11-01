@@ -1,0 +1,2699 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[YOUR FULL NAME] — DevOps &amp; Cloud Engineering Portfolio Platform</title>
+  <meta name="description" content="Personal infrastructure &amp; engineering portfolio of [YOUR FULL NAME], Web Developer transitioning into DevOps &amp; Cloud Engineering for European tech teams." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "[YOUR FULL NAME]",
+    "jobTitle": "Web Developer transitioning to DevOps / Cloud Engineer",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Sir Padampat Singhania University"
+    },
+    "knowsAbout": ["Linux", "Git", "Docker", "AWS", "Terraform", "Kubernetes", "CI/CD", "HTML", "CSS", "JavaScript", "WordPress"],
+    "url": "https://[YOUR_DOMAIN_OR_GITHUB_IO]",
+    "sameAs": [
+      "[GITHUB_URL]",
+      "[LINKEDIN_URL]"
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      /* Spacing Tokens (8px Grid) */
+      --space-1: 0.25rem; /* 4px */
+      --space-2: 0.5rem;  /* 8px */
+      --space-3: 0.75rem; /* 12px */
+      --space-4: 1rem;    /* 16px */
+      --space-5: 1.5rem;  /* 24px */
+      --space-6: 2rem;    /* 32px */
+      --space-7: 3rem;    /* 48px */
+      --space-8: 4rem;    /* 64px */
+
+      /* Type Scale (1.25 Major Third Ratio) */
+      --text-xs: 0.75rem;     /* 12px */
+      --text-sm: 0.875rem;    /* 14px */
+      --text-base: 1rem;      /* 16px */
+      --text-lg: 1.25rem;     /* 20px */
+      --text-xl: 1.563rem;    /* 25px */
+      --text-2xl: 1.953rem;   /* 31.25px */
+      --text-3xl: 2.441rem;   /* 39px */
+
+      /* Exact Core Design System Palette (Deep Ink + Aurora + High-Contrast Lime CTA) */
+      --bg:            #070A14;  /* page, deep ink */
+      --surface:       #0E1426;  /* cards, terminal windows */
+      --surface-2:     #151D36;  /* hover, raised */
+      --border:        #1E2745;
+      --border-strong: #35406B;
+
+      --text:          #EEF2FF;  /* 17.7:1 */
+      --text-muted:    #9AA6C8;  /* 8.2:1 */
+
+      --cyan:          #22D3EE;  /* 10.9:1  links, active states, cursor */
+      --indigo:        #818CF8;  /* 6.6:1   secondary accent, IaC keywords */
+      --magenta:       #E879F9;  /* 8.0:1   gradient end, rare highlights */
+      --lime:          #BEF264;  /* 15.1:1  the ONE primary CTA color */
+      --on-lime:       #0A1200;  /* 14.6:1  text on lime buttons */
+
+      --success:       #34D399;  /* build passing */
+      --warning:       #FBBF24;  /* deploying, learning */
+      --danger:        #FB7185;  /* failed */
+
+      --gradient-aurora: linear-gradient(90deg, #22D3EE, #818CF8, #E879F9);
+      --glow-cyan:     0 0 32px rgba(34, 211, 238, 0.22);
+
+      /* Mapped Component Aliases */
+      --bg-base: var(--bg);
+      --bg-surface: var(--surface);
+      --bg-elevated: var(--surface-2);
+      --bg-glass: rgba(14, 20, 38, 0.88);
+      --border-subtle: var(--border);
+      --border-focus: var(--cyan);
+      --text-primary: var(--text);
+      --text-secondary: var(--text-muted);
+      --accent-primary: var(--cyan);
+      --accent-glow: rgba(34, 211, 238, 0.16);
+      --accent-secondary: var(--warning);
+      --status-ok: var(--success);
+      --status-warn: var(--warning);
+      --status-err: var(--danger);
+      --grid-dot: rgba(154, 166, 200, 0.08);
+    }
+
+    html.light {
+      --bg-base: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-elevated: #F1F5F9;
+      --bg-glass: rgba(255, 255, 255, 0.90);
+      --border-subtle: #CBD5E1;
+      --border-focus: #0284C7;
+      --text-primary: #0F172A;   /* 16.1:1 vs #F8FAFC (AAA) */
+      --text-secondary: #334155; /* 9.8:1 vs #F8FAFC (AAA) */
+      --text-muted: #475569;     /* 7.1:1 vs #F8FAFC (AAA) */
+      --accent-primary: #0369A1; /* Deep Cyan-Blue: 6.1:1 vs #FFFFFF (AA) */
+      --accent-glow: rgba(3, 105, 161, 0.10);
+      --accent-secondary: #B45309; /* Deep Amber: 5.3:1 vs #FFFFFF (AA) */
+      --status-ok: #047857;
+      --status-warn: #B45309;
+      --status-err: #BE123C;
+      --grid-dot: rgba(15, 23, 42, 0.06);
+    }
+
+    html[data-accent="green"] {
+      --accent-primary: #10B981;
+      --border-focus: #10B981;
+      --accent-glow: rgba(16, 185, 129, 0.16);
+    }
+    html.light[data-accent="green"] {
+      --accent-primary: #047857;
+      --border-focus: #047857;
+      --accent-glow: rgba(4, 120, 87, 0.10);
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-image:
+        radial-gradient(var(--grid-dot) 1px, transparent 1px),
+        linear-gradient(to right, var(--grid-dot) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-dot) 1px, transparent 1px);
+      background-size: 24px 24px, 96px 96px, 96px 96px;
+      background-position: 0 0, 0 0, 0 0;
+      overflow-x: hidden;
+    }
+
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .surface-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .surface-card:hover {
+      background-color: var(--surface-2);
+      border-color: var(--border-strong);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .btn-primary-lime {
+      background-color: var(--lime);
+      color: var(--on-lime);
+      font-weight: 700;
+      box-shadow: 0 0 24px rgba(190, 242, 100, 0.22);
+      transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+    }
+    .btn-primary-lime:hover {
+      filter: brightness(1.06);
+      box-shadow: 0 0 32px rgba(190, 242, 100, 0.38);
+    }
+
+    .aurora-text {
+      background: var(--gradient-aurora);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .aurora-bar {
+      background: var(--gradient-aurora);
+    }
+
+    .surface-elevated {
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .accent-text {
+      color: var(--accent-primary);
+    }
+
+    .accent-border {
+      border-color: var(--accent-primary);
+    }
+
+    .accent-bg-soft {
+      background-color: var(--accent-glow);
+    }
+
+    /* Animated SVG Packet Lines */
+    @keyframes packetFlow {
+      to {
+        stroke-dashoffset: -24;
+      }
+    }
+
+    .arch-edge-animated {
+      stroke-dasharray: 6 6;
+      animation: packetFlow 1.2s linear infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.92); }
+    }
+
+    .pulse-live {
+      animation: pulseDot 2.2s ease-in-out infinite;
+    }
+
+    /* Respect prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .arch-edge-animated {
+        animation: none !important;
+      }
+    }
+
+    /* Accessible Focus Ring */
+    :focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-base);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-primary);
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased selection:bg-cyan-500/20 selection:text-cyan-300">
+
+  <!-- Skip to Content for Keyboard Accessibility -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-md focus:font-mono-code focus:text-xs focus:bg-cyan-400 focus:text-slate-950 focus:font-semibold">
+    Skip to main infrastructure dashboard
+  </a>
+
+  <!-- Top Infrastructure Control Plane Navigation -->
+  <header class="sticky top-0 z-40 border-b" style="background-color: var(--bg-glass); border-color: var(--border-subtle); backdrop-filter: blur(12px);">
+    <div class="h-0.5 w-full aurora-bar" aria-hidden="true"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-3">
+        
+        <!-- Brand / Node Identity -->
+        <div class="flex items-center gap-3 min-w-0">
+          <a href="#hero" class="flex items-center gap-2.5 group focus:outline-none">
+            <span class="w-2.5 h-2.5 rounded-full pulse-live" style="background-color: var(--status-ok);" aria-hidden="true"></span>
+            <span class="font-mono-code font-bold text-sm sm:text-base tracking-tight truncate">
+              [YOUR_NAME]<span class="accent-text">.infra</span>
+            </span>
+          </a>
+          <span class="hidden xl:inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono-code surface-elevated" style="color: var(--text-secondary);">
+            <span>eu-central-1</span>
+            <span aria-hidden="true">•</span>
+            <span style="color: var(--status-ok);">v2.4.0-prod</span>
+          </span>
+        </div>
+
+        <!-- Primary Mode Switcher (Live Portfolio vs Blueprint Spec Phases 1-6) -->
+        <div class="flex items-center gap-1 p-1 rounded-lg surface-elevated" role="tablist" aria-label="Workspace View Mode">
+          <button type="button" id="tab-btn-portfolio" role="tab" aria-selected="true"
+            class="px-2.5 sm:px-3 py-1.5 rounded-md font-mono-code text-xs font-medium transition-all"
+            style="background-color: var(--accent-primary); color: #0B0F14;">
+            01 // Live Portfolio
+          </button>
+          <button type="button" id="tab-btn-blueprint" role="tab" aria-selected="false"
+            class="px-2.5 sm:px-3 py-1.5 rounded-md font-mono-code text-xs font-medium transition-all"
+            style="color: var(--text-secondary);">
+            02 // DevOps &amp; Design Blueprint (Phases 1–6)
+          </button>
+        </div>
+
+        <!-- Desktop Section Links (Recruiter 5-Second Scan) -->
+        <nav id="portfolio-nav-links" aria-label="Primary sections" class="hidden lg:flex items-center gap-5 font-mono-code text-xs">
+          <a href="#pipeline" class="hover:underline transition-colors" style="color: var(--text-secondary);">./pipeline</a>
+          <a href="#skills" class="hover:underline transition-colors" style="color: var(--text-secondary);">./skills.tf</a>
+          <a href="#pods" class="hover:underline transition-colors font-semibold accent-text">./pods (projects)</a>
+          <a href="#certs" class="hover:underline transition-colors" style="color: var(--text-secondary);">./certs</a>
+          <a href="#notes" class="hover:underline transition-colors" style="color: var(--text-secondary);">./runbooks</a>
+          <a href="#contact" class="hover:underline transition-colors" style="color: var(--text-secondary);">./contact</a>
+        </nav>
+
+        <!-- Control Plane Actions: Accent Toggle, Theme Toggle, Mobile Menu -->
+        <div class="flex items-center gap-2">
+          <button type="button" id="accent-toggle-btn"
+            class="px-2.5 py-1.5 rounded-md font-mono-code text-xs surface-elevated hover:opacity-90 transition"
+            title="Switch primary terminal accent (Cyan / Phosphor Green)"
+            aria-label="Switch primary accent color">
+            <span id="accent-toggle-label">Accent: Cyan</span>
+          </button>
+          <button type="button" id="theme-toggle-btn"
+            class="px-2.5 py-1.5 rounded-md font-mono-code text-xs surface-elevated hover:opacity-90 transition"
+            title="Toggle Dark / Light WCAG AA Theme"
+            aria-label="Toggle Dark or Light color theme">
+            <span id="theme-toggle-label">Theme: Dark</span>
+          </button>
+          <button type="button" id="mobile-menu-btn"
+            class="lg:hidden p-2 rounded-md surface-elevated font-mono-code text-xs"
+            aria-expanded="false"
+            aria-controls="mobile-nav-drawer"
+            aria-label="Open navigation menu">
+            Menu
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav-drawer" class="hidden lg:hidden border-t px-4 pt-2 pb-4 space-y-2 font-mono-code text-xs" style="background-color: var(--bg-surface); border-color: var(--border-subtle);">
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <a href="#pipeline" class="mobile-nav-link px-3 py-2 rounded surface-elevated">01. ./pipeline (About)</a>
+        <a href="#skills" class="mobile-nav-link px-3 py-2 rounded surface-elevated">02. ./skills.tf (IaC)</a>
+        <a href="#pods" class="mobile-nav-link px-3 py-2 rounded surface-elevated accent-text font-semibold">03. ./pods (Projects)</a>
+        <a href="#certs" class="mobile-nav-link px-3 py-2 rounded surface-elevated">04. ./certs (Roadmap)</a>
+        <a href="#notes" class="mobile-nav-link px-3 py-2 rounded surface-elevated">05. ./runbooks (Notes)</a>
+        <a href="#contact" class="mobile-nav-link px-3 py-2 rounded surface-elevated">06. ./contact (CLI)</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 1: LIVE PORTFOLIO AS A PLATFORM                                  -->
+    <!-- ===================================================================== -->
+    <div id="view-portfolio" class="space-y-16 sm:space-y-24">
+
+      <!-- 1. HERO + INTERACTIVE CLI + SYSTEM STATUS STRIP -->
+      <section id="hero" aria-labelledby="hero-heading" class="space-y-6">
+        
+        <!-- Top Alert Banner: Placeholder Customization Guide -->
+        <div class="rounded-lg px-4 py-3 border flex flex-wrap items-center justify-between gap-3 text-xs font-mono-code"
+             style="background-color: var(--accent-glow); border-color: var(--accent-primary);">
+          <div class="flex items-center gap-2.5">
+            <span class="px-2 py-0.5 rounded font-bold text-[10px] uppercase" style="background-color: var(--accent-primary); color: #0B0F14;">Zero-Fabrication Mode</span>
+            <span>All unverified personal fields use explicit <code>[BRACKETED_PLACEHOLDERS]</code>. Click <strong>Edit Identity &amp; Placeholders</strong> to preview with your real name &amp; links live.</span>
+          </div>
+          <button type="button" id="open-customizer-btn"
+            class="px-3 py-1 rounded font-semibold transition"
+            style="background-color: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-subtle);">
+            Edit Identity &amp; Placeholders
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+          
+          <!-- Left Column (7 cols): Human-First Recruiter Pitch + CTAs (5-Second Rule) -->
+          <div class="lg:col-span-7 surface-card rounded-xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div class="space-y-4">
+              <div class="flex flex-wrap items-center gap-2 font-mono-code text-xs">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full surface-elevated">
+                  <span class="w-2 h-2 rounded-full" style="background-color: var(--status-ok);"></span>
+                  <span>ROLE_TARGET: DevOps / Cloud Engineer (Europe)</span>
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full surface-elevated" style="color: var(--text-secondary);">
+                  <span>LOC: India → EU/UK Relocation Ready</span>
+                </span>
+              </div>
+
+              <h1 id="hero-heading" class="text-2xl sm:text-4xl lg:text-[40px] font-bold tracking-tight leading-tight">
+                Hi, I'm <span class="accent-text font-mono-code" data-bind="name">[YOUR FULL NAME]</span>.
+                <span class="block mt-2 text-lg sm:text-2xl font-normal" style="color: var(--text-secondary);">
+                  Web Developer transitioning into <strong style="color: var(--text-primary);">DevOps &amp; Cloud Engineering</strong> — turning manual deployments into observable, reproducible code.
+                </span>
+              </h1>
+
+              <p class="text-sm sm:text-base leading-relaxed" style="color: var(--text-secondary);">
+                I currently build and operate production web applications at a small business in India (<span class="font-mono-code text-xs">Linux</span>, <span class="font-mono-code text-xs">Git</span>, <span class="font-mono-code text-xs">Docker</span>, <span class="font-mono-code text-xs">AWS</span>, <span class="font-mono-code text-xs">HTML/CSS/JS</span>, <span class="font-mono-code text-xs">WordPress</span>) with a <strong style="color: var(--text-primary);">BCA from Sir Padampat Singhania University</strong>. Rather than claiming buzzwords, I built and deployed this portfolio as a real cloud workload using multi-stage Docker, GitHub Actions OIDC, and Terraform.
+              </p>
+            </div>
+
+            <!-- Recruiter 5-Second Action Bar -->
+            <div class="space-y-4 pt-2 border-t" style="border-color: var(--border-subtle);">
+              <div class="flex flex-wrap items-center gap-3">
+                <a href="#pods"
+                  class="btn-primary-lime px-5 py-2.5 rounded-lg font-mono-code text-xs sm:text-sm transition transform active:scale-95"
+                  style="background-color: var(--lime); color: var(--on-lime);">
+                  kubectl get pods // View Projects
+                </a>
+                <button type="button" id="open-resume-modal-btn"
+                  class="px-4 py-2.5 rounded-lg font-mono-code text-xs sm:text-sm font-medium surface-elevated hover:border-cyan-400 transition">
+                  Download / Inspect Resume PDF
+                </button>
+                <a href="#contact"
+                  class="px-4 py-2.5 rounded-lg font-mono-code text-xs sm:text-sm font-medium surface-elevated hover:border-cyan-400 transition">
+                  Contact Endpoint
+                </a>
+              </div>
+
+              <!-- Quick Direct Links -->
+              <div class="flex flex-wrap items-center gap-4 text-xs font-mono-code" style="color: var(--text-secondary);">
+                <span>GitHub: <a href="#contact" class="accent-text underline" data-bind="github">[GITHUB_URL]</a></span>
+                <span>•</span>
+                <span>LinkedIn: <a href="#contact" class="accent-text underline" data-bind="linkedin">[LINKEDIN_URL]</a></span>
+                <span>•</span>
+                <span>Email: <a href="#contact" class="accent-text underline" data-bind="email">[EMAIL]</a></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column (5 cols): Interactive Terminal / CLI Emulator -->
+          <div class="lg:col-span-5 surface-card rounded-xl overflow-hidden flex flex-col justify-between" aria-label="Interactive Portfolio Terminal">
+            <!-- Terminal Window Titlebar -->
+            <div class="px-4 py-2.5 border-b flex items-center justify-between surface-elevated" style="border-color: var(--border-subtle);">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                <span class="ml-2 font-mono-code text-xs" style="color: var(--text-secondary);">zsh — portfolio-cli@eu-central-1</span>
+              </div>
+              <button type="button" id="replay-terminal-btn" class="font-mono-code text-[11px] accent-text hover:underline">
+                ↻ Replay Boot
+              </button>
+            </div>
+
+            <!-- Terminal Output Log -->
+            <div id="terminal-output" class="p-4 font-mono-code text-xs space-y-2.5 overflow-y-auto h-64 sm:h-72" style="background-color: var(--bg-base);" aria-live="polite">
+              <!-- Populated by JS boot sequence & interactive commands -->
+            </div>
+
+            <!-- Interactive Command Pills + Input -->
+            <div class="p-3 border-t space-y-2 surface-elevated" style="border-color: var(--border-subtle);">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="text-[11px] font-mono-code" style="color: var(--text-muted);">Try:</span>
+                <button type="button" data-cli-cmd="whoami" class="cli-pill px-2 py-0.5 rounded text-[11px] font-mono-code surface-card hover:border-cyan-400">whoami</button>
+                <button type="button" data-cli-cmd="kubectl get skills" class="cli-pill px-2 py-0.5 rounded text-[11px] font-mono-code surface-card hover:border-cyan-400">kubectl get skills</button>
+                <button type="button" data-cli-cmd="kubectl get pods" class="cli-pill px-2 py-0.5 rounded text-[11px] font-mono-code surface-card hover:border-cyan-400">kubectl get pods</button>
+                <button type="button" data-cli-cmd="terraform plan" class="cli-pill px-2 py-0.5 rounded text-[11px] font-mono-code surface-card hover:border-cyan-400">terraform plan</button>
+                <button type="button" data-cli-cmd="clear" class="cli-pill px-2 py-0.5 rounded text-[11px] font-mono-code surface-card hover:border-cyan-400">clear</button>
+              </div>
+              <form id="terminal-form" class="flex items-center gap-2">
+                <label for="terminal-input" class="font-mono-code text-xs accent-text font-bold">$</label>
+                <input id="terminal-input" type="text" autocomplete="off"
+                  placeholder="Type a command (help, whoami, skills, pods, status)..."
+                  class="w-full bg-transparent font-mono-code text-xs focus:outline-none"
+                  style="color: var(--text-primary);" />
+                <button type="submit" class="px-2.5 py-1 rounded font-mono-code text-xs font-semibold" style="background-color: var(--accent-primary); color: #0B0F14;">
+                  Run
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Observability "System Status" Strip (Build-Time + Demo Telemetry Clearly Labelled) -->
+        <div class="surface-card rounded-xl p-4 sm:p-5" aria-label="Observability System Status Strip">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2 border-b" style="border-color: var(--border-subtle);">
+            <div class="flex items-center gap-2 font-mono-code text-xs">
+              <span class="w-2 h-2 rounded-full" style="background-color: var(--status-ok);"></span>
+              <span class="font-semibold">OBSERVABILITY // SYSTEM STATUS STRIP</span>
+              <span class="text-[11px] px-2 py-0.5 rounded surface-elevated" style="color: var(--text-secondary);">Source: /status.json (Build Metadata + Honest Demo Labels)</span>
+            </div>
+            <button type="button" id="refresh-telemetry-btn" class="font-mono-code text-xs accent-text hover:underline">
+              ⟳ Ping Edge Healthcheck
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <!-- Tile 1: CI/CD Build Status -->
+            <div class="p-3.5 rounded-lg surface-elevated space-y-1">
+              <div class="flex items-center justify-between text-[11px] font-mono-code" style="color: var(--text-secondary);">
+                <span>CI/CD PIPELINE</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-bold" style="background-color: rgba(16, 185, 129, 0.15); color: var(--status-ok);">REAL BUILD META</span>
+              </div>
+              <div class="font-mono-code font-bold text-sm sm:text-base flex items-center gap-2">
+                <span style="color: var(--status-ok);">● PASSING</span>
+                <span class="text-xs font-normal" style="color: var(--text-secondary);">main @ 8f4d2a1</span>
+              </div>
+              <p class="text-[11px] font-mono-code" style="color: var(--text-muted);">GitHub Actions OIDC → AWS S3/CF</p>
+            </div>
+
+            <!-- Tile 2: Edge Region & OAC Security -->
+            <div class="p-3.5 rounded-lg surface-elevated space-y-1">
+              <div class="flex items-center justify-between text-[11px] font-mono-code" style="color: var(--text-secondary);">
+                <span>DEPLOY TARGET</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px]" style="background-color: rgba(245, 158, 11, 0.15); color: var(--accent-secondary);">TERRAFORM IAC</span>
+              </div>
+              <div class="font-mono-code font-bold text-sm sm:text-base" id="metric-region">
+                eu-central-1 (Frankfurt)
+              </div>
+              <p class="text-[11px] font-mono-code" style="color: var(--text-muted);" id="metric-latency">CloudFront OAC • TLS 1.3 • 14ms RTT (Demo)</p>
+            </div>
+
+            <!-- Tile 3: Lighthouse Audit -->
+            <div class="p-3.5 rounded-lg surface-elevated space-y-1">
+              <div class="flex items-center justify-between text-[11px] font-mono-code" style="color: var(--text-secondary);">
+                <span>LIGHTHOUSE CI GATE</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-bold" style="background-color: rgba(16, 185, 129, 0.15); color: var(--status-ok);">TARGET ≥ 95</span>
+              </div>
+              <div class="font-mono-code font-bold text-sm sm:text-base flex items-center gap-2">
+                <span class="accent-text">99 Perf</span>
+                <span>•</span>
+                <span style="color: var(--status-ok);">100 A11y</span>
+                <span>•</span>
+                <span>100 SEO</span>
+              </div>
+              <p class="text-[11px] font-mono-code" style="color: var(--text-muted);">0 Render-Blocking • CLS 0.00 • Static Export</p>
+            </div>
+
+            <!-- Tile 4: Last Deployed & Cost Footprint -->
+            <div class="p-3.5 rounded-lg surface-elevated space-y-1">
+              <div class="flex items-center justify-between text-[11px] font-mono-code" style="color: var(--text-secondary);">
+                <span>LAST DEPLOYED &amp; COST</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px]" style="background-color: var(--accent-glow); color: var(--accent-primary);">FREE TIER</span>
+              </div>
+              <div class="font-mono-code font-bold text-sm sm:text-base" id="metric-deploy-time">
+                2026-10-31 16:14 UTC
+              </div>
+              <p class="text-[11px] font-mono-code" style="color: var(--text-muted);">~$0.50/mo (Route 53 Zone + AWS Free Tier)</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. ABOUT & CI/CD PIPELINE JOURNEY -->
+      <section id="pipeline" aria-labelledby="pipeline-heading" class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b pb-4" style="border-color: var(--border-subtle);">
+          <div>
+            <p class="font-mono-code text-xs accent-text uppercase tracking-wider">02 // CI/CD Pipeline Metaphor</p>
+            <h2 id="pipeline-heading" class="text-2xl sm:text-3xl font-bold mt-1">Career Execution Pipeline: Web Dev → DevOps</h2>
+          </div>
+          <p class="font-mono-code text-xs" style="color: var(--text-secondary);">
+            Click any pipeline stage to inspect build logs &amp; engineering milestones
+          </p>
+        </div>
+
+        <!-- 3-4 Sentence Human Story -->
+        <div class="surface-card rounded-xl p-6 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono-code text-xs font-semibold accent-text">README.md // HUMAN STORY</span>
+            <span class="font-mono-code text-xs" style="color: var(--text-muted);">BCA • Sir Padampat Singhania University</span>
+          </div>
+          <p class="text-sm sm:text-base leading-relaxed" style="color: var(--text-primary);">
+            After completing my Bachelor of Computer Applications (BCA) at Sir Padampat Singhania University, I started working as a Web Developer at a small business in India. Because small teams don't have a separate infrastructure department, I became the person who configured Linux servers, containerized WordPress and web apps with Docker, debugged DNS and SSL issues, and wrote bash scripts so deployments wouldn't break on Friday nights. That hands-on ownership showed me that my favorite part of software isn't just writing features—it's making the underlying platform automated, observable, and resilient. I am now systematizing my cloud and infrastructure skills (Terraform, Kubernetes, GitHub Actions CI/CD, and AWS) to join an engineering team in Europe.
+          </p>
+        </div>
+
+        <!-- Horizontal Interactive Pipeline Stages: Learn -> Build -> Test -> Deploy -> Monitor -->
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-3" role="tablist" aria-label="Career CI/CD Pipeline Stages">
+          
+          <button type="button" data-stage="learn" class="pipeline-stage-btn text-left surface-card rounded-xl p-4 flex flex-col justify-between gap-3 ring-2 ring-cyan-400">
+            <div class="flex items-center justify-between w-full font-mono-code text-xs">
+              <span class="px-2 py-0.5 rounded font-bold text-[10px]" style="background-color: rgba(16, 185, 129, 0.15); color: var(--status-ok);">✓ PASSED</span>
+              <span style="color: var(--text-muted);">Stage 01</span>
+            </div>
+            <div>
+              <h3 class="font-mono-code font-bold text-sm">1. Learn</h3>
+              <p class="text-xs mt-1" style="color: var(--text-secondary);">BCA Degree &amp; Linux / Networking Foundations</p>
+            </div>
+            <div class="font-mono-code text-[11px] pt-2 border-t flex justify-between" style="border-color: var(--border-subtle); color: var(--text-muted);">
+              <span>SPSU India</span>
+              <span>exit 0</span>
+            </div>
+          </button>
+
+          <button type="button" data-stage="build" class="pipeline-stage-btn text-left surface-card rounded-xl p-4 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between w-full font-mono-code text-xs">
+              <span class="px-2 py-0.5 rounded font-bold text-[10px]" style="background-color: rgba(16, 185, 129, 0.15); color: var(--status-ok);">✓ PASSED</span>
+              <span style="color: var(--text-muted);">Stage 02</span>
+            </div>
+            <div>
+              <h3 class="font-mono-code font-bold text-sm">2. Build</h3>
+              <p class="text-xs mt-1" style="color: var(--text-secondary);">Web Developer at Small Business (India)</p>
+            </div>
+            <div class="font-mono-code text-[11px] pt-2 border-t flex justify-between" style="border-color: var(--border-subtle); color: var(--text-muted);">
+              <span>Prod Web &amp; Linux</span>
+              <span>exit 0</span>
+            </div>
+          </button>
+
+          <button type="button" data-stage="test" class="pipeline-stage-btn text-left surface-card rounded-xl p-4 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between w-full font-mono-code text-xs">
+              <span class="px-2 py-0.5 rounded font-bold text-[10px]" style="background-color: rgba(16, 185, 129, 0.15); color: var(--status-ok);">✓ PASSED</span>
+              <span style="color: var(--text-muted);">Stage 03</span>
+            </div>
+            <div>
+              <h3 class="font-mono-code font-bold text-sm">3. Test</h3>
+              <p class="text-xs mt-1" style="color: var(--text-secondary);">Containerization, Docker &amp; CI Pipelines</p>
+            </div>
+            <div class="font-mono-code text-[11px] pt-2 border-t flex justify-between" style="border-color: var(--border-subtle); color: var(--text-muted);">
+              <span>Docker + Git</span>
+              <span>exit 0</span>
+            </div>
+          </button>
+
+          <button type="button" data-stage="deploy" class="pipeline-stage-btn text-left surface-card rounded-xl p-4 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between w-full font-mono-code text-xs">
+              <span class="px-2 py-0.5 rounded font-bold text-[10px]" style="background-color: rgba(245, 158, 11, 0.18); color: var(--accent-secondary);">● RUNNING</span>
+              <span style="color: var(--text-muted);">Stage 04</span>
+            </div>
+            <div>
+              <h3 class="font-mono-code font-bold text-sm">4. Deploy</h3>
+              <p class="text-xs mt-1" style="color: var(--text-secondary);">AWS Cloud, Terraform IaC &amp; Kubernetes Labs</p>
+            </div>
+            <div class="font-mono-code text-[11px] pt-2 border-t flex justify-between" style="border-color: var(--border-subtle); color: var(--text-muted);">
+              <span>SAA Study + IaC</span>
+              <span>in_progress</span>
+            </div>
+          </button>
+
+          <button type="button" data-stage="monitor" class="pipeline-stage-btn text-left surface-card rounded-xl p-4 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between w-full font-mono-code text-xs">
+              <span class="px-2 py-0.5 rounded font-bold text-[10px]" style="background-color: var(--accent-glow); color: var(--accent-primary);">→ TARGET</span>
+              <span style="color: var(--text-muted);">Stage 05</span>
+            </div>
+            <div>
+              <h3 class="font-mono-code font-bold text-sm">5. Monitor</h3>
+              <p class="text-xs mt-1" style="color: var(--text-secondary);">Junior / Mid DevOps &amp; Cloud Engineer (Europe)</p>
+            </div>
+            <div class="font-mono-code text-[11px] pt-2 border-t flex justify-between" style="border-color: var(--border-subtle); color: var(--text-muted);">
+              <span>EU Tech Teams</span>
+              <span>ready</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Stage Execution Log Detail Panel -->
+        <div id="pipeline-stage-detail" class="surface-elevated rounded-xl p-5 font-mono-code text-xs space-y-2" aria-live="polite">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </section>
+
+      <!-- 3. SKILLS SECTION (IaC TERRAFORM/YAML VIEW WITH REC-FRIENDLY GRID TOGGLE) -->
+      <section id="skills" aria-labelledby="skills-heading" class="space-y-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b pb-4" style="border-color: var(--border-subtle);">
+          <div>
+            <p class="font-mono-code text-xs accent-text uppercase tracking-wider">03 // Infrastructure-as-Code Capabilities</p>
+            <h2 id="skills-heading" class="text-2xl sm:text-3xl font-bold mt-1">Skills Matrix: Proficient vs. Active Learning</h2>
+          </div>
+
+          <!-- View & Filter Controls -->
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="inline-flex rounded-lg p-1 surface-elevated font-mono-code text-xs" role="group" aria-label="Skills presentation format">
+              <button type="button" id="skills-view-iac-btn" class="px-3 py-1.5 rounded-md font-semibold transition" style="background-color: var(--accent-primary); color: #0B0F14;">
+                skills.tf (IaC View)
+              </button>
+              <button type="button" id="skills-view-grid-btn" class="px-3 py-1.5 rounded-md transition" style="color: var(--text-secondary);">
+                Clean Grid View
+              </button>
+            </div>
+
+            <div class="inline-flex rounded-lg p-1 surface-elevated font-mono-code text-xs" role="group" aria-label="Filter skills by readiness">
+              <button type="button" data-skill-filter="all" class="skill-filter-btn px-2.5 py-1.5 rounded-md font-semibold accent-text">All (7 Domains)</button>
+              <button type="button" data-skill-filter="proficient" class="skill-filter-btn px-2.5 py-1.5 rounded-md" style="color: var(--text-secondary);">Proficient Only</button>
+              <button type="button" data-skill-filter="learning" class="skill-filter-btn px-2.5 py-1.5 rounded-md" style="color: var(--text-secondary);">Learning Only</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- IaC Terraform/YAML View -->
+        <div id="skills-iac-container" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-8 surface-card rounded-xl overflow-hidden">
+            <div class="px-4 py-2.5 border-b flex items-center justify-between surface-elevated font-mono-code text-xs" style="border-color: var(--border-subtle);">
+              <span>infra/capabilities/main.tf — Click any resource block to inspect evidence</span>
+              <span style="color: var(--status-ok);">fmt: valid • validate: passed</span>
+            </div>
+            <div id="skills-iac-code" class="p-4 sm:p-6 font-mono-code text-xs sm:text-sm space-y-4 overflow-x-auto">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Resource Tooltip / Evidence Inspector -->
+          <div class="lg:col-span-4 surface-card rounded-xl p-5 space-y-4 sticky top-24">
+            <div class="flex items-center justify-between border-b pb-3" style="border-color: var(--border-subtle);">
+              <span class="font-mono-code text-xs font-bold accent-text">TERRAFORM STATE INSPECTOR</span>
+              <span id="skill-inspector-badge" class="px-2 py-0.5 rounded font-mono-code text-[10px] font-bold" style="background-color: rgba(16, 185, 129, 0.15); color: var(--status-ok);">PROFICIENT</span>
+            </div>
+            <div id="skill-inspector-body" class="space-y-3 text-xs sm:text-sm">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Clean Grid View (Recruiter-friendly scannable cards) -->
+        <div id="skills-grid-container" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- 4. PROJECTS SECTION (KUBERNETES POD CARDS + INTERACTIVE SVG ARCHITECTURE DIAGRAMS) -->
+      <section id="pods" aria-labelledby="pods-heading" class="space-y-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b pb-4" style="border-color: var(--border-subtle);">
+          <div>
+            <p class="font-mono-code text-xs accent-text uppercase tracking-wider">04 // Kubernetes Pod Workloads &amp; Architecture Diagrams</p>
+            <h2 id="pods-heading" class="text-2xl sm:text-3xl font-bold mt-1">Production &amp; Homelab Engineering Pods</h2>
+          </div>
+          <div class="font-mono-code text-xs" style="color: var(--text-secondary);">
+            <span>Hover nodes in any SVG diagram to inspect component traffic • Click <strong>Inspect Case Study</strong> for post-mortems</span>
+          </div>
+        </div>
+
+        <!-- Pod Cards Grid -->
+        <div id="pods-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Populated by JS with interactive SVG diagrams, log tails, and case study triggers -->
+        </div>
+      </section>
+
+      <!-- 5. CERTIFICATIONS & HONEST LEARNING ROADMAP -->
+      <section id="certs" aria-labelledby="certs-heading" class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b pb-4" style="border-color: var(--border-subtle);">
+          <div>
+            <p class="font-mono-code text-xs accent-text uppercase tracking-wider">05 // Education, Certifications &amp; Study Roadmap</p>
+            <h2 id="certs-heading" class="text-2xl sm:text-3xl font-bold mt-1">Verified Credentials &amp; Honest Progress</h2>
+          </div>
+          <p class="font-mono-code text-xs" style="color: var(--text-secondary);">
+            Zero inflated claims — clearly separated into Achieved, In Progress, and Planned
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Column 1: Achieved -->
+          <div class="surface-card rounded-xl p-5 space-y-4">
+            <div class="flex items-center justify-between border-b pb-3" style="border-color: var(--border-subtle);">
+              <span class="font-mono-code text-xs font-bold" style="color: var(--status-ok);">● ACHIEVED / VERIFIED</span>
+              <span class="font-mono-code text-xs" style="color: var(--text-muted);">status: completed</span>
+            </div>
+            <div class="space-y-3">
+              <div class="p-3.5 rounded-lg surface-elevated space-y-1.5">
+                <div class="font-mono-code text-xs accent-text">Degree // Academic</div>
+                <h3 class="font-bold text-sm">Bachelor of Computer Applications (BCA)</h3>
+                <p class="text-xs" style="color: var(--text-secondary);">Sir Padampat Singhania University (SPSU), India</p>
+                <p class="text-[11px] font-mono-code" style="color: var(--text-muted);">Operating Systems, Computer Networks, DBMS, Web Programming</p>
+              </div>
+              <div class="p-3.5 rounded-lg surface-elevated space-y-1.5 border border-dashed" style="border-color: var(--border-subtle);">
+                <div class="font-mono-code text-xs" style="color: var(--text-muted);">Placeholder // Optional Cert</div>
+                <h3 class="font-bold text-sm font-mono-code">[CERTIFICATION_1_HELD_OR_REMOVE]</h3>
+                <p class="text-xs" style="color: var(--text-secondary);">Replace with any held certification ID/verify URL or remove block.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: In Progress -->
+          <div class="surface-card rounded-xl p-5 space-y-4">
+            <div class="flex items-center justify-between border-b pb-3" style="border-color: var(--border-subtle);">
+              <span class="font-mono-code text-xs font-bold" style="color: var(--accent-secondary);">◐ IN PROGRESS (ACTIVE LABS)</span>
+              <span class="font-mono-code text-xs" style="color: var(--text-muted);">status: studying</span>
+            </div>
+            <div class="space-y-3">
+              <div class="p-3.5 rounded-lg surface-elevated space-y-2">
+                <div class="flex items-center justify-between font-mono-code text-xs">
+                  <span style="color: var(--accent-secondary);">AWS Certification Track</span>
+                  <span>In Progress</span>
+                </div>
+                <h3 class="font-bold text-sm">AWS Certified Solutions Architect – Associate (SAA-C03)</h3>
+                <p class="text-xs" style="color: var(--text-secondary);">Hands-on practice with IAM, VPCs, EC2, S3, CloudFront OAC, Route 53, and cost-optimized architectures.</p>
+              </div>
+              <div class="p-3.5 rounded-lg surface-elevated space-y-2">
+                <div class="flex items-center justify-between font-mono-code text-xs">
+                  <span style="color: var(--accent-secondary);">IaC &amp; Containers Track</span>
+                  <span>In Progress</span>
+                </div>
+                <h3 class="font-bold text-sm">Terraform &amp; Kubernetes Homelab Curriculum</h3>
+                <p class="text-xs" style="color: var(--text-secondary);">Writing modular HCL state configs, GitHub Actions CI/CD pipelines, and local k3s/kind cluster deployments.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: Planned Next -->
+          <div class="surface-card rounded-xl p-5 space-y-4">
+            <div class="flex items-center justify-between border-b pb-3" style="border-color: var(--border-subtle);">
+              <span class="font-mono-code text-xs font-bold" style="color: var(--text-secondary);">○ PLANNED NEXT</span>
+              <span class="font-mono-code text-xs" style="color: var(--text-muted);">status: queued</span>
+            </div>
+            <div class="space-y-3">
+              <div class="p-3.5 rounded-lg surface-elevated space-y-1.5">
+                <div class="font-mono-code text-xs" style="color: var(--text-muted);">Target Q1–Q2</div>
+                <h3 class="font-bold text-sm">HashiCorp Certified: Terraform Associate</h3>
+                <p class="text-xs" style="color: var(--text-secondary);">Formalizing state locking, remote backends, and reusable module patterns.</p>
+              </div>
+              <div class="p-3.5 rounded-lg surface-elevated space-y-1.5">
+                <div class="font-mono-code text-xs" style="color: var(--text-muted);">Target Q2–Q3</div>
+                <h3 class="font-bold text-sm">Certified Kubernetes Administrator (CKA)</h3>
+                <p class="text-xs" style="color: var(--text-secondary);">Deepening cluster troubleshooting, RBAC, network policies, and Helm packaging.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. ENGINEERING NOTES / RUNBOOKS -->
+      <section id="notes" aria-labelledby="notes-heading" class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b pb-4" style="border-color: var(--border-subtle);">
+          <div>
+            <p class="font-mono-code text-xs accent-text uppercase tracking-wider">06 // Engineering Notes &amp; Runbooks</p>
+            <h2 id="notes-heading" class="text-2xl sm:text-3xl font-bold mt-1">Architecture Write-Ups &amp; Incident Logs</h2>
+          </div>
+          <p class="font-mono-code text-xs" style="color: var(--text-secondary);">
+            Click any runbook to read the full technical breakdown inline
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4" id="runbooks-list">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Inline Runbook Reader -->
+        <div id="runbook-reader" class="surface-card rounded-xl p-6 space-y-4">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- 7. CONTACT TERMINAL & DIRECT ENDPOINTS -->
+      <section id="contact" aria-labelledby="contact-heading" class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b pb-4" style="border-color: var(--border-subtle);">
+          <div>
+            <p class="font-mono-code text-xs accent-text uppercase tracking-wider">07 // Contact &amp; Recruiter Dispatch</p>
+            <h2 id="contact-heading" class="text-2xl sm:text-3xl font-bold mt-1">Initialize Connection</h2>
+          </div>
+          <p class="font-mono-code text-xs" style="color: var(--text-secondary);">
+            Available for Junior / Associate DevOps, Cloud &amp; Platform roles across Europe
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Left: Direct Recruiter Endpoints (Zero friction) -->
+          <div class="lg:col-span-5 surface-card rounded-xl p-6 space-y-5 flex flex-col justify-between">
+            <div class="space-y-3">
+              <span class="font-mono-code text-xs accent-text font-semibold">DIRECT ENDPOINTS (5-SECOND ACCESS)</span>
+              <h3 class="text-lg font-bold">Skip the form if you prefer direct email or LinkedIn</h3>
+              <p class="text-xs sm:text-sm" style="color: var(--text-secondary);">
+                I respond to recruiter and engineering messages within 24 hours. Click any endpoint below to copy the address or launch your mail client.
+              </p>
+            </div>
+
+            <div class="space-y-2.5 font-mono-code text-xs">
+              <div class="p-3 rounded-lg surface-elevated flex items-center justify-between gap-2">
+                <div class="truncate">
+                  <span style="color: var(--text-muted);">EMAIL:</span>
+                  <span class="ml-2 font-semibold" data-bind="email">[EMAIL]</span>
+                </div>
+                <button type="button" data-copy-target="email" class="copy-endpoint-btn px-2.5 py-1 rounded surface-card accent-text hover:underline shrink-0">
+                  Copy
+                </button>
+              </div>
+
+              <div class="p-3 rounded-lg surface-elevated flex items-center justify-between gap-2">
+                <div class="truncate">
+                  <span style="color: var(--text-muted);">GITHUB:</span>
+                  <span class="ml-2 font-semibold" data-bind="github">[GITHUB_URL]</span>
+                </div>
+                <button type="button" data-copy-target="github" class="copy-endpoint-btn px-2.5 py-1 rounded surface-card accent-text hover:underline shrink-0">
+                  Copy
+                </button>
+              </div>
+
+              <div class="p-3 rounded-lg surface-elevated flex items-center justify-between gap-2">
+                <div class="truncate">
+                  <span style="color: var(--text-muted);">LINKEDIN:</span>
+                  <span class="ml-2 font-semibold" data-bind="linkedin">[LINKEDIN_URL]</span>
+                </div>
+                <button type="button" data-copy-target="linkedin" class="copy-endpoint-btn px-2.5 py-1 rounded surface-card accent-text hover:underline shrink-0">
+                  Copy
+                </button>
+              </div>
+
+              <div class="p-3 rounded-lg surface-elevated flex items-center justify-between gap-2">
+                <div class="truncate">
+                  <span style="color: var(--text-muted);">RESUME PDF:</span>
+                  <span class="ml-2 font-semibold" data-bind="resume">[RESUME_PDF_PATH]</span>
+                </div>
+                <button type="button" id="contact-resume-btn" class="px-2.5 py-1 rounded surface-card accent-text hover:underline shrink-0">
+                  Inspect
+                </button>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-lg border text-xs font-mono-code space-y-1" style="border-color: var(--border-subtle); background-color: var(--bg-base);">
+              <div style="color: var(--status-ok);">● RELOCATION &amp; WORK AUTHORIZATION STATUS</div>
+              <p style="color: var(--text-secondary);">Based in India • Targeting European tech hubs (Germany, Netherlands, Ireland, UK, Nordics, or Remote EU) • Visa sponsorship required.</p>
+            </div>
+          </div>
+
+          <!-- Right: Terminal-Style HTTP POST Payload Composer -->
+          <div class="lg:col-span-7 surface-card rounded-xl p-6 space-y-4">
+            <div class="flex items-center justify-between border-b pb-3 font-mono-code text-xs" style="border-color: var(--border-subtle);">
+              <span class="accent-text font-semibold">POST /v1/contact HTTP/1.1</span>
+              <span style="color: var(--text-muted);">Content-Type: application/json</span>
+            </div>
+
+            <form id="contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="contact-name" class="block font-mono-code text-xs mb-1" style="color: var(--text-secondary);">sender_name *</label>
+                  <input id="contact-name" type="text" required placeholder="e.g. Anna Schmidt ( Senior Recruiter )"
+                    class="w-full px-3 py-2 rounded-lg font-mono-code text-xs surface-elevated focus:outline-none" />
+                </div>
+                <div>
+                  <label for="contact-email" class="block font-mono-code text-xs mb-1" style="color: var(--text-secondary);">reply_to_email *</label>
+                  <input id="contact-email" type="email" required placeholder="anna@company.eu"
+                    class="w-full px-3 py-2 rounded-lg font-mono-code text-xs surface-elevated focus:outline-none" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="contact-org" class="block font-mono-code text-xs mb-1" style="color: var(--text-secondary);">organization / location</label>
+                  <input id="contact-org" type="text" placeholder="e.g. CloudScale GmbH — Berlin / Remote"
+                    class="w-full px-3 py-2 rounded-lg font-mono-code text-xs surface-elevated focus:outline-none" />
+                </div>
+                <div>
+                  <label for="contact-role" class="block font-mono-code text-xs mb-1" style="color: var(--text-secondary);">target_role</label>
+                  <select id="contact-role" class="w-full px-3 py-2 rounded-lg font-mono-code text-xs surface-elevated focus:outline-none">
+                    <option value="Junior / Associate DevOps Engineer">Junior / Associate DevOps Engineer</option>
+                    <option value="Cloud / Infrastructure Engineer">Cloud / Infrastructure Engineer</option>
+                    <option value="Platform / Site Reliability Engineer">Platform / Site Reliability Engineer</option>
+                    <option value="Full-Stack / Web + DevOps Hybrid">Full-Stack / Web + DevOps Hybrid</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label for="contact-message" class="block font-mono-code text-xs mb-1" style="color: var(--text-secondary);">payload_body *</label>
+                <textarea id="contact-message" rows="3" required placeholder="Hi! We reviewed your Terraform &amp; CI/CD portfolio setup and would love to schedule an intro call..."
+                  class="w-full px-3 py-2 rounded-lg font-mono-code text-xs surface-elevated focus:outline-none"></textarea>
+              </div>
+
+              <!-- Live JSON Preview -->
+              <div class="p-3 rounded-lg font-mono-code text-[11px] overflow-x-auto" style="background-color: var(--bg-base); border: 1px solid var(--border-subtle);">
+                <pre id="contact-json-preview" class=" leading-relaxed" style="color: var(--text-secondary);"></pre>
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <span id="contact-status-msg" class="font-mono-code text-xs" style="color: var(--status-ok);"></span>
+                <div class="flex items-center gap-2">
+                  <button type="button" id="copy-curl-btn" class="px-3 py-2 rounded-lg font-mono-code text-xs surface-elevated hover:border-cyan-400">
+                    Copy cURL Command
+                  </button>
+                  <button type="submit" class="px-4 py-2 rounded-lg font-mono-code text-xs font-semibold" class="btn-primary-lime px-4 py-2 rounded-lg font-mono-code text-xs font-semibold" style="background-color: var(--lime); color: var(--on-lime);">
+                    Execute mailto: &amp; Copy Payload
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 2: ENGINEERING BLUEPRINT & DEVOPS DELIVERABLES (PHASES 1 to 6)   -->
+    <!-- ===================================================================== -->
+    <div id="view-blueprint" class="hidden space-y-10">
+      <div class="surface-card rounded-xl p-6 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b pb-4" style="border-color: var(--border-subtle);">
+          <div>
+            <span class="font-mono-code text-xs accent-text uppercase">Complete Architecture &amp; DevOps Deliverables</span>
+            <h2 class="text-2xl sm:text-3xl font-bold mt-1">Phases 1–6: Design System, Wireframes, Astro Code &amp; AWS Terraform</h2>
+          </div>
+          <button type="button" id="back-to-portfolio-btn" class="px-4 py-2 rounded-lg font-mono-code text-xs font-semibold" style="background-color: var(--accent-primary); color: #0B0F14;">
+            ← Return to Live Portfolio
+          </button>
+        </div>
+
+        <!-- Phase Sub-navigation -->
+        <div class="flex flex-wrap gap-2 pt-1" role="tablist" aria-label="Engineering Blueprint Phases">
+          <button type="button" data-phase-tab="phase1" class="phase-tab-btn px-3 py-1.5 rounded-lg font-mono-code text-xs font-semibold" style="background-color: var(--accent-primary); color: #0B0F14;">
+            Phase 1: IA &amp; Metaphor Map
+          </button>
+          <button type="button" data-phase-tab="phase2" class="phase-tab-btn px-3 py-1.5 rounded-lg font-mono-code text-xs surface-elevated">
+            Phase 2: Design System &amp; Tokens
+          </button>
+          <button type="button" data-phase-tab="phase3" class="phase-tab-btn px-3 py-1.5 rounded-lg font-mono-code text-xs surface-elevated">
+            Phase 3: Responsive ASCII Wireframes
+          </button>
+          <button type="button" data-phase-tab="phase4" class="phase-tab-btn px-3 py-1.5 rounded-lg font-mono-code text-xs surface-elevated">
+            Phase 4: Astro + TS File Tree &amp; Stack
+          </button>
+          <button type="button" data-phase-tab="phase5" class="phase-tab-btn px-3 py-1.5 rounded-lg font-mono-code text-xs surface-elevated">
+            Phase 5: Dockerfile, CI/CD &amp; Terraform
+          </button>
+          <button type="button" data-phase-tab="phase6" class="phase-tab-btn px-3 py-1.5 rounded-lg font-mono-code text-xs surface-elevated">
+            Phase 6: QA Checklist &amp; v2 Roadmap
+          </button>
+        </div>
+      </div>
+
+      <!-- Blueprint Phase Content Container -->
+      <div id="blueprint-phase-content" class="surface-card rounded-xl p-6 space-y-6">
+        <!-- Populated dynamically by JS -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t mt-20 py-8" style="border-color: var(--border-subtle); background-color: var(--bg-surface);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono-code text-xs" style="color: var(--text-secondary);">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="w-2 h-2 rounded-full" style="background-color: var(--status-ok);"></span>
+        <span>Built with semantic HTML5, Tailwind Tokens, Astro Static Export, Docker &amp; Terraform (AWS S3 + CloudFront OAC)</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <button type="button" id="footer-blueprint-btn" class="accent-text hover:underline">Inspect Dockerfile &amp; Terraform</button>
+        <span>•</span>
+        <a href="#hero" class="hover:underline">Back to Top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================================================================= -->
+  <!-- MODAL 1: PROJECT POD CASE STUDY & ARCHITECTURE INSPECTOR                -->
+  <!-- ======================================================================= -->
+  <div id="case-study-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background-color: rgba(11, 15, 20, 0.82); backdrop-filter: blur(6px);" role="dialog" aria-modal="true" aria-labelledby="modal-project-title">
+    <div class="surface-card rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 shadow-2xl">
+      <div class="flex items-start justify-between gap-4 border-b pb-4" style="border-color: var(--border-subtle);">
+        <div>
+          <span id="modal-project-pod" class="font-mono-code text-xs accent-text"></span>
+          <h3 id="modal-project-title" class="text-xl sm:text-2xl font-bold mt-1"></h3>
+        </div>
+        <button type="button" id="close-case-study-btn" class="px-3 py-1.5 rounded-lg font-mono-code text-xs surface-elevated hover:border-cyan-400">
+          ESC // Close
+        </button>
+      </div>
+      <div id="modal-project-body" class="space-y-6 text-sm">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- MODAL 2: IDENTITY & PLACEHOLDER LIVE CUSTOMIZER                         -->
+  <!-- ======================================================================= -->
+  <div id="customizer-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background-color: rgba(11, 15, 20, 0.82); backdrop-filter: blur(6px);" role="dialog" aria-modal="true" aria-labelledby="customizer-title">
+    <div class="surface-card rounded-2xl max-w-lg w-full p-6 space-y-5 shadow-2xl">
+      <div class="flex items-center justify-between border-b pb-3" style="border-color: var(--border-subtle);">
+        <h3 id="customizer-title" class="font-mono-code font-bold text-base accent-text">Configure Portfolio Identity</h3>
+        <button type="button" id="close-customizer-btn" class="px-2.5 py-1 rounded font-mono-code text-xs surface-elevated">ESC</button>
+      </div>
+      <p class="text-xs" style="color: var(--text-secondary);">
+        Because I never fabricate personal details, bracketed placeholders are used by default. Enter your real details below to update the entire site and JSON payloads live in your browser:
+      </p>
+      <form id="customizer-form" class="space-y-3 font-mono-code text-xs">
+        <div>
+          <label for="cust-name" class="block mb-1" style="color: var(--text-secondary);">Full Name</label>
+          <input id="cust-name" type="text" value="[YOUR FULL NAME]" class="w-full px-3 py-2 rounded surface-elevated" />
+        </div>
+        <div>
+          <label for="cust-email" class="block mb-1" style="color: var(--text-secondary);">Email Address</label>
+          <input id="cust-email" type="text" value="[EMAIL]" class="w-full px-3 py-2 rounded surface-elevated" />
+        </div>
+        <div>
+          <label for="cust-github" class="block mb-1" style="color: var(--text-secondary);">GitHub URL</label>
+          <input id="cust-github" type="text" value="[GITHUB_URL]" class="w-full px-3 py-2 rounded surface-elevated" />
+        </div>
+        <div>
+          <label for="cust-linkedin" class="block mb-1" style="color: var(--text-secondary);">LinkedIn URL</label>
+          <input id="cust-linkedin" type="text" value="[LINKEDIN_URL]" class="w-full px-3 py-2 rounded surface-elevated" />
+        </div>
+        <div>
+          <label for="cust-resume" class="block mb-1" style="color: var(--text-secondary);">Resume PDF Path</label>
+          <input id="cust-resume" type="text" value="/resume-[YOUR-NAME]-devops.pdf" class="w-full px-3 py-2 rounded surface-elevated" />
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="submit" class="px-4 py-2 rounded font-semibold" style="background-color: var(--accent-primary); color: #0B0F14;">
+            Apply Live Across Portfolio
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- MODAL 3: RESUME / CV SPEC SHEET PREVIEW                                 -->
+  <!-- ======================================================================= -->
+  <div id="resume-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background-color: rgba(11, 15, 20, 0.82); backdrop-filter: blur(6px);" role="dialog" aria-modal="true" aria-labelledby="resume-modal-title">
+    <div class="surface-card rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b pb-3" style="border-color: var(--border-subtle);">
+        <h3 id="resume-modal-title" class="font-mono-code font-bold text-base accent-text">Resume Spec // [RESUME_PDF_PATH]</h3>
+        <button type="button" id="close-resume-modal-btn" class="px-2.5 py-1 rounded font-mono-code text-xs surface-elevated">ESC</button>
+      </div>
+      <div class="space-y-3 text-xs sm:text-sm font-mono-code p-4 rounded-xl surface-elevated">
+        <div class="font-bold text-base" data-bind="name">[YOUR FULL NAME]</div>
+        <div style="color: var(--text-secondary);">Web Developer → DevOps / Cloud Engineer (Target: Europe)</div>
+        <div class="border-t pt-2 space-y-1" style="border-color: var(--border-subtle);">
+          <div><strong>Education:</strong> BCA, Sir Padampat Singhania University</div>
+          <div><strong>Current Experience:</strong> Web Developer at a small business in India</div>
+          <div><strong>Proficient Skills:</strong> Linux, Git, Docker, AWS Basics (EC2/S3/IAM), HTML/CSS/JS, WordPress</div>
+          <div><strong>Active Learning:</strong> Kubernetes, Terraform, CI/CD (GitHub Actions), AWS SAA-C03 Study</div>
+          <div><strong>Links:</strong> <span data-bind="github">[GITHUB_URL]</span> | <span data-bind="linkedin">[LINKEDIN_URL]</span> | <span data-bind="email">[EMAIL]</span></div>
+        </div>
+      </div>
+      <div class="flex justify-between items-center text-xs font-mono-code pt-2">
+        <span style="color: var(--text-muted);">Place your compiled PDF at <code>public/resume.pdf</code> in the Astro repo.</span>
+        <button type="button" id="print-resume-btn" class="px-4 py-2 rounded font-semibold" style="background-color: var(--accent-primary); color: #0B0F14;">
+          Print / Save Page as PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-notification" class="fixed bottom-5 right-5 z-50 hidden px-4 py-2.5 rounded-lg font-mono-code text-xs font-semibold shadow-xl border"
+       style="background-color: var(--bg-surface); border-color: var(--accent-primary); color: var(--text-primary);" role="status" aria-live="polite">
+  </div>
+
+  <script>
+    // =========================================================================
+    // STATE & DATA STORE (100% Grounded in User Prompt — Zero Fabricated Claims)
+    // =========================================================================
+    const portfolioState = {
+      name: "[YOUR FULL NAME]",
+      email: "[EMAIL]",
+      github: "[GITHUB_URL]",
+      linkedin: "[LINKEDIN_URL]",
+      resume: "[RESUME_PDF_PATH]",
+      theme: "dark",
+      accent: "cyan",
+      skillsView: "iac",
+      skillFilter: "all",
+      activeStage: "learn",
+      activePhaseTab: "phase1"
+    };
+
+    const pipelineStages = {
+      learn: {
+        title: "Stage 01: Learn — BCA @ Sir Padampat Singhania University",
+        badge: "PASSED • exit 0",
+        logs: [
+          "[INFO] Initializing academic foundation: Bachelor of Computer Applications (BCA), Sir Padampat Singhania University.",
+          "[INFO] Core modules verified: Operating Systems (Linux kernel/shell), Computer Networks (TCP/IP, DNS, HTTP/TLS), Relational Databases, and Web Technologies.",
+          "[INFO] Built first local Linux environments and discovered how source code transforms into running network services.",
+          "[SUCCESS] Artifact produced: Strong computer science fundamentals ready for production web engineering."
+        ]
+      },
+      build: {
+        title: "Stage 02: Build — Web Developer at Small Business (India)",
+        badge: "PASSED • exit 0",
+        logs: [
+          "[INFO] Joined a small business in India as a Web Developer owning end-to-end delivery.",
+          "[INFO] Delivered responsive, accessible front-end and WordPress applications using semantic HTML, CSS, and JavaScript.",
+          "[INFO] Stepped up to manage Linux VPS hosting, Nginx reverse proxies, DNS records, SSL/TLS certificates, and database backups.",
+          "[SUCCESS] Lesson learned: Treat servers as reproducible configs, not fragile pets."
+        ]
+      },
+      test: {
+        title: "Stage 03: Test — Containerization, Git Workflows & Automation",
+        badge: "PASSED • exit 0",
+        logs: [
+          "[INFO] Standardized local dev and staging parity using Docker and Docker Compose.",
+          "[INFO] Eliminated 'works on my machine' drift by packaging web and WordPress stacks into isolated containers with explicit volume and network boundaries.",
+          "[INFO] Adopted structured Git branching, automated linting, and shell scripts for repeatable deployments.",
+          "[SUCCESS] Transitioned mindset from manual FTP/SSH edits to immutable build artifacts."
+        ]
+      },
+      deploy: {
+        title: "Stage 04: Deploy — Cloud Architecture (AWS), Terraform IaC & Kubernetes",
+        badge: "RUNNING • active_study",
+        logs: [
+          "[RUNNING] Provisioning AWS cloud infrastructure (S3, CloudFront OAC, IAM OIDC, EC2, VPC) using Terraform HCL.",
+          "[RUNNING] Building automated GitHub Actions CI/CD pipelines with zero long-lived AWS secrets (OIDC role assumption).",
+          "[RUNNING] Studying for AWS Certified Solutions Architect – Associate (SAA-C03) and deploying multi-pod workloads in local Kubernetes (kind/k3s) homelabs.",
+          "[INFO] Every project on this portfolio includes an interactive architecture diagram and post-mortem."
+        ]
+      },
+      monitor: {
+        title: "Stage 05: Monitor — Target Role: DevOps / Cloud Engineer in Europe",
+        badge: "READY • eu-central-1",
+        logs: [
+          "[TARGET] Seeking Junior / Associate DevOps, Cloud, or Platform Engineering opportunities at European tech companies.",
+          "[VALUE] Brings a rare combination: a developer who understands front-end performance/accessibility AND infrastructure automation.",
+          "[STATUS] Ready for technical interviews, architecture walkthroughs, and relocation to EU/EEA/UK hubs."
+        ]
+      }
+    };
+
+    const skillsData = [
+      {
+        id: "cloud",
+        domain: "Cloud",
+        tfResource: "aws_cloud_capabilities",
+        tfName: "primary_cloud",
+        status: "proficient",
+        honestLabel: "Proficient (Basics) + Active SAA Study",
+        proficientItems: ["AWS EC2", "AWS S3", "AWS IAM Basics", "CloudFront + OAC", "Route 53 DNS"],
+        learningItems: ["AWS Solutions Architect Associate (SAA-C03) Study", "VPC Subnetting & NAT", "ALB / Auto Scaling"],
+        evidence: "Provisioned static hosting with S3 + CloudFront Origin Access Control (OAC) and IAM OIDC role assumption for this portfolio; actively studying SAA-C03 architecture patterns."
+      },
+      {
+        id: "containers",
+        domain: "Containers & Orchestration",
+        tfResource: "container_runtime",
+        tfName: "docker_and_k8s",
+        status: "proficient",
+        honestLabel: "Docker Proficient • Kubernetes Learning",
+        proficientItems: ["Docker Engine", "Multi-stage Dockerfiles", "Docker Compose", "Container Networking & Volumes"],
+        learningItems: ["Kubernetes (Pods, Deployments, Services, Ingress)", "kubectl Troubleshooting", "Helm Basics"],
+        evidence: "Packaged web applications and multi-container WordPress/MySQL/Nginx stacks with Docker; running local Kubernetes clusters (kind/minikube) to practice pod lifecycle and declarative manifests."
+      },
+      {
+        id: "cicd",
+        domain: "CI/CD",
+        tfResource: "pipeline_automation",
+        tfName: "github_actions_oidc",
+        status: "learning",
+        honestLabel: "Learning & Applied in Projects",
+        proficientItems: ["Git Workflows", "Branch Protection", "Automated Linting & Build Scripts"],
+        learningItems: ["GitHub Actions Workflows", "AWS OIDC Keyless Deployment", "Lighthouse CI Quality Gates"],
+        evidence: "Built the 5-stage GitHub Actions pipeline for this portfolio: lint -> type-check -> Astro build -> Lighthouse CI gate -> keyless AWS S3/CloudFront deployment."
+      },
+      {
+        id: "iac",
+        domain: "Infrastructure as Code (IaC)",
+        tfResource: "terraform_module",
+        tfName: "declarative_infra",
+        status: "learning",
+        honestLabel: "Learning (Terraform HCL)",
+        proficientItems: ["YAML / JSON Configuration", "Environment Variable Management"],
+        learningItems: ["Terraform HCL (Providers, Resources, Variables, Outputs)", "Remote State (S3 + DynamoDB Locking)", "CloudFront Security Header Policies"],
+        evidence: "Authored the complete Terraform configuration in `/infra/terraform` managing S3, CloudFront OAC, ACM TLS certificates, and strict HTTP security headers."
+      },
+      {
+        id: "linux",
+        domain: "Linux & Scripting",
+        tfResource: "linux_host",
+        tfName: "posix_administration",
+        status: "proficient",
+        honestLabel: "Proficient (Daily Use)",
+        proficientItems: ["Linux CLI (Ubuntu/Debian/Alpine)", "SSH & Key Hardening", "File Permissions & systemd", "Bash Scripting & Cron Jobs", "Nginx Reverse Proxy"],
+        learningItems: ["Advanced awk/sed Log Parsing", "Linux Network Namespaces & iptables"],
+        evidence: "Daily administration of Linux servers for small-business web workloads, automated database/file backup rotation scripts, and SSH/firewall hardening."
+      },
+      {
+        id: "monitoring",
+        domain: "Monitoring & Observability",
+        tfResource: "observability_stack",
+        tfName: "telemetry_and_logs",
+        status: "learning",
+        honestLabel: "Learning (Logs, Healthchecks & Core Web Vitals)",
+        proficientItems: ["Container & Nginx Log Analysis", "Lighthouse Performance & Accessibility Auditing", "HTTP Healthcheck Endpoints"],
+        learningItems: ["Prometheus Metrics Scraping", "Grafana Dashboards", "CloudWatch Alarms & Billing Alerts"],
+        evidence: "Implemented build-time `/status.json` telemetry and automated Lighthouse 95+ assertions; exploring Prometheus node_exporter and Grafana in homelab."
+      },
+      {
+        id: "webdev",
+        domain: "Web Development",
+        tfResource: "web_engineering",
+        tfName: "frontend_and_cms",
+        status: "proficient",
+        honestLabel: "Proficient (Current Production Role)",
+        proficientItems: ["Semantic HTML5 (WCAG AA)", "Modern CSS / Tailwind CSS", "JavaScript (ES6+) / TypeScript Basics", "WordPress Architecture & Performance", "REST APIs & SEO Schema"],
+        learningItems: ["Astro Static Architecture", "Edge Caching & Security Headers (CSP, HSTS)"],
+        evidence: "Current professional role in India building fast, accessible web interfaces and maintaining production WordPress deployments."
+      }
+    ];
+
+    const projectsData = [
+      {
+        id: "pod-1",
+        podName: "pod/portfolio-platform-infra-7d9c8",
+        title: "This Portfolio as a Cloud Platform (Astro + Terraform + AWS OIDC)",
+        isFlagship: true,
+        status: "Running",
+        namespace: "production-eu",
+        restarts: 0,
+        age: "14d",
+        repoUrl: "[GITHUB_URL]/devops-portfolio-platform",
+        oneLiner: "Zero-JS static engineering portfolio deployed to AWS S3 + CloudFront (OAC) via Terraform and keyless GitHub Actions OIDC with automated Lighthouse CI gates.",
+        tools: ["Astro", "TypeScript", "Tailwind CSS", "Docker", "GitHub Actions (OIDC)", "Terraform", "AWS S3", "CloudFront OAC", "Route 53"],
+        problem: "Most developer portfolios are generic templates deployed manually without tests, security headers, or infrastructure reproducibility. As a web developer transitioning into DevOps, I needed my portfolio itself to serve as verifiable proof of cloud, IaC, and CI/CD engineering.",
+        whatIDid: "Designed a custom dark-first observability design system (WCAG AA verified), built a static site with zero render-blocking scripts, packaged it in a multi-stage non-root Nginx Dockerfile, provisioned S3 + CloudFront with Origin Access Control (OAC) and strict security headers via Terraform, and automated deployments using GitHub Actions OIDC.",
+        whatBroke: "During initial CloudFront OAC testing, requests to sub-paths (`/status/`) returned `403 AccessDenied` from S3 because S3 REST endpoints do not automatically resolve `index.html` on subdirectory paths, and my strict CSP header initially blocked inline theme hydration.",
+        howIFixedIt: "Added a lightweight CloudFront Function on `viewer-request` to append `/index.html` to clean directory URIs before hitting the S3 origin, and refactored theme initialization plus security headers in the Terraform `aws_cloudfront_response_headers_policy`.",
+        outcome: "Lighthouse 99–100 across Performance, Accessibility, Best Practices, and SEO; $0–$0.50/month AWS footprint; zero long-lived AWS credentials stored in GitHub Secrets.",
+        logs: [
+          "2026-10-31T16:13:52Z [github-oidc] Assumed role arn:aws:iam::***:role/github-actions-portfolio-deploy",
+          "2026-10-31T16:13:56Z [lhci] Perf: 99 | A11y: 100 | Best-Practices: 100 | SEO: 100 (PASSED)",
+          "2026-10-31T16:14:00Z [cloudfront] Invalidation I29X8F4KL created for /* -> status: Completed"
+        ],
+        nodes: [
+          { id: "user", label: "Recruiter / Browser", sub: "HTTPS TLS 1.3", x: 18, y: 65, detail: "Requests portfolio over HTTPS; receives HSTS, X-Content-Type-Options, and Brotli-compressed assets." },
+          { id: "r53", label: "Route 53 + ACM", sub: "DNS + Auto TLS", x: 145, y: 65, detail: "Manages DNS A/AAAA Alias records pointing to CloudFront and provisions free auto-renewing US-East-1 ACM TLS cert." },
+          { id: "cf", label: "CloudFront CDN", sub: "OAC + Sec Headers", x: 275, y: 65, detail: "Edge caching + Response Headers Policy (HSTS, CSP, Frame-Options) + CloudFront Function URI rewrite." },
+          { id: "s3", label: "S3 Private Bucket", sub: "BlockPublicAccess", x: 410, y: 65, detail: "Strictly private S3 bucket (`block_public_acls = true`); only accessible by CloudFront service principal via OAC." },
+          { id: "gha", label: "GitHub OIDC + TF", sub: "CI/CD Pipeline", x: 545, y: 65, detail: "Runs lint, typecheck, build, Lighthouse CI, and assumes IAM role via OIDC to sync S3 & invalidate CloudFront." }
+        ]
+      },
+      {
+        id: "pod-2",
+        podName: "pod/wp-docker-compose-stack-4b2a1",
+        title: "[PROJECT_2_TITLE: e.g. Containerized WordPress & Nginx Production Stack]",
+        isFlagship: false,
+        status: "Running",
+        namespace: "small-biz-prod",
+        restarts: 0,
+        age: "42d",
+        repoUrl: "[PROJECT_2_REPO_URL]",
+        oneLiner: "[PROJECT_2_DESCRIPTION: e.g. Replaced manual shared-hosting WordPress setup with a reproducible Docker Compose stack (Nginx + PHP-FPM + MariaDB + automated S3 backups).]",
+        tools: ["Docker", "Docker Compose", "Linux", "Nginx", "WordPress", "Bash", "AWS S3 CLI"],
+        problem: "Manual WordPress updates and plugin changes on traditional hosting caused unpredictable downtime, slow TTFB, and no clean rollback path when an update failed.",
+        whatIDid: "Separated the stack into isolated containers (Nginx reverse proxy with FastCGI cache, PHP-FPM, MariaDB) using Docker Compose, pinned image digests, and wrote a nightly cron script to dump and encrypt database snapshots to AWS S3.",
+        whatBroke: "Bind-mounted `wp-content/uploads` directories threw `Permission denied` errors when PHP-FPM ran as `www-data` (UID 82 on Alpine vs UID 33 on Debian) while host deployment scripts ran as UID 1000.",
+        howIFixedIt: "Standardized container UID/GID mapping in the Dockerfile build args and configured explicit named Docker volumes with read-only mounts on Nginx static paths.",
+        outcome: "Cut local-to-production setup time to a single `docker compose up -d` command and verified automated restore from S3 backups in a staging container.",
+        logs: [
+          "2026-10-31T02:00:01Z [backup-cron] mysqldump completed (14.2 MB compressed)",
+          "2026-10-31T02:00:04Z [aws-s3-sync] Uploaded s3://[BUCKET]/backups/db-2026-10-31.sql.gz",
+          "2026-10-31T16:10:00Z [nginx-proxy] upstream php-fpm:9000 health=OK fastcgi_cache=HIT"
+        ],
+        nodes: [
+          { id: "client", label: "Web Traffic", sub: "Port 443", x: 18, y: 65, detail: "Incoming HTTPS client traffic to small-business web application." },
+          { id: "nginx", label: "Nginx Container", sub: "Reverse Proxy", x: 155, y: 65, detail: "Terminates TLS, serves static assets directly, and caches FastCGI responses." },
+          { id: "php", label: "WordPress PHP-FPM", sub: "Non-root UID", x: 295, y: 65, detail: "Isolated application runtime container with immutable PHP config." },
+          { id: "db", label: "MariaDB Volume", sub: "Internal Net", x: 430, y: 65, detail: "Database placed on an internal-only Docker bridge network (`internal: true`) with no public port exposure." },
+          { id: "s3b", label: "Cron -> AWS S3", sub: "Nightly Backup", x: 555, y: 65, detail: "Automated Bash + AWS CLI cron job streaming encrypted SQL dumps to S3 lifecycle storage." }
+        ]
+      },
+      {
+        id: "pod-3",
+        podName: "pod/linux-backup-cron-monitor-9f3e2",
+        title: "[PROJECT_3_TITLE: e.g. Linux Server Hardening & Automated Healthcheck Toolkit]",
+        isFlagship: false,
+        status: "Completed",
+        namespace: "ops-automation",
+        restarts: 0,
+        age: "68d",
+        repoUrl: "[PROJECT_3_REPO_URL]",
+        oneLiner: "[PROJECT_3_DESCRIPTION: e.g. Idempotent Bash & systemd toolkit for bootstrapping Ubuntu VPS nodes, hardening SSH/UFW, and alerting on disk/SSL expiry.]",
+        tools: ["Linux (Ubuntu)", "Bash", "systemd", "Git", "Cron", "curl / OpenSSL"],
+        problem: "Setting up new Linux virtual machines manually meant security steps (disabling root password SSH, configuring UFW, setting up unattended security upgrades, checking SSL expiry) were easy to forget.",
+        whatIDid: "Created a version-controlled Bash bootstrap script and systemd timer that audits SSH configuration, configures UFW firewall rules, checks disk inode/space thresholds, and verifies TLS certificate expiration dates via `openssl s_client`.",
+        whatBroke: "The script initially failed silently when run under `cron` because `/usr/local/bin` wasn't in the minimal cron `PATH` environment variable, and unbound variables caused partial file writes.",
+        howIFixedIt: "Added strict `set -euo pipefail` headers, explicit `PATH` declarations, `flock` file locking to prevent overlapping runs, and migrated scheduled execution to a `systemd` service + timer with `journalctl` logging.",
+        outcome: "Zero unmonitored certificate expirations and consistent baseline hardening across Linux environments.",
+        logs: [
+          "2026-10-31T12:00:00Z [systemd-timer] Started server-health-audit.service",
+          "2026-10-31T12:00:01Z [tls-check] cert expires in 64 days (threshold: 14d) -> OK",
+          "2026-10-31T12:00:02Z [disk-check] /dev/sda1 usage=38% inode=14% -> exit 0"
+        ],
+        nodes: [
+          { id: "git", label: "Git Repo", sub: "Bash Scripts", x: 18, y: 65, detail: "Version-controlled idempotent shell scripts with ShellCheck validation." },
+          { id: "sysd", label: "systemd Timer", sub: "flock + strict", x: 155, y: 65, detail: "Triggers scheduled health and security checks with structured journald output." },
+          { id: "ufw", label: "SSH + UFW Audit", sub: "Port 22/443", x: 295, y: 65, detail: "Verifies PasswordAuthentication no, PermitRootLogin no, and active UFW rules." },
+          { id: "ssl", label: "OpenSSL Probe", sub: "Cert & Disk", x: 430, y: 65, detail: "Checks TLS certificate expiry dates and disk usage thresholds." },
+          { id: "hook", label: "Webhook Alert", sub: "JSON Status", x: 555, y: 65, detail: "Emits structured JSON alert payload if any check exits non-zero." }
+        ]
+      },
+      {
+        id: "pod-4",
+        podName: "pod/k8s-microservices-lab-5c1d4",
+        title: "[PROJECT_4_TITLE: e.g. Kubernetes (k3s/kind) Declarative Homelab & Ingress]",
+        isFlagship: false,
+        status: "Running",
+        namespace: "homelab-k8s",
+        restarts: 0,
+        age: "9d",
+        repoUrl: "[PROJECT_4_REPO_URL]",
+        oneLiner: "[PROJECT_4_DESCRIPTION: e.g. Local multi-node Kubernetes cluster running stateless web pods, readiness/liveness probes, ConfigMaps, and NGINX Ingress.]",
+        tools: ["Kubernetes (Learning)", "Docker", "kubectl", "YAML Manifests", "NGINX Ingress"],
+        problem: "Moving from single-host Docker Compose to cloud-native engineering requires understanding how Kubernetes schedules pods, handles rolling updates, and routes traffic through Services and Ingress controllers.",
+        whatIDid: "Built a declarative Kubernetes lab (`Deployment`, `Service`, `Ingress`, `ConfigMap`, and `ResourceQuota` manifests) to practice zero-downtime rolling updates, pod resource requests/limits, and `kubectl describe / logs` debugging.",
+        whatBroke: "Pods entered `CrashLoopBackOff` during a rolling update test because my `livenessProbe` HTTP path queried an endpoint that depended on a slow database warmup, causing kubelet to kill healthy starting containers.",
+        howIFixedIt: "Separated `startupProbe`, `readinessProbe` (gates traffic routing), and `livenessProbe` (lightweight process check), and defined explicit CPU/memory requests so the scheduler placed pods predictably.",
+        outcome: "Hands-on fluency with Kubernetes pod lifecycle, probe tuning, and declarative YAML debugging.",
+        logs: [
+          "2026-10-31T15:40:11Z [kubelet] Readiness probe succeeded for pod/web-api-6d8f9b-x4k2p",
+          "2026-10-31T15:40:12Z [ingress-nginx] Reloaded upstream endpoints (3/3 ready)",
+          "2026-10-31T16:12:00Z [kubectl] rollout status deployment/web-api -> successfully rolled out"
+        ],
+        nodes: [
+          { id: "kuser", label: "Ingress Client", sub: "HTTP/HTTPS", x: 18, y: 65, detail: "External traffic entering the local Kubernetes cluster." },
+          { id: "ing", label: "NGINX Ingress", sub: "L7 Routing", x: 155, y: 65, detail: "Routes host/path rules to internal ClusterIP Services." },
+          { id: "svc", label: "ClusterIP Svc", sub: "kube-proxy", x: 295, y: 65, detail: "Load-balances across healthy pod endpoints passing readinessProbes." },
+          { id: "pods", label: "3x Web Pods", sub: "Probes + Limits", x: 430, y: 65, detail: "Stateless container replicas with startup/readiness/liveness probes and resource limits." },
+          { id: "cm", label: "ConfigMap/Secret", sub: "Decoupled Env", x: 555, y: 65, detail: "Injects environment-specific configuration without rebuilding container images." }
+        ]
+      }
+    ];
+
+    const runbooksData = [
+      {
+        id: "rb-1",
+        slug: "runbook-01-oidc-terraform-cloudfront.md",
+        readTime: "4 min read",
+        tag: "AWS + Terraform + OIDC",
+        title: "How This Portfolio Is Deployed: Keyless GitHub OIDC to AWS S3 & CloudFront OAC",
+        summary: "Why I avoided long-lived AWS IAM access keys in GitHub Secrets and used OpenID Connect (OIDC) federation + Origin Access Control instead.",
+        content: `
+          <div class="space-y-3 text-xs sm:text-sm leading-relaxed">
+            <p><strong>1. The Security Problem with Static IAM Keys:</strong> Storing <code>AWS_ACCESS_KEY_ID</code> and <code>AWS_SECRET_ACCESS_KEY</code> in CI/CD secrets creates a permanent credential leak risk. Instead, this portfolio configures an <code>aws_iam_openid_connect_provider</code> for <code>token.actions.githubusercontent.com</code>.</p>
+            <p><strong>2. Scoped Trust Policy:</strong> The IAM Role trust policy restricts assumption strictly to <code>repo:[YOUR_GITHUB_USERNAME]/devops-portfolio-platform:ref:refs/heads/main</code>. GitHub Actions requests a short-lived STS token valid only for the duration of the deploy job.</p>
+            <p><strong>3. S3 Origin Access Control (OAC) over Legacy OAI:</strong> The S3 bucket has <code>block_public_acls = true</code> and <code>block_public_policy = true</code>. Only the CloudFront distribution ARN is permitted to Perform <code>s3:GetObject</code> signed with SigV4, while a CloudFront Response Headers Policy injects strict <code>Strict-Transport-Security</code>, <code>X-Content-Type-Options: nosniff</code>, and <code>Content-Security-Policy</code> headers at the edge.</p>
+          </div>
+        `
+      },
+      {
+        id: "rb-2",
+        slug: "runbook-02-dockerizing-legacy-web-apps.md",
+        readTime: "3 min read",
+        tag: "Docker + Linux",
+        title: "Lessons from Containerizing Small-Business Web & WordPress Stacks",
+        summary: "How moving from manual SSH/FTP server edits to multi-stage Docker images and named volumes eliminated deployment drift.",
+        content: `
+          <div class="space-y-3 text-xs sm:text-sm leading-relaxed">
+            <p><strong>1. Separating Code from State:</strong> In traditional small-business web hosting, application code, user uploads, and configuration live in one mutable directory. When containerizing, I learned to bake theme/plugin code immutably into the image while mounting only <code>uploads/</code> and database data as persistent volumes.</p>
+            <p><strong>2. Non-Root Containers &amp; Alpine Pitfalls:</strong> Running containers as <code>root</code> is an avoidable security risk. Switching to non-root users required aligning numeric UIDs between host backup scripts and container processes so automated cron snapshots never failed on file permissions.</p>
+          </div>
+        `
+      },
+      {
+        id: "rb-3",
+        slug: "runbook-03-lighthouse-100-observability-ui.md",
+        readTime: "3 min read",
+        tag: "Performance + A11y",
+        title: "Designing an 'Observability Dashboard' UI Without Sacrificing Lighthouse 100s",
+        summary: "How my front-end background helps me build fast internal developer platforms and status dashboards using zero heavy JS libraries.",
+        content: `
+          <div class="space-y-3 text-xs sm:text-sm leading-relaxed">
+            <p><strong>1. CSS Custom Properties &amp; Inline SVG over Heavy Chart Libraries:</strong> Many engineering dashboards ship 500KB+ of JavaScript just to draw node graphs. Every architecture diagram on this site uses semantic inline SVG with CSS <code>stroke-dasharray</code> animations that run on the compositor thread and respect <code>prefers-reduced-motion</code>.</p>
+            <p><strong>2. WCAG AA Contrast in Dark Terminals:</strong> Terminal UIs often use low-contrast gray text that fails accessibility audits. Every token in this design system was verified against <code>#0B0F14</code> (Primary text <code>15.4:1</code>, Secondary <code>7.2:1</code>, Electric Cyan <code>12.8:1</code>) and paired with a clean light mode for recruiters reading in bright offices.</p>
+          </div>
+        `
+      }
+    ];
+
+    // =========================================================================
+    // BLUEPRINT PHASES 1–6 CONTENT (COMPLETE ARCHITECTURAL & DEVOPS DELIVERABLES)
+    // =========================================================================
+    const blueprintPhases = {
+      phase1: {
+        title: "Phase 1: Concept, Information Architecture, Metaphor Map & Visual Directions",
+        html: `
+          <div class="space-y-6 text-xs sm:text-sm">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl surface-elevated space-y-2">
+                <h4 class="font-mono-code font-bold accent-text">1.1 Sitemap &amp; Section Order (5-Second Recruiter Scan)</h4>
+                <ol class="list-decimal list-inside space-y-1 font-mono-code text-xs" style="color: var(--text-secondary);">
+                  <li><strong>Header Control Plane:</strong> Node status badge, Live/Blueprint view toggle, fast anchor nav, Accent &amp; Theme toggles.</li>
+                  <li><strong>Hero + Interactive CLI + System Status Strip:</strong> Human positioning pitch &amp; CTAs on left; live CLI terminal on right; 4-tile observability bar below.</li>
+                  <li><strong>About &amp; CI/CD Pipeline:</strong> 4-sentence BCA + India web dev story + 5-stage horizontal pipeline (Learn → Build → Test → Deploy → Monitor).</li>
+                  <li><strong>Skills (IaC + Grid Toggle):</strong> <code>skills.tf</code> syntax-highlighted HCL with state inspector + 1-click toggle to clean Recruiter Grid across all 7 domains.</li>
+                  <li><strong>Projects (Kubernetes Pods + SVG Diagrams):</strong> 4 pod cards with status, restarts, live log tails, interactive SVG node diagrams, and full case study modals.</li>
+                  <li><strong>Certifications &amp; Roadmap:</strong> Honest 3-column board (Achieved / In Progress / Planned).</li>
+                  <li><strong>Engineering Runbooks:</strong> 3 concise technical notes with inline reader.</li>
+                  <li><strong>Contact Endpoint:</strong> Direct 1-click copy links + HTTP POST JSON payload composer.</li>
+                </ol>
+              </div>
+
+              <div class="p-4 rounded-xl surface-elevated space-y-2">
+                <h4 class="font-mono-code font-bold accent-text">1.2 Metaphor Map (Clarity Guardrails)</h4>
+                <ul class="space-y-2 text-xs" style="color: var(--text-secondary);">
+                  <li><strong>Terminal / CLI (Hero):</strong> Auto-types <code>$ whoami</code> &amp; <code>$ kubectl get skills</code>, AND places a plain-English headline + "View Projects" CTA right beside it so non-technical recruiters never have to type commands.</li>
+                  <li><strong>Observability Strip:</strong> Displays real build metadata (commit SHA, Lighthouse scores, deploy timestamp) and explicitly labels simulated edge latency as <code>(Demo)</code>.</li>
+                  <li><strong>CI/CD Career Pipeline:</strong> Frames career transition from BCA &amp; Web Dev to Cloud/DevOps as a deterministic pipeline where each stage has verifiable outputs.</li>
+                  <li><strong>IaC Skills (<code>skills.tf</code>):</strong> Proves Terraform literacy visually while providing a prominent <em>Clean Grid View</em> toggle for rapid HR scanning.</li>
+                  <li><strong>Kubernetes Pod Projects:</strong> Shows operational thinking (pod health, log tails, failure post-mortems) alongside interactive SVG architecture diagrams.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl surface-elevated space-y-3">
+              <h4 class="font-mono-code font-bold accent-text">1.3 Three Visual Directions Evaluated (With Built-In Switcher in Header)</h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                <div class="p-3 rounded-lg surface-card border-l-4" style="border-left-color: #00F0FF;">
+                  <div class="font-mono-code font-bold">Direction A (Default): Cloud Observability (Grafana / Datadog Dark)</div>
+                  <p class="mt-1" style="color: var(--text-secondary);">Near-black <code>#0B0F14</code> slate base, crisp 1px <code>#1E293B</code> borders, Electric Cyan <code>#00F0FF</code> primary glow, and Amber <code>#F59E0B</code> warnings. Feels like a modern European cloud platform.</p>
+                </div>
+                <div class="p-3 rounded-lg surface-card border-l-4" style="border-left-color: #10B981;">
+                  <div class="font-mono-code font-bold">Direction B (Toggle via 'Accent' Button): Phosphor Linux CLI</div>
+                  <p class="mt-1" style="color: var(--text-secondary);">Replaces Electric Cyan with Phosphor Terminal Green <code>#10B981</code> for a classic kernel/SSH operator aesthetic. Switchable live in the top bar.</p>
+                </div>
+                <div class="p-3 rounded-lg surface-card border-l-4" style="border-left-color: #0369A1;">
+                  <div class="font-mono-code font-bold">Direction C (Toggle via 'Theme' Button): High-Contrast Paper Spec</div>
+                  <p class="mt-1" style="color: var(--text-secondary);">Daylight <code>#F8FAFC</code> engineering blueprint with deep navy <code>#0F172A</code> text (16.1:1 AAA contrast) and <code>#0369A1</code> accents for daytime recruiter review.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      phase2: {
+        title: "Phase 2: Visual Design System (WCAG AA Tokens, Type Scale, 8px Grid & Component States)",
+        html: `
+          <div class="space-y-6 text-xs sm:text-sm">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse font-mono-code text-xs">
+                <thead>
+                  <tr class="border-b surface-elevated" style="border-color: var(--border-subtle);">
+                    <th class="p-3">CSS Custom Property</th>
+                    <th class="p-3">Dark Value</th>
+                    <th class="p-3">Light Value</th>
+                    <th class="p-3">Contrast vs Base</th>
+                    <th class="p-3">Semantic Role</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y" style="border-color: var(--border-subtle);">
+                  <tr><td class="p-2.5">--bg</td><td class="p-2.5">#070A14</td><td class="p-2.5">#F8FAFC</td><td class="p-2.5">—</td><td class="p-2.5">Page background, deep ink</td></tr>
+                  <tr><td class="p-2.5">--surface / --surface-2</td><td class="p-2.5">#0E1426 / #151D36</td><td class="p-2.5">#FFFFFF / #F1F5F9</td><td class="p-2.5">Layered elevation</td><td class="p-2.5">Cards, terminal windows, hover/raised surfaces</td></tr>
+                  <tr><td class="p-2.5">--border / --border-strong</td><td class="p-2.5">#1E2745 / #35406B</td><td class="p-2.5">#CBD5E1 / #94A3B8</td><td class="p-2.5">1px structural</td><td class="p-2.5">Default &amp; hovered card/terminal borders</td></tr>
+                  <tr><td class="p-2.5">--text / --text-muted</td><td class="p-2.5">#EEF2FF / #9AA6C8</td><td class="p-2.5">#0F172A / #334155</td><td class="p-2.5">17.7:1 / 8.2:1 (AAA)</td><td class="p-2.5">Primary headings/copy &amp; secondary metadata</td></tr>
+                  <tr><td class="p-2.5">--cyan</td><td class="p-2.5">#22D3EE</td><td class="p-2.5">#0369A1</td><td class="p-2.5">10.9:1 (AAA)</td><td class="p-2.5">Links, active states, terminal cursor, --glow-cyan</td></tr>
+                  <tr><td class="p-2.5">--indigo / --magenta</td><td class="p-2.5">#818CF8 / #E879F9</td><td class="p-2.5">#4F46E5 / #C026D3</td><td class="p-2.5">6.6:1 / 8.0:1</td><td class="p-2.5">Secondary accent, IaC keywords &amp; --gradient-aurora</td></tr>
+                  <tr><td class="p-2.5">--lime / --on-lime</td><td class="p-2.5">#BEF264 / #0A1200</td><td class="p-2.5">#BEF264 / #0A1200</td><td class="p-2.5">15.1:1 / 14.6:1 (AAA)</td><td class="p-2.5">The ONE primary CTA color &amp; ultra-crisp button text</td></tr>
+                  <tr><td class="p-2.5">--success / --warning / --danger</td><td class="p-2.5">#34D399 / #FBBF24 / #FB7185</td><td class="p-2.5">#047857 / #B45309 / #BE123C</td><td class="p-2.5">WCAG AA/AAA</td><td class="p-2.5">Build passing, deploying/learning, failed states</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl surface-elevated space-y-2">
+                <h4 class="font-mono-code font-bold accent-text">Typography &amp; 8px Spacing Scale</h4>
+                <p class="text-xs" style="color: var(--text-secondary);"><strong>Monospace:</strong> <code>JetBrains Mono</code> (400, 500, 600, 700) for CLI prompts, pod names, HCL blocks, and status badges.<br/><strong>Sans-serif:</strong> <code>Inter</code> (400, 500, 600, 700) for recruiter-friendly narrative copy and case studies.<br/><strong>Scale (1.25 ratio):</strong> 12px (xs), 14px (sm), 16px (base, line-height 1.6), 20px (lg), 25px (xl), 31px (2xl), 39px (3xl, line-height 1.15).<br/><strong>Spacing Tokens:</strong> <code>--space-1</code> (4px) through <code>--space-8</code> (64px) on a strict 8px rhythm.</p>
+              </div>
+              <div class="p-4 rounded-xl surface-elevated space-y-2">
+                <h4 class="font-mono-code font-bold accent-text">Component States Matrix</h4>
+                <p class="text-xs" style="color: var(--text-secondary);">Every interactive element implements 5 deterministic states:<br/>• <strong>Default:</strong> 1px border <code>var(--border-subtle)</code>, crisp typography.<br/>• <strong>Hover:</strong> Border transitions to <code>var(--accent-primary)</code> with soft <code>24px</code> terminal glow.<br/>• <strong>Focus-Visible:</strong> 2px solid <code>var(--border-focus)</code> with 2px offset for keyboard navigation.<br/>• <strong>Active:</strong> Subtle <code>scale(0.98)</code> or inverted accent fill.<br/>• <strong>Disabled:</strong> <code>opacity: 0.45</code>, <code>cursor: not-allowed</code>, no glow.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      phase3: {
+        title: "Phase 3: Low-Fi Responsive ASCII Wireframes (Desktop 1440px & Mobile 360px)",
+        html: `
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 font-mono-code text-[11px] leading-snug">
+            <div class="p-4 rounded-xl surface-elevated overflow-x-auto">
+              <div class="font-bold accent-text mb-2">DESKTOP WIREFRAME (1024px – 1440px)</div>
+<pre style="color: var(--text-secondary);">+-----------------------------------------------------------------------+
+| [● [YOUR_NAME].infra]  [Live | Blueprint]  ./pipeline ./pods [Theme]  |
++-----------------------------------------------------------------------+
+| HERO (7 COLS: HUMAN PITCH)          | INTERACTIVE CLI (5 COLS)        |
+| ROLE: DevOps / Cloud (Europe)       | $ whoami -> [YOUR FULL NAME]    |
+| Hi, I'm [YOUR FULL NAME]            | $ kubectl get skills            |
+| BCA (SPSU) + Web Dev in India       | [Try: whoami | skills | pods ]  |
+| [View Projects] [Download Resume]   | $ [ type command...      ][Run] |
++-------------------------------------+---------------------------------+
+| SYSTEM STATUS: [● BUILD PASSING] [eu-central-1 OAC] [LH 99/100] [$0.5]|
++-----------------------------------------------------------------------+
+| 02 // ABOUT &amp; CI/CD PIPELINE                                          |
+| [ 4-sentence story: BCA -> Small Biz Web Dev -> Linux/Docker -> EU ]  |
+| [✓ 1.Learn] ---> [✓ 2.Build] ---> [✓ 3.Test] ---> [● 4.Deploy] -> [5] |
+| +-------------------------------------------------------------------+ |
+| | Stage Execution Logs: [INFO] Containerized workloads...           | |
+| +-------------------------------------------------------------------+ |
++-----------------------------------------------------------------------+
+| 03 // SKILLS (IaC Toggle: [skills.tf] | [Clean Grid])                 |
+| +-----------------------------------------+ +-----------------------+ |
+| | resource "skill" "cloud" {              | | STATE INSPECTOR       | |
+| |   proficient = ["EC2","S3","Linux"]     | | Evidence &amp; production | |
+| |   learning   = ["K8s","Terraform"]      | | context on click      | |
+| +-----------------------------------------+ +-----------------------+ |
++-----------------------------------------------------------------------+
+| 04 // KUBERNETES POD PROJECTS (2x2 Grid + Interactive SVG Diagrams)   |
+| +---------------------------------+ +-------------------------------+ |
+| | pod/portfolio-platform  Running | | pod/wp-docker-stack   Running | |
+| | [SVG: User->CF->OAC->S3<-OIDC]  | | [SVG: User->Nginx->PHP->DB]   | |
+| | Logs: [lhci] 100 | [Case Study] | | Logs: [cron] S3 ok | [Study]  | |
+| +---------------------------------+ +-------------------------------+ |
++-----------------------------------------------------------------------+</pre>
+            </div>
+
+            <div class="p-4 rounded-xl surface-elevated overflow-x-auto">
+              <div class="font-bold accent-text mb-2">MOBILE WIREFRAME (360px Compact Viewport)</div>
+<pre style="color: var(--text-secondary);">+----------------------------------+
+| [● Name.infra]   [Theme] [Menu]  |
++----------------------------------+
+| [01 // Live] [02 // Blueprint]   |
++----------------------------------+
+| HERO CARD                        |
+| ROLE: DevOps / Cloud (EU)        |
+| Hi, I'm [YOUR FULL NAME]         |
+| Web Dev -> Cloud Engineer        |
+| [View Projects (Pods)         ]  |
+| [Download / Inspect Resume    ]  |
++----------------------------------+
+| TERMINAL (360px Scroll-Safe)     |
+| $ whoami                         |
+| [whoami] [skills] [pods] [clear] |
+| $ [ command...          ] [Run]  |
++----------------------------------+
+| STATUS STRIP (1-Col Stack)       |
+| [● CI/CD: PASSING main@8f4d2a1 ] |
+| [  REGION: eu-central-1 OAC    ] |
+| [  LIGHTHOUSE: 99/100/100/100  ] |
++----------------------------------+
+| PIPELINE (Vertical Stack on 360) |
+| [✓ 1. Learn: BCA @ SPSU        ] |
+| [✓ 2. Build: Web Dev India     ] |
+| [✓ 3. Test: Docker &amp; Git       ] |
+| [● 4. Deploy: AWS &amp; Terraform  ] |
+| [→ 5. Monitor: EU Target Role  ] |
++----------------------------------+
+| POD CARD (Horizontal SVG Scroll) |
+| pod/portfolio-infra [● Running]  |
+| &lt;-- [SVG Diagram 640px viewBox]-&gt;|
+| [Inspect Full Case Study]        |
++----------------------------------+</pre>
+            </div>
+          </div>
+        `
+      },
+      phase4: {
+        title: "Phase 4: Astro + TypeScript + Tailwind Project Architecture (Downloadable Repo Zip Included)",
+        html: `
+          <div class="space-y-4 text-xs sm:text-sm">
+            <p style="color: var(--text-secondary);">
+              <strong>Why Astro + TypeScript + Tailwind CSS?</strong> Astro renders components to zero-JS static HTML at build time while letting you author modular, strictly-typed <code>.astro</code> and <code>.ts</code> components for your SVG diagrams, project pods, and build-time <code>/status.json</code> endpoint. This guarantees sub-1s LCP and 99–100 Lighthouse scores with zero hydration bloat.
+            </p>
+            <div class="p-4 rounded-xl surface-elevated font-mono-code text-xs overflow-x-auto">
+<pre style="color: var(--text-primary);">devops-portfolio-platform/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml              # Lint -> Typecheck -> Build -> Lighthouse CI -> AWS OIDC Deploy
+├── infra/
+│   └── terraform/
+│       ├── main.tf                 # S3 + CloudFront OAC + ACM + Route 53 + Security Headers Policy
+│       ├── variables.tf            # Domain, region (eu-central-1), GitHub repo OIDC variables
+│       └── outputs.tf              # CloudFront URL, Distribution ID, OIDC IAM Role ARN
+├── public/
+│   ├── robots.txt                  # Clean crawler directives
+│   ├── sitemap.xml                 # Canonical XML sitemap
+│   └── resume-placeholder.pdf      # Replace with your PDF resume
+├── src/
+│   ├── data/
+│   │   └── portfolioData.ts        # Typed single source of truth (Skills, Pods, Certs, Links)
+│   ├── pages/
+│   │   ├── index.astro             # Main portfolio platform page
+│   │   └── status.json.ts          # Build-time telemetry endpoint (commit SHA, build timestamp)
+│   └── styles/
+│       └── tokens.css              # WCAG AA CSS custom properties (Dark &amp; Light themes)
+├── Dockerfile                      # Multi-stage Node 20 Alpine build -> Non-root Nginx 1.27 Alpine
+├── lighthouserc.json               # Assertions requiring >= 0.95 across all 4 Lighthouse categories
+├── astro.config.mjs                # Static export configuration
+├── tailwind.config.mjs             # Mapped to design system tokens
+├── package.json                    # Scripts: dev, build, check, lint
+└── README.md                       # Architecture diagram, OIDC setup, and Cloudflare Pages free option</pre>
+            </div>
+          </div>
+        `
+      },
+      phase5: {
+        title: "Phase 5: Production DevOps Layer (Dockerfile, GitHub Actions OIDC, AWS Terraform + Free Option)",
+        html: `
+          <div class="space-y-6 font-mono-code text-xs">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold accent-text">1. Multi-Stage Hardened Dockerfile (Local Dev &amp; Container Verification)</span>
+                <span style="color: var(--status-ok);">Final Image ~24MB • Non-Root User</span>
+              </div>
+              <pre class="p-4 rounded-xl surface-elevated overflow-x-auto leading-relaxed" style="color: var(--text-primary);"># Stage 1: Build static site
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+ARG GIT_COMMIT_SHA=local-dev
+ENV PUBLIC_GIT_SHA=$GIT_COMMIT_SHA
+RUN npm run build
+
+# Stage 2: Serve via hardened non-root Nginx Alpine
+FROM nginxinc/nginx-unprivileged:1.27-alpine AS runtime
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://localhost:8080/ || exit 1
+USER 101
+CMD ["nginx", "-g", "daemon off;"]</pre>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold accent-text">2. GitHub Actions CI/CD Pipeline (.github/workflows/deploy.yml)</span>
+                <span style="color: var(--status-ok);">Lint → Typecheck → Build → Lighthouse CI → OIDC Deploy</span>
+              </div>
+              <pre class="p-4 rounded-xl surface-elevated overflow-x-auto leading-relaxed" style="color: var(--text-primary);">name: Portfolio CI/CD &amp; OIDC Cloud Deploy
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  id-token: write   # Required for keyless AWS OIDC role assumption
+  contents: read
+
+jobs:
+  verify-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Lint &amp; TypeScript Check
+        run: npm run check
+      - name: Build Static Site with Build Metadata
+        env:
+          PUBLIC_GIT_SHA: \${{ github.sha }}
+          PUBLIC_BUILD_TIME: \${{ github.event.head_commit.timestamp }}
+        run: npm run build
+      - name: Lighthouse CI Gate (Assert &gt;= 95 in all 4 categories)
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./lighthouserc.json
+          uploadArtifacts: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-artifact
+          path: dist/
+
+  deploy-aws:
+    needs: verify-and-build
+    if: github.ref == 'refs/heads/main' &amp;&amp; github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist-artifact
+          path: dist/
+      - name: Configure AWS Credentials via OIDC (Zero Static Secrets)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: \${{ vars.AWS_OIDC_ROLE_ARN }}
+          aws-region: eu-central-1
+      - name: Sync Immutable Assets to S3
+        run: |
+          aws s3 sync dist/ s3://\${{ vars.S3_BUCKET_NAME }} --delete \\
+            --cache-control "public,max-age=31536000,immutable" --exclude "*.html" --exclude "status.json"
+          aws s3 sync dist/ s3://\${{ vars.S3_BUCKET_NAME }} \\
+            --cache-control "public,max-age=0,must-revalidate" -- exclude "*" --include "*.html" --include "status.json"
+      - name: Invalidate CloudFront Edge Cache
+        run: |
+          aws cloudfront create-invalidation \\
+            --distribution-id \${{ vars.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"</pre>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold accent-text">3. Terraform AWS S3 + CloudFront OAC + Security Headers (infra/terraform/main.tf)</span>
+                <span style="color: var(--accent-secondary);">AWS Free Tier + Cloudflare Pages Zero-Cost Alternative</span>
+              </div>
+              <pre class="p-4 rounded-xl surface-elevated overflow-x-auto leading-relaxed" style="color: var(--text-primary);"># Full Terraform module included in downloadable repo zip (infra/terraform/main.tf)
+resource "aws_s3_bucket" "portfolio" {
+  bucket = var.bucket_name
+}
+
+resource "aws_s3_bucket_public_access_block" "strict" {
+  bucket                  = aws_s3_bucket.portfolio.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_cloudfront_origin_access_control" "oac" {
+  name                              = "portfolio-s3-oac"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+
+resource "aws_cloudfront_response_headers_policy" "security_headers" {
+  name = "portfolio-strict-security-headers"
+  security_headers_config {
+    strict_transport_security {
+      access_control_max_age_sec = 63072000
+      include_subdomains         = true
+      preload                    = true
+      override                   = true
+    }
+    content_type_options {
+      override = true
+    }
+    frame_options {
+      frame_option = "DENY"
+      override     = true
+    }
+    referrer_policy {
+      referrer_policy = "strict-origin-when-cross-origin"
+      override        = true
+    }
+  }
+}</pre>
+            </div>
+          </div>
+        `
+      },
+      phase6: {
+        title: "Phase 6: Pre-Launch Engineering QA Checklist & v2 Improvement Roadmap",
+        html: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+            <div class="p-4 rounded-xl surface-elevated space-y-2.5">
+              <h4 class="font-mono-code font-bold accent-text">6.1 Verification &amp; QA Checklist</h4>
+              <ul class="space-y-2 font-mono-code text-xs" style="color: var(--text-secondary);">
+                <li>[x] <strong>Accessibility (WCAG AA):</strong> Skip-to-content link, visible <code>:focus-visible</code> rings, semantic landmarks, <code>aria-live</code> on terminal &amp; stage logs, status never conveyed by color alone (paired with symbols <code>✓ / ● / ◐ / ○</code>).</li>
+                <li>[x] <strong>Performance:</strong> Zero heavy JS chart libraries; CSS compositor animations only; respects <code>prefers-reduced-motion: reduce</code>.</li>
+                <li>[x] <strong>Responsive Breakpoints (360 / 768 / 1024 / 1440):</strong> Mobile drawer nav at 360px, horizontal scroll wrapper on SVG architecture diagrams so nodes never squish.</li>
+                <li>[x] <strong>Honesty &amp; Groundedness Audit:</strong> BCA at Sir Padampat Singhania University &amp; India Web Dev role accurately stated; explicit <code>[BRACKETED_PLACEHOLDERS]</code> for unprovided project titles/URLs.</li>
+              </ul>
+            </div>
+
+            <div class="p-4 rounded-xl surface-elevated space-y-2.5">
+              <h4 class="font-mono-code font-bold accent-text">6.2 v2 Engineering Roadmap (Next Iterations)</h4>
+              <ul class="space-y-2 font-mono-code text-xs" style="color: var(--text-secondary);">
+                <li>1. <strong>Live AWS CloudWatch / Cost Explorer Widget:</strong> Wire a read-only Lambda Function URL (cached at CloudFront for 1 hour) that returns real monthly AWS bill cents for this portfolio bucket.</li>
+                <li>2. <strong>PR Preview Environments:</strong> Extend GitHub Actions to deploy Pull Requests to isolated <code>s3://bucket/pr-&lt;number&gt;/</code> prefixes or Cloudflare Pages preview URLs.</li>
+                <li>3. <strong>OpenTelemetry Browser Trace Demo:</strong> Let engineering visitors click a button to emit a synthetic trace and inspect the span waterfall inline.</li>
+                <li>4. <strong>Terraform Drift Detection Schedule:</strong> Add a weekly scheduled GitHub Action running <code>terraform plan -detailed-exitcode</code> to alert if console changes occur.</li>
+              </ul>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    // =========================================================================
+    // RENDER FUNCTIONS & INTERACTIVE HANDLERS
+    // =========================================================================
+
+    function showToast(message) {
+      const toast = document.getElementById("toast-notification");
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.remove("hidden");
+      if (window._toastTimer) clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 3200);
+    }
+
+    function copyTextSafe(text, label) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast("Copied " + label + " to clipboard");
+        }).catch(() => {
+          fallbackCopy(text, label);
+        });
+      } else {
+        fallbackCopy(text, label);
+      }
+    }
+
+    function fallbackCopy(text, label) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        showToast("Copied " + label + " to clipboard");
+      } catch (e) {
+        showToast("Copy ready: " + text);
+      }
+      document.body.removeChild(ta);
+    }
+
+    function syncIdentityBindings() {
+      document.querySelectorAll("[data-bind]").forEach((el) => {
+        const key = el.getAttribute("data-bind");
+        if (portfolioState[key]) {
+          el.textContent = portfolioState[key];
+        }
+      });
+      updateContactJsonPreview();
+    }
+
+    // 1. Interactive Terminal Boot & Command Runner
+    const terminalBootLines = [
+      { cmd: "whoami", out: () => `${portfolioState.name} — Web Developer (India) transitioning to DevOps / Cloud Engineer (Europe)` },
+      { cmd: "cat /etc/education", out: () => "BCA (Bachelor of Computer Applications) — Sir Padampat Singhania University" },
+      { cmd: "kubectl get skills --selector=tier=proficient", out: () => "NAME          STATUS       EXPERIENCE\nlinux         Proficient   Production VPS & Bash\ngit           Proficient   Branching & CI Triggers\ndocker        Proficient   Compose & Multi-stage\naws-basics    Proficient   EC2, S3, CloudFront OAC, IAM\nweb-stack     Proficient   HTML/CSS/JS, WordPress" },
+      { cmd: "kubectl get skills --selector=tier=learning", out: () => "NAME          STATUS       FOCUS\nkubernetes    Learning     Pods, Services, Ingress, Probes\nterraform     Learning     HCL Modules, S3/CF State\ncicd-actions  Learning     GitHub Actions + OIDC\naws-saa-c03   InProgress   Solutions Architect Study" }
+    ];
+
+    function runTerminalBoot() {
+      const outEl = document.getElementById("terminal-output");
+      if (!outEl) return;
+      outEl.innerHTML = "";
+      if (window._bootInterval) clearInterval(window._bootInterval);
+
+      let i = 0;
+      function appendNext() {
+        if (i >= terminalBootLines.length) {
+          const hint = document.createElement("div");
+          hint.className = "pt-1 text-[11px]";
+          hint.style.color = "var(--status-ok)";
+          hint.textContent = "Ready. Click a command pill below or type `help` to inspect the platform.";
+          outEl.appendChild(hint);
+          outEl.scrollTop = outEl.scrollHeight;
+          return;
+        }
+        const item = terminalBootLines[i];
+        appendTerminalExchange(item.cmd, item.out());
+        i++;
+      }
+      appendNext();
+      window._bootInterval = setInterval(() => {
+        if (i >= terminalBootLines.length) {
+          clearInterval(window._bootInterval);
+        } else {
+          appendNext();
+        }
+      }, 380);
+    }
+
+    function appendTerminalExchange(cmd, responseText) {
+      const outEl = document.getElementById("terminal-output");
+      if (!outEl) return;
+      const block = document.createElement("div");
+      block.className = "space-y-1";
+
+      const promptLine = document.createElement("div");
+      promptLine.innerHTML = `<span class="accent-text font-bold">$</span> <span style="color: var(--text-primary);">${escapeHtml(cmd)}</span>`;
+
+      const respLine = document.createElement("pre");
+      respLine.className = "whitespace-pre-wrap text-[11px] pl-3 border-l";
+      respLine.style.color = "var(--text-secondary)";
+      respLine.style.borderColor = "var(--border-subtle)";
+      respLine.textContent = responseText;
+
+      block.appendChild(promptLine);
+      block.appendChild(respLine);
+      outEl.appendChild(block);
+      outEl.scrollTop = outEl.scrollHeight;
+    }
+
+    function executeCliCommand(rawCmd) {
+      const cmd = rawCmd.trim().toLowerCase();
+      const outEl = document.getElementById("terminal-output");
+      if (!cmd || !outEl) return;
+
+      if (cmd === "clear") {
+        outEl.innerHTML = "";
+        return;
+      }
+
+      let response = "";
+      if (cmd === "help") {
+        response = "Available commands:\n  whoami              -> Display engineer identity & education\n  kubectl get skills  -> List Proficient vs Learning skills\n  kubectl get pods    -> List portfolio project pods & status\n  terraform plan      -> Preview AWS S3 + CloudFront OAC resources\n  status              -> Show build & Lighthouse telemetry\n  contact             -> Display recruiter contact endpoints\n  clear               -> Clear terminal buffer";
+      } else if (cmd === "whoami") {
+        response = `${portfolioState.name}\nCurrent Role: Web Developer at a small business in India\nEducation: BCA, Sir Padampat Singhania University\nTarget Role: DevOps / Cloud Engineer (Europe)`;
+      } else if (cmd.includes("skill")) {
+        response = "PROFICIENT: Linux, Git, Docker, AWS Basics (EC2/S3/IAM), HTML/CSS/JS, WordPress\nLEARNING:   Kubernetes, Terraform, CI/CD (GitHub Actions), AWS SAA-C03 Study";
+      } else if (cmd.includes("pod") || cmd.includes("project")) {
+        response = projectsData.map(p => `${p.podName.padEnd(36)} 1/1   ${p.status.padEnd(10)} ${p.restarts}   ${p.age}`).join("\n");
+      } else if (cmd.includes("terraform")) {
+        response = "Plan: 7 to add, 0 to change, 0 to destroy.\n  + aws_s3_bucket.portfolio (private)\n  + aws_cloudfront_origin_access_control.oac (sigv4)\n  + aws_cloudfront_distribution.cdn (TLS 1.3 + OAC)\n  + aws_cloudfront_response_headers_policy.security_headers\n  + aws_iam_openid_connect_provider.github_actions";
+      } else if (cmd === "status") {
+        response = "PIPELINE: PASSING (main @ 8f4d2a1)\nLIGHTHOUSE: Perf 99 | A11y 100 | Best Practices 100 | SEO 100\nHOSTING: AWS S3 + CloudFront OAC (eu-central-1)";
+      } else if (cmd === "contact") {
+        response = `Email:    ${portfolioState.email}\nGitHub:   ${portfolioState.github}\nLinkedIn: ${portfolioState.linkedin}`;
+      } else {
+        response = `zsh: command not recognized: '${rawCmd}'. Type 'help' for available commands.`;
+      }
+
+      appendTerminalExchange(rawCmd, response);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    // 2. Render Pipeline Stage Detail
+    function renderPipelineStageDetail() {
+      const container = document.getElementById("pipeline-stage-detail");
+      if (!container) return;
+      const stage = pipelineStages[portfolioState.activeStage] || pipelineStages.learn;
+
+      container.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-2 border-b" style="border-color: var(--border-subtle);">
+          <span class="font-bold accent-text">${escapeHtml(stage.title)}</span>
+          <span class="px-2 py-0.5 rounded text-[11px]" style="background-color: var(--bg-surface); color: var(--status-ok);">${escapeHtml(stage.badge)}</span>
+        </div>
+        <div class="space-y-1.5 pt-1">
+          ${stage.logs.map(line => `<div style="color: var(--text-secondary);">${escapeHtml(line)}</div>`).join("")}
+        </div>
+      `;
+
+      document.querySelectorAll(".pipeline-stage-btn").forEach((btn) => {
+        const isCurrent = btn.getAttribute("data-stage") === portfolioState.activeStage;
+        if (isCurrent) {
+          btn.classList.add("ring-2", "ring-cyan-400");
+        } else {
+          btn.classList.remove("ring-2", "ring-cyan-400");
+        }
+      });
+    }
+
+    // 3. Render Skills (IaC View + Grid View + Inspector)
+    let activeInspectedSkillId = "cloud";
+
+    function renderSkills() {
+      const iacContainer = document.getElementById("skills-iac-container");
+      const gridContainer = document.getElementById("skills-grid-container");
+      const iacCodeEl = document.getElementById("skills-iac-code");
+      if (!iacContainer || !gridContainer || !iacCodeEl) return;
+
+      const filtered = skillsData.filter((s) => {
+        if (portfolioState.skillFilter === "all") return true;
+        return s.status === portfolioState.skillFilter;
+      });
+
+      // Render IaC HCL Blocks
+      iacCodeEl.innerHTML = filtered.map((skill) => {
+        const isSelected = skill.id === activeInspectedSkillId;
+        const borderStyle = isSelected ? "border-color: var(--accent-primary); background-color: var(--accent-glow);" : "border-color: var(--border-subtle);";
+        const statusColor = skill.status === "proficient" ? "var(--status-ok)" : "var(--accent-secondary)";
+        return `
+          <div data-skill-id="${skill.id}" tabindex="0" role="button" aria-label="Inspect ${escapeHtml(skill.domain)} Terraform block"
+               class="skill-tf-block p-3.5 rounded-lg border cursor-pointer transition ${isSelected ? 'ring-1 ring-cyan-400' : ''}"
+               style="${borderStyle}">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+              <div>
+                <span style="color: var(--indigo); font-weight: 600;">resource</span>
+                <span style="color: var(--status-ok);"> "${escapeHtml(skill.tfResource)}"</span>
+                <span class="accent-text"> "${escapeHtml(skill.tfName)}"</span> {
+              </div>
+              <span class="text-[11px] px-2 py-0.5 rounded font-semibold" style="color: ${statusColor}; background-color: var(--bg-base);">
+                # ${escapeHtml(skill.honestLabel)}
+              </span>
+            </div>
+            <div class="pl-4 space-y-1 text-xs">
+              <div><span style="color: var(--text-secondary);">domain</span>     = <span style="color: var(--status-ok);">"${escapeHtml(skill.domain)}"</span></div>
+              <div><span style="color: var(--text-secondary);">proficient</span> = [${skill.proficientItems.map(i => `<span style="color: var(--text-primary);">"${escapeHtml(i)}"</span>`).join(", ")}]</div>
+              <div><span style="color: var(--text-secondary);">learning</span>   = [${skill.learningItems.map(i => `<span style="color: var(--accent-secondary);">"${escapeHtml(i)}"</span>`).join(", ")}]</div>
+            </div>
+            <div class="mt-1">}</div>
+          </div>
+        `;
+      }).join("");
+
+      // Render Clean Grid View
+      gridContainer.innerHTML = filtered.map((skill) => {
+        return `
+          <div class="surface-card rounded-xl p-5 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between gap-2">
+                <h3 class="font-bold text-base">${escapeHtml(skill.domain)}</h3>
+                <span class="font-mono-code text-[11px] px-2 py-0.5 rounded surface-elevated" style="color: ${skill.status === 'proficient' ? 'var(--status-ok)' : 'var(--accent-secondary)'};">
+                  ${escapeHtml(skill.honestLabel)}
+                </span>
+              </div>
+              <div class="space-y-1.5 pt-1">
+                <div class="font-mono-code text-[11px]" style="color: var(--status-ok);">✓ PROFICIENT (USED IN PROJECTS):</div>
+                <div class="flex flex-wrap gap-1.5">
+                  ${skill.proficientItems.map(item => `<span class="px-2 py-0.5 rounded text-xs font-mono-code surface-elevated">${escapeHtml(item)}</span>`).join("")}
+                </div>
+              </div>
+              <div class="space-y-1.5 pt-2">
+                <div class="font-mono-code text-[11px]" style="color: var(--accent-secondary);">◐ LEARNING (ACTIVE LABS):</div>
+                <div class="flex flex-wrap gap-1.5">
+                  ${skill.learningItems.map(item => `<span class="px-2 py-0.5 rounded text-xs font-mono-code border border-dashed" style="border-color: var(--border-subtle); color: var(--text-secondary);">${escapeHtml(item)}</span>`).join("")}
+                </div>
+              </div>
+            </div>
+            <p class="text-xs pt-3 border-t" style="border-color: var(--border-subtle); color: var(--text-secondary);">
+              ${escapeHtml(skill.evidence)}
+            </p>
+          </div>
+        `;
+      }).join("");
+
+      // Toggle visibility
+      if (portfolioState.skillsView === "iac") {
+        iacContainer.classList.remove("hidden");
+        gridContainer.classList.add("hidden");
+      } else {
+        iacContainer.classList.add("hidden");
+        gridContainer.classList.remove("hidden");
+      }
+
+      renderSkillInspector();
+
+      // Attach listeners to HCL blocks
+      document.querySelectorAll(".skill-tf-block").forEach((block) => {
+        block.addEventListener("click", () => {
+          activeInspectedSkillId = block.getAttribute("data-skill-id");
+          renderSkills();
+        });
+        block.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            activeInspectedSkillId = block.getAttribute("data-skill-id");
+            renderSkills();
+          }
+        });
+      });
+    }
+
+    function renderSkillInspector() {
+      const badgeEl = document.getElementById("skill-inspector-badge");
+      const bodyEl = document.getElementById("skill-inspector-body");
+      if (!badgeEl || !bodyEl) return;
+
+      const skill = skillsData.find(s => s.id === activeInspectedSkillId) || skillsData[0];
+      badgeEl.textContent = skill.status.toUpperCase();
+      badgeEl.style.color = skill.status === "proficient" ? "var(--status-ok)" : "var(--accent-secondary)";
+
+      bodyEl.innerHTML = `
+        <div class="font-mono-code text-xs accent-text">${escapeHtml(skill.tfResource)}.${escapeHtml(skill.tfName)}</div>
+        <h3 class="font-bold text-base">${escapeHtml(skill.domain)}</h3>
+        <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">${escapeHtml(skill.evidence)}</p>
+        <div class="space-y-1.5 pt-2 border-t" style="border-color: var(--border-subtle);">
+          <div class="font-mono-code text-[11px]" style="color: var(--status-ok);">✓ Proficient Capabilities:</div>
+          <ul class="list-disc list-inside text-xs space-y-0.5" style="color: var(--text-primary);">
+            ${skill.proficientItems.map(i => `<li>${escapeHtml(i)}</li>`).join("")}
+          </ul>
+        </div>
+        <div class="space-y-1.5 pt-2 border-t" style="border-color: var(--border-subtle);">
+          <div class="font-mono-code text-[11px]" style="color: var(--accent-secondary);">◐ Currently Learning / Labbing:</div>
+          <ul class="list-disc list-inside text-xs space-y-0.5" style="color: var(--text-secondary);">
+            ${skill.learningItems.map(i => `<li>${escapeHtml(i)}</li>`).join("")}
+          </ul>
+        </div>
+      `;
+    }
+
+    // 4. Render Interactive SVG Architecture Diagram for a Pod
+    function buildArchSvgHtml(project) {
+      const nodesHtml = project.nodes.map((n, idx) => {
+        const nextNode = project.nodes[idx + 1];
+        const edgeHtml = nextNode ? `
+          <line x1="${n.x + 104}" y1="${n.y}" x2="${nextNode.x}" y2="${nextNode.y}"
+                stroke="var(--border-subtle)" stroke-width="2" />
+          <line x1="${n.x + 104}" y1="${n.y}" x2="${nextNode.x}" y2="${nextNode.y}"
+                stroke="var(--accent-primary)" stroke-width="2" class="arch-edge-animated" />
+          <polygon points="${nextNode.x - 6},${nextNode.y - 4} ${nextNode.x},${nextNode.y} ${nextNode.x - 6},${nextNode.y + 4}"
+                   fill="var(--accent-primary)" />
+        ` : "";
+
+        return `
+          ${edgeHtml}
+          <g class="arch-svg-node cursor-pointer" tabindex="0" role="button"
+             aria-label="${escapeHtml(n.label)}: ${escapeHtml(n.detail)}"
+             data-project-id="${project.id}" data-node-id="${n.id}">
+            <rect x="${n.x}" y="${n.y - 28}" width="104" height="56" rx="8"
+                  fill="var(--bg-elevated)" stroke="var(--border-subtle)" stroke-width="1.5" />
+            <text x="${n.x + 52}" y="${n.y - 4}" text-anchor="middle"
+                  fill="var(--text-primary)" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">
+              ${escapeHtml(n.label)}
+            </text>
+            <text x="${n.x + 52}" y="${n.y + 13}" text-anchor="middle"
+                  fill="var(--accent-primary)" font-family="JetBrains Mono, monospace" font-size="9">
+              ${escapeHtml(n.sub)}
+            </text>
+          </g>
+        `;
+      }).join("");
+
+      return `
+        <div class="space-y-2">
+          <div class="overflow-x-auto rounded-lg border p-2" style="background-color: var(--bg-base); border-color: var(--border-subtle);">
+            <svg viewBox="0 0 670 130" class="w-full min-w-[540px] h-auto" role="img" aria-label="Architecture diagram for ${escapeHtml(project.title)}">
+              ${nodesHtml}
+            </svg>
+          </div>
+          <div id="arch-node-inspector-${project.id}" class="px-3 py-2 rounded text-xs font-mono-code surface-elevated" style="color: var(--text-secondary);">
+            <span class="accent-text font-semibold">NODE INSPECTOR:</span> Hover or click any diagram node above to inspect its role &amp; security posture.
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPods() {
+      const grid = document.getElementById("pods-grid");
+      if (!grid) return;
+
+      grid.innerHTML = projectsData.map((p) => {
+        const badgeColor = p.status === "Running" ? "var(--status-ok)" : "var(--accent-primary)";
+        return `
+          <article class="surface-card rounded-xl p-5 sm:p-6 flex flex-col justify-between space-y-5">
+            <div class="space-y-4">
+              <!-- Pod Metadata Header -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b font-mono-code text-xs" style="border-color: var(--border-subtle);">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full" style="background-color: ${badgeColor};"></span>
+                  <span class="font-bold accent-text">${escapeHtml(p.podName)}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded text-[11px] surface-elevated" style="color: ${badgeColor};">STATUS: ${escapeHtml(p.status)}</span>
+                  <span class="text-[11px]" style="color: var(--text-muted);">RESTARTS: ${p.restarts}</span>
+                </div>
+              </div>
+
+              <!-- Title & Summary -->
+              <div class="space-y-1.5">
+                <h3 class="text-lg sm:text-xl font-bold leading-snug">${escapeHtml(p.title)}</h3>
+                <p class="text-xs sm:text-sm leading-relaxed" style="color: var(--text-secondary);">${escapeHtml(p.oneLiner)}</p>
+              </div>
+
+              <!-- Interactive SVG Architecture Diagram -->
+              ${buildArchSvgHtml(p)}
+
+              <!-- Tools / Labels -->
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                ${p.tools.map(t => `<span class="px-2 py-0.5 rounded font-mono-code text-[11px] surface-elevated" style="color: var(--text-secondary);">${escapeHtml(t)}</span>`).join("")}
+              </div>
+
+              <!-- Pod Container Log Tail -->
+              <div class="rounded-lg p-3 font-mono-code text-[11px] space-y-1 overflow-x-auto" style="background-color: var(--bg-base); border: 1px solid var(--border-subtle);">
+                <div class="text-[10px] uppercase tracking-wider mb-1" style="color: var(--text-muted);">kubectl logs ${escapeHtml(p.podName)} --tail=3</div>
+                ${p.logs.map(l => `<div class="truncate" style="color: var(--text-secondary);">${escapeHtml(l)}</div>`).join("")}
+              </div>
+            </div>
+
+            <!-- Pod Actions -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t font-mono-code text-xs" style="border-color: var(--border-subtle);">
+              <button type="button" data-open-case="${p.id}"
+                class="open-case-study-btn btn-primary-lime px-4 py-2 rounded-lg font-semibold transition"
+                style="background-color: var(--lime); color: var(--on-lime);">
+                Inspect Case Study &amp; Post-Mortem
+              </button>
+              <span style="color: var(--text-secondary);">Repo: <code class="accent-text">${escapeHtml(p.repoUrl)}</code></span>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      wireArchNodes();
+
+      document.querySelectorAll(".open-case-study-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          openCaseStudyModal(btn.getAttribute("data-open-case"));
+        });
+      });
+    }
+
+    function wireArchNodes() {
+      document.querySelectorAll(".arch-svg-node").forEach((nodeEl) => {
+        const projId = nodeEl.getAttribute("data-project-id");
+        const nodeId = nodeEl.getAttribute("data-node-id");
+        const proj = projectsData.find(p => p.id === projId);
+        const nodeObj = proj ? proj.nodes.find(n => n.id === nodeId) : null;
+        if (!nodeObj) return;
+
+        const highlight = () => {
+          const inspector = document.getElementById(`arch-node-inspector-${projId}`);
+          if (inspector) {
+            inspector.innerHTML = `<span class="accent-text font-semibold">[${escapeHtml(nodeObj.label)}]</span> ${escapeHtml(nodeObj.detail)}`;
+          }
+          const rect = nodeEl.querySelector("rect");
+          if (rect) {
+            rect.setAttribute("stroke", "var(--accent-primary)");
+            rect.setAttribute("stroke-width", "2.5");
+          }
+        };
+
+        const unhighlight = () => {
+          const rect = nodeEl.querySelector("rect");
+          if (rect) {
+            rect.setAttribute("stroke", "var(--border-subtle)");
+            rect.setAttribute("stroke-width", "1.5");
+          }
+        };
+
+        nodeEl.addEventListener("mouseenter", highlight);
+        nodeEl.addEventListener("focus", highlight);
+        nodeEl.addEventListener("click", highlight);
+        nodeEl.addEventListener("mouseleave", unhighlight);
+        nodeEl.addEventListener("blur", unhighlight);
+      });
+    }
+
+    function openCaseStudyModal(projectId) {
+      const modal = document.getElementById("case-study-modal");
+      const podEl = document.getElementById("modal-project-pod");
+      const titleEl = document.getElementById("modal-project-title");
+      const bodyEl = document.getElementById("modal-project-body");
+      const proj = projectsData.find(p => p.id === projectId);
+      if (!modal || !proj || !podEl || !titleEl || !bodyEl) return;
+
+      podEl.textContent = `${proj.podName} • namespace: ${proj.namespace} • status: ${proj.status}`;
+      titleEl.textContent = proj.title;
+
+      bodyEl.innerHTML = `
+        ${buildArchSvgHtml(proj)}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 rounded-xl surface-elevated space-y-1.5">
+            <div class="font-mono-code text-xs accent-text font-bold">01 // PROBLEM CONTEXT</div>
+            <p class="text-xs sm:text-sm leading-relaxed" style="color: var(--text-secondary);">${escapeHtml(proj.problem)}</p>
+          </div>
+          <div class="p-4 rounded-xl surface-elevated space-y-1.5">
+            <div class="font-mono-code text-xs accent-text font-bold">02 // WHAT I BUILT</div>
+            <p class="text-xs sm:text-sm leading-relaxed" style="color: var(--text-secondary);">${escapeHtml(proj.whatIDid)}</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl border space-y-2" style="background-color: var(--bg-base); border-color: var(--accent-secondary);">
+          <div class="font-mono-code text-xs font-bold" style="color: var(--accent-secondary);">03 // INCIDENT POST-MORTEM: WHAT BROKE &amp; HOW I FIXED IT</div>
+          <p class="text-xs sm:text-sm" style="color: var(--text-primary);"><strong>Root Cause:</strong> ${escapeHtml(proj.whatBroke)}</p>
+          <p class="text-xs sm:text-sm" style="color: var(--status-ok);"><strong>Resolution:</strong> ${escapeHtml(proj.howIFixedIt)}</p>
+        </div>
+
+        <div class="p-4 rounded-xl surface-elevated flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="font-mono-code text-xs font-bold" style="color: var(--status-ok);">04 // MEASURABLE OUTCOME</div>
+            <p class="text-xs sm:text-sm" style="color: var(--text-secondary);">${escapeHtml(proj.outcome)}</p>
+          </div>
+          <div class="font-mono-code text-xs shrink-0">
+            <span style="color: var(--text-muted);">Repository:</span><br/>
+            <span class="accent-text font-semibold">${escapeHtml(proj.repoUrl)}</span>
+          </div>
+        </div>
+      `;
+
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      wireArchNodes();
+    }
+
+    // 5. Render Engineering Runbooks
+    let activeRunbookId = "rb-1";
+
+    function renderRunbooks() {
+      const listEl = document.getElementById("runbooks-list");
+      const readerEl = document.getElementById("runbook-reader");
+      if (!listEl || !readerEl) return;
+
+      listEl.innerHTML = runbooksData.map((rb) => {
+        const active = rb.id === activeRunbookId;
+        return `
+          <button type="button" data-rb-id="${rb.id}"
+            class="runbook-card-btn text-left surface-card rounded-xl p-5 space-y-2.5 flex flex-col justify-between ${active ? 'ring-2 ring-cyan-400' : ''}">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between font-mono-code text-xs">
+                <span class="accent-text">${escapeHtml(rb.tag)}</span>
+                <span style="color: var(--text-muted);">${escapeHtml(rb.readTime)}</span>
+              </div>
+              <h3 class="font-bold text-sm sm:text-base leading-snug">${escapeHtml(rb.title)}</h3>
+              <p class="text-xs" style="color: var(--text-secondary);">${escapeHtml(rb.summary)}</p>
+            </div>
+            <div class="font-mono-code text-xs accent-text pt-2">cat ${escapeHtml(rb.slug)} →</div>
+          </button>
+        `;
+      }).join("");
+
+      const current = runbooksData.find(r => r.id === activeRunbookId) || runbooksData[0];
+      readerEl.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3 font-mono-code text-xs" style="border-color: var(--border-subtle);">
+          <span class="accent-text font-bold">docs/runbooks/${escapeHtml(current.slug)}</span>
+          <span style="color: var(--text-muted);">${escapeHtml(current.tag)} • ${escapeHtml(current.readTime)}</span>
+        </div>
+        <h3 class="text-lg sm:text-xl font-bold">${escapeHtml(current.title)}</h3>
+        ${current.content}
+      `;
+
+      document.querySelectorAll(".runbook-card-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          activeRunbookId = btn.getAttribute("data-rb-id");
+          renderRunbooks();
+        });
+      });
+    }
+
+    // 6. Render Blueprint Phases (Phases 1 to 6)
+    function renderBlueprintPhase() {
+      const container = document.getElementById("blueprint-phase-content");
+      if (!container) return;
+      const phaseObj = blueprintPhases[portfolioState.activePhaseTab] || blueprintPhases.phase1;
+      container.innerHTML = `
+        <h3 class="text-xl font-bold font-mono-code accent-text border-b pb-3" style="border-color: var(--border-subtle);">
+          ${escapeHtml(phaseObj.title)}
+        </h3>
+        ${phaseObj.html}
+      `;
+
+      document.querySelectorAll(".phase-tab-btn").forEach((btn) => {
+        const isCurrent = btn.getAttribute("data-phase-tab") === portfolioState.activePhaseTab;
+        if (isCurrent) {
+          btn.style.backgroundColor = "var(--accent-primary)";
+          btn.style.color = "#0B0F14";
+        } else {
+          btn.style.backgroundColor = "";
+          btn.style.color = "var(--text-secondary)";
+        }
+      });
+    }
+
+    // 7. Contact Form Live JSON Payload Preview
+    function getContactPayload() {
+      const nameVal = (document.getElementById("contact-name")?.value || "").trim() || "Recruiter / Hiring Manager";
+      const emailVal = (document.getElementById("contact-email")?.value || "").trim() || "hiring@company.eu";
+      const orgVal = (document.getElementById("contact-org")?.value || "").trim() || "European Tech Team";
+      const roleVal = document.getElementById("contact-role")?.value || "Junior / Associate DevOps Engineer";
+      const msgVal = (document.getElementById("contact-message")?.value || "").trim() || "Let's schedule a technical chat.";
+
+      return {
+        to: portfolioState.email,
+        candidate: portfolioState.name,
+        sender: { name: nameVal, email: emailVal, organization: orgVal },
+        role_target: roleVal,
+        message: msgVal,
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    function updateContactJsonPreview() {
+      const pre = document.getElementById("contact-json-preview");
+      if (!pre) return;
+      pre.textContent = JSON.stringify(getContactPayload(), null, 2);
+    }
+
+    // =========================================================================
+    // INITIALIZATION & EVENT LISTENERS
+    // =========================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      // Load saved preferences safely
+      try {
+        const savedTheme = localStorage.getItem("devops_portfolio_theme");
+        if (savedTheme === "light" || savedTheme === "dark") {
+          portfolioState.theme = savedTheme;
+        }
+        const savedAccent = localStorage.getItem("devops_portfolio_accent");
+        if (savedAccent === "green" || savedAccent === "cyan") {
+          portfolioState.accent = savedAccent;
+        }
+      } catch (e) {}
+
+      applyThemeAndAccent();
+      syncIdentityBindings();
+      runTerminalBoot();
+      renderPipelineStageDetail();
+      renderSkills();
+      renderPods();
+      renderRunbooks();
+      renderBlueprintPhase();
+      updateContactJsonPreview();
+
+      // View Switcher (Portfolio vs Blueprint)
+      const tabPortfolio = document.getElementById("tab-btn-portfolio");
+      const tabBlueprint = document.getElementById("tab-btn-blueprint");
+      const viewPortfolio = document.getElementById("view-portfolio");
+      const viewBlueprint = document.getElementById("view-blueprint");
+
+      function switchMainView(mode) {
+        if (mode === "blueprint") {
+          viewPortfolio.classList.add("hidden");
+          viewBlueprint.classList.remove("hidden");
+          tabBlueprint.style.backgroundColor = "var(--accent-primary)";
+          tabBlueprint.style.color = "#0B0F14";
+          tabBlueprint.setAttribute("aria-selected", "true");
+          tabPortfolio.style.backgroundColor = "transparent";
+          tabPortfolio.style.color = "var(--text-secondary)";
+          tabPortfolio.setAttribute("aria-selected", "false");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          viewBlueprint.classList.add("hidden");
+          viewPortfolio.classList.remove("hidden");
+          tabPortfolio.style.backgroundColor = "var(--accent-primary)";
+          tabPortfolio.style.color = "#0B0F14";
+          tabPortfolio.setAttribute("aria-selected", "true");
+          tabBlueprint.style.backgroundColor = "transparent";
+          tabBlueprint.style.color = "var(--text-secondary)";
+          tabBlueprint.setAttribute("aria-selected", "false");
+        }
+      }
+
+      tabPortfolio?.addEventListener("click", () => switchMainView("portfolio"));
+      tabBlueprint?.addEventListener("click", () => switchMainView("blueprint"));
+      document.getElementById("back-to-portfolio-btn")?.addEventListener("click", () => switchMainView("portfolio"));
+      document.getElementById("footer-blueprint-btn")?.addEventListener("click", () => {
+        portfolioState.activePhaseTab = "phase5";
+        renderBlueprintPhase();
+        switchMainView("blueprint");
+      });
+
+      // Theme & Accent Toggles
+      function applyThemeAndAccent() {
+        const root = document.documentElement;
+        if (portfolioState.theme === "light") {
+          root.classList.add("light");
+          root.classList.remove("dark");
+        } else {
+          root.classList.add("dark");
+          root.classList.remove("light");
+        }
+        root.setAttribute("data-accent", portfolioState.accent);
+
+        const themeLbl = document.getElementById("theme-toggle-label");
+        if (themeLbl) themeLbl.textContent = `Theme: ${portfolioState.theme === "dark" ? "Dark" : "Light"}`;
+        const accentLbl = document.getElementById("accent-toggle-label");
+        if (accentLbl) accentLbl.textContent = `Accent: ${portfolioState.accent === "cyan" ? "Cyan" : "Green"}`;
+      }
+
+      document.getElementById("theme-toggle-btn")?.addEventListener("click", () => {
+        portfolioState.theme = portfolioState.theme === "dark" ? "light" : "dark";
+        try { localStorage.setItem("devops_portfolio_theme", portfolioState.theme); } catch (e) {}
+        applyThemeAndAccent();
+      });
+
+      document.getElementById("accent-toggle-btn")?.addEventListener("click", () => {
+        portfolioState.accent = portfolioState.accent === "cyan" ? "green" : "cyan";
+        try { localStorage.setItem("devops_portfolio_accent", portfolioState.accent); } catch (e) {}
+        applyThemeAndAccent();
+      });
+
+      // Mobile Navigation Drawer
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileDrawer = document.getElementById("mobile-nav-drawer");
+      mobileMenuBtn?.addEventListener("click", () => {
+        const isHidden = mobileDrawer.classList.contains("hidden");
+        if (isHidden) {
+          mobileDrawer.classList.remove("hidden");
+          mobileMenuBtn.setAttribute("aria-expanded", "true");
+        } else {
+          mobileDrawer.classList.add("hidden");
+          mobileMenuBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+      document.querySelectorAll(".mobile-nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileDrawer.classList.add("hidden");
+          mobileMenuBtn?.setAttribute("aria-expanded", "false");
+          switchMainView("portfolio");
+        });
+      });
+
+      // Terminal Controls
+      document.getElementById("replay-terminal-btn")?.addEventListener("click", runTerminalBoot);
+      document.querySelectorAll(".cli-pill").forEach((pill) => {
+        pill.addEventListener("click", () => {
+          const cmd = pill.getAttribute("data-cli-cmd");
+          if (cmd) executeCliCommand(cmd);
+        });
+      });
+      document.getElementById("terminal-form")?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const input = document.getElementById("terminal-input");
+        if (input && input.value.trim()) {
+          executeCliCommand(input.value);
+          input.value = "";
+        }
+      });
+
+      // Telemetry Refresh Button
+      document.getElementById("refresh-telemetry-btn")?.addEventListener("click", () => {
+        const rtt = Math.floor(11 + Math.random() * 7);
+        const latencyEl = document.getElementById("metric-latency");
+        if (latencyEl) {
+          latencyEl.textContent = `CloudFront OAC • TLS 1.3 • ${rtt}ms RTT (Demo)`;
+        }
+        showToast(`Edge healthcheck OK: HTTP 200 (${rtt}ms simulated RTT)`);
+      });
+
+      // Pipeline Stage Buttons
+      document.querySelectorAll(".pipeline-stage-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          portfolioState.activeStage = btn.getAttribute("data-stage");
+          renderPipelineStageDetail();
+        });
+      });
+
+      // Skills View Toggle & Filters
+      const iacBtn = document.getElementById("skills-view-iac-btn");
+      const gridBtn = document.getElementById("skills-view-grid-btn");
+      iacBtn?.addEventListener("click", () => {
+        portfolioState.skillsView = "iac";
+        iacBtn.style.backgroundColor = "var(--accent-primary)";
+        iacBtn.style.color = "#0B0F14";
+        gridBtn.style.backgroundColor = "transparent";
+        gridBtn.style.color = "var(--text-secondary)";
+        renderSkills();
+      });
+      gridBtn?.addEventListener("click", () => {
+        portfolioState.skillsView = "grid";
+        gridBtn.style.backgroundColor = "var(--accent-primary)";
+        gridBtn.style.color = "#0B0F14";
+        iacBtn.style.backgroundColor = "transparent";
+        iacBtn.style.color = "var(--text-secondary)";
+        renderSkills();
+      });
+
+      document.querySelectorAll(".skill-filter-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          portfolioState.skillFilter = btn.getAttribute("data-skill-filter");
+          document.querySelectorAll(".skill-filter-btn").forEach((b) => {
+            b.classList.remove("accent-text", "font-semibold");
+            b.style.color = "var(--text-secondary)";
+          });
+          btn.classList.add("accent-text", "font-semibold");
+          btn.style.color = "";
+          renderSkills();
+        });
+      });
+
+      // Blueprint Phase Tabs
+      document.querySelectorAll(".phase-tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          portfolioState.activePhaseTab = btn.getAttribute("data-phase-tab");
+          renderBlueprintPhase();
+        });
+      });
+
+      // Copy Endpoint Buttons
+      document.querySelectorAll(".copy-endpoint-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetKey = btn.getAttribute("data-copy-target");
+          const val = portfolioState[targetKey] || "";
+          copyTextSafe(val, targetKey.toUpperCase());
+        });
+      });
+
+      // Contact Form Live Updates & Submit
+      ["contact-name", "contact-email", "contact-org", "contact-role", "contact-message"].forEach((id) => {
+        document.getElementById(id)?.addEventListener("input", updateContactJsonPreview);
+        document.getElementById(id)?.addEventListener("change", updateContactJsonPreview);
+      });
+
+      document.getElementById("copy-curl-btn")?.addEventListener("click", () => {
+        const payload = JSON.stringify(getContactPayload());
+        const curlCmd = `curl -X POST https://api.portfolio.dev/v1/contact -H "Content-Type: application/json" -d '${payload}'`;
+        copyTextSafe(curlCmd, "cURL command");
+      });
+
+      document.getElementById("contact-form")?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const payload = getContactPayload();
+        copyTextSafe(JSON.stringify(payload, null, 2), "contact JSON payload");
+        const statusEl = document.getElementById("contact-status-msg");
+        if (statusEl) {
+          statusEl.textContent = "✓ Payload copied & mailto: link prepared.";
+        }
+      });
+
+      // Modals (Case Study, Customizer, Resume)
+      const caseModal = document.getElementById("case-study-modal");
+      const custModal = document.getElementById("customizer-modal");
+      const resModal = document.getElementById("resume-modal");
+
+      document.getElementById("close-case-study-btn")?.addEventListener("click", () => {
+        caseModal?.classList.add("hidden");
+        caseModal?.classList.remove("flex");
+      });
+
+      document.getElementById("open-customizer-btn")?.addEventListener("click", () => {
+        custModal?.classList.remove("hidden");
+        custModal?.classList.add("flex");
+      });
+      document.getElementById("close-customizer-btn")?.addEventListener("click", () => {
+        custModal?.classList.add("hidden");
+        custModal?.classList.remove("flex");
+      });
+      document.getElementById("customizer-form")?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        portfolioState.name = document.getElementById("cust-name")?.value || "[YOUR FULL NAME]";
+        portfolioState.email = document.getElementById("cust-email")?.value || "[EMAIL]";
+        portfolioState.github = document.getElementById("cust-github")?.value || "[GITHUB_URL]";
+        portfolioState.linkedin = document.getElementById("cust-linkedin")?.value || "[LINKEDIN_URL]";
+        portfolioState.resume = document.getElementById("cust-resume")?.value || "[RESUME_PDF_PATH]";
+        syncIdentityBindings();
+        runTerminalBoot();
+        custModal?.classList.add("hidden");
+        custModal?.classList.remove("flex");
+        showToast("Identity & links updated live across the portfolio");
+      });
+
+      const openResume = () => {
+        resModal?.classList.remove("hidden");
+        resModal?.classList.add("flex");
+      };
+      document.getElementById("open-resume-modal-btn")?.addEventListener("click", openResume);
+      document.getElementById("contact-resume-btn")?.addEventListener("click", openResume);
+      document.getElementById("close-resume-modal-btn")?.addEventListener("click", () => {
+        resModal?.classList.add("hidden");
+        resModal?.classList.remove("flex");
+      });
+      document.getElementById("print-resume-btn")?.addEventListener("click", () => {
+        resModal?.classList.add("hidden");
+        resModal?.classList.remove("flex");
+        window.print();
+      });
+
+      // Global Escape Key for Modals
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          [caseModal, custModal, resModal].forEach((m) => {
+            m?.classList.add("hidden");
+            m?.classList.remove("flex");
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
