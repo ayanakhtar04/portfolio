@@ -79,7 +79,7 @@ export const CommandPalette = ({ isOpen, onClose }) => {
           role="dialog"
           aria-modal="true"
           aria-label="Search"
-          className="palette-panel pointer-events-auto rounded-xl max-w-lg w-full overflow-clip shadow-2xl surface-elevated"
+          className="ui-scaled palette-panel pointer-events-auto rounded-xl max-w-lg w-full overflow-clip shadow-2xl surface-elevated"
           style={{ backgroundColor: 'var(--bg-surface)' }}
         >
           <div className="p-4 border-b flex items-center gap-2 font-mono-code text-sm" style={{ borderColor: 'var(--border-subtle)' }}>
@@ -121,7 +121,7 @@ export const CommandPalette = ({ isOpen, onClose }) => {
             )}
           </ul>
 
-          <div className="px-4 py-2 border-t text-[11px] font-mono-code flex items-center justify-between" style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-muted)' }}>
+          <div className="px-4 py-2 border-t text-xs font-mono-code flex items-center justify-between" style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-muted)' }}>
             <span>↑↓ to move · Enter to open · Esc to close</span>
           </div>
         </div>

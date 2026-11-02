@@ -4,6 +4,7 @@ import App from './App'
 import { PortfolioProvider } from './context/PortfolioContext'
 import './styles/globals.css'
 import './styles/motion.css'
+import './styles/chrome.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

@@ -43,8 +43,8 @@ export const useInViewOnce = (ref, rootMargin = '0px 0px -15% 0px') => {
 //   [data-stagger] > *                   each child, offset by its index
 // Section headings and the lists, tag rows, grids and forms inside revealed
 // blocks are tagged automatically, so components only mark the big blocks.
-// Native path: CSS animation-timeline: view(), scrubbed and reversible
-// (see motion.css). Fallback: IntersectionObserver toggles .is-visible.
+// Elements reveal once with timed transitions (motion.css); the native flag
+// only gates the few remaining scroll-linked effects (glows, ticker, diagram).
 const supportsViewTimeline = typeof CSS !== 'undefined'
   && CSS.supports('animation-timeline: view()');
 
@@ -69,76 +69,55 @@ const autoTag = (scope) => {
 
 const setIndex = (el, i) => el.style.setProperty('--i', String(Math.min(i, 8)));
 
-// Reveals finish after a fixed scroll distance (motion.css). Content in the
-// last screen of the page can't scroll that far, so it would stay half-faded;
-// those elements finish as soon as they are fully on screen instead.
-const REVEAL_PX = { block: 300, blockStep: 40, child: 180, childStep: 26 };
-const fitRanges = (root) => {
-  if (!supportsViewTimeline) return;
-  const docBottom = document.documentElement.scrollHeight;
-  root.querySelectorAll('[data-reveal], [data-stagger] > *').forEach((el) => {
-    const i = Number(el.style.getPropertyValue('--i')) || 0;
-    const need = el.hasAttribute('data-reveal')
-      ? REVEAL_PX.block + i * REVEAL_PX.blockStep
-      : REVEAL_PX.child + i * REVEAL_PX.childStep;
-    const top = el.getBoundingClientRect().top + window.scrollY;
-    const short = docBottom - top < need;
-    el.toggleAttribute('data-reveal-end', short);
-  });
-};
-
-let resizeTimer = 0;
-const onResize = () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => fitRanges(document.getElementById('root') || document.body), 200);
-};
+// Nodes the section-build effect injects; they never need tagging.
+const EFFECT_NODES = '.build-cmd, .build-scan, .build-caret-glyph';
+const addsContent = (records) => records.some((r) => [...r.addedNodes].some(
+  (n) => n.nodeType === 1 && !n.matches(EFFECT_NODES) && !n.closest?.(EFFECT_NODES),
+));
 
 const initReveals = (root) => {
-  document.documentElement.classList.add(supportsViewTimeline ? 'reveal-native' : 'reveal-io');
+  document.documentElement.classList.add(supportsViewTimeline ? 'reveal-native' : 'reveal-io', 'js-motion');
 
-  let io = null;
-  if (!supportsViewTimeline) {
-    io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        // Toggle both ways so elements fly back out when they leave.
-        entry.target.classList.toggle('is-visible', entry.isIntersecting);
-      });
-    }, { rootMargin: '0px 0px -8% 0px' });
-  }
+  // Reveals play once and stay: content never fades back out while being read.
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px' });
+  const watched = new WeakSet();
+  const watch = (el, i) => {
+    if (watched.has(el)) return;
+    watched.add(el);
+    setIndex(el, i);
+    io.observe(el);
+  };
 
   const scan = (scope) => {
     autoTag(scope);
-    const blocks = [...scope.querySelectorAll('[data-reveal]')];
-    if (scope.matches?.('[data-reveal]')) blocks.push(scope);
-    blocks.forEach((el) => {
+    scope.querySelectorAll('[data-reveal]').forEach((el) => {
       const siblings = [...el.parentElement.children].filter((c) => c.hasAttribute('data-reveal'));
-      setIndex(el, siblings.indexOf(el));
-      io?.observe(el);
+      watch(el, siblings.indexOf(el));
     });
-    const groups = [...scope.querySelectorAll('[data-stagger]')];
-    if (scope.matches?.('[data-stagger]')) groups.push(scope);
-    groups.forEach((group) => {
-      [...group.children].forEach((child, i) => {
-        setIndex(child, i);
-        io?.observe(child);
-      });
+    scope.querySelectorAll('[data-stagger]').forEach((group) => {
+      [...group.children].forEach((child, i) => watch(child, i));
     });
   };
 
   scan(root);
-  fitRanges(root);
-  window.addEventListener('resize', onResize);
 
-  // React swaps views, filters and form states; tag whatever it adds.
-  let pending = false;
-  const mo = new MutationObserver(() => {
-    if (pending) return;
-    pending = true;
-    queueMicrotask(() => { pending = false; scan(root); fitRanges(root); });
+  // React swaps views and form states; tag what it adds. Text edits (typing,
+  // decoding, counters) and the build effect's own nodes are ignored, so
+  // animations never trigger a rescan of the page.
+  let pending = 0;
+  const mo = new MutationObserver((records) => {
+    if (pending || !addsContent(records)) return;
+    pending = requestAnimationFrame(() => { pending = 0; scan(root); });
   });
   mo.observe(root, { childList: true, subtree: true });
 
-  return () => { io?.disconnect(); mo.disconnect(); window.removeEventListener('resize', onResize); };
+  return () => { io.disconnect(); mo.disconnect(); cancelAnimationFrame(pending); };
 };
 
 // --- Pause off-screen animations ----------------------------------------
@@ -172,45 +151,78 @@ const initOffscreenPause = (root) => {
 // --- Cursor spotlight ---------------------------------------------------
 // One delegated listener; writes --mx/--my on the hovered .spotlight card.
 // The glow itself is a pseudo-element moved with transform (motion.css).
+// The hovered glass card also tilts toward the pointer, lifts, and turns its
+// specular rim to face it. Big cards tilt less so they never feel seasick.
+const TILT_DEG = 5;
+const LIFT_PX = -6;
+const resetTilt = (card) => {
+  ['--rx', '--ry', '--lift', '--glass-angle'].forEach((p) => card.style.removeProperty(p));
+};
+
 const initSpotlight = () => {
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return () => {};
+  const tilt = !prefersReducedMotion();
   let frame = 0;
   let pending = null;
+  let active = null;
 
   const flush = () => {
     frame = 0;
     if (!pending) return;
-    const { card, x, y } = pending;
+    const { card, x, y, w, h } = pending;
     card.style.setProperty('--mx', `${x}px`);
     card.style.setProperty('--my', `${y}px`);
+    if (tilt) {
+      const scale = Math.min(1, 520 / Math.max(w, h));
+      const px = x / w - 0.5;
+      const py = y / h - 0.5;
+      card.style.setProperty('--rx', `${(-py * TILT_DEG * 2 * scale).toFixed(2)}deg`);
+      card.style.setProperty('--ry', `${(px * TILT_DEG * 2 * scale).toFixed(2)}deg`);
+      card.style.setProperty('--lift', `${LIFT_PX}px`);
+      const angle = (Math.atan2(py, px) * 180) / Math.PI + 270;
+      card.style.setProperty('--glass-angle', `${angle.toFixed(0)}deg`);
+    }
     pending = null;
   };
 
   const onMove = (e) => {
     const card = e.target.closest?.('.spotlight');
+    if (active && active !== card) { resetTilt(active); active = null; }
     if (!card) return;
+    active = card;
     const rect = card.getBoundingClientRect();
-    pending = { card, x: e.clientX - rect.left, y: e.clientY - rect.top };
+    // Pointer position in the card's own CSS px: on large screens the stage
+    // is scaled up (motion/workspaces.js), so screen px and card px differ.
+    const k = card.offsetWidth ? card.offsetWidth / rect.width : 1;
+    pending = { card, x: (e.clientX - rect.left) * k, y: (e.clientY - rect.top) * k, w: card.offsetWidth || rect.width, h: card.offsetHeight || rect.height };
     if (!frame) frame = requestAnimationFrame(flush);
   };
+  const onLeave = () => { if (active) { resetTilt(active); active = null; } };
 
   document.addEventListener('pointermove', onMove, { passive: true });
+  document.documentElement.addEventListener('pointerleave', onLeave);
   return () => {
     document.removeEventListener('pointermove', onMove);
+    document.documentElement.removeEventListener('pointerleave', onLeave);
     cancelAnimationFrame(frame);
   };
 };
 
 // --- Header reading progress ------------------------------------------
 // CSS animation-timeline: scroll() drives it where supported; this keeps
-// --scroll current for other browsers and for reduced motion.
+// --scroll current for other browsers and for reduced motion. The variable is
+// written on the bar itself: on <html> it would restyle the whole page every
+// scroll frame.
 const initScrollProgress = () => {
-  const el = document.documentElement;
+  if (supportsViewTimeline && !prefersReducedMotion()) return () => {};
+  const doc = document.documentElement;
   let frame = 0;
   const update = () => {
     frame = 0;
-    const max = el.scrollHeight - window.innerHeight;
-    el.style.setProperty('--scroll', max > 0 ? (window.scrollY / max).toFixed(4) : '0');
+    const bar = document.querySelector('.scroll-progress');
+    if (!bar) return;
+    const max = doc.scrollHeight - window.innerHeight;
+    bar.style.setProperty('--scroll', max > 0 ? (window.scrollY / max).toFixed(4) : '0');
   };
   const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
   update();

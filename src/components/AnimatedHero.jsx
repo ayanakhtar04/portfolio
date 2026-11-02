@@ -2,12 +2,12 @@ import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
 import { HeroTerminal } from './HeroTerminal';
 
-export const AnimatedHero = ({ onOpenCustomizer, onOpenResume, ready }) => {
+export const AnimatedHero = ({ onOpenResume, ready }) => {
   const { state } = usePortfolio();
 
   return (
     <section id="hero" aria-labelledby="hero-heading" className="space-y-6 relative isolate" data-anim-scope>
-      <div className={`hero-load ${ready ? 'is-ready' : ''} grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch`} data-scrub="exit">
+      <div className={`hero-load ${ready ? 'is-ready' : ''} grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch`}>
 
         {/* Left Column: Recruiter Pitch */}
         <div className="lg:col-span-7 surface-card spotlight rounded-xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
@@ -19,14 +19,14 @@ export const AnimatedHero = ({ onOpenCustomizer, onOpenResume, ready }) => {
               </span>
             </div>
 
-            <h1 id="hero-heading" className="text-2xl sm:text-4xl lg:text-[40px] font-bold tracking-tight leading-tight">
-              Hi, I'm <span className="accent-text font-mono-code">{state.name}</span>.
-              <span className="block mt-2 text-lg sm:text-2xl font-normal" style={{ color: 'var(--text-secondary)' }}>
-                <strong style={{ color: 'var(--text-primary)' }}>DevOps &amp; Cloud Engineer</strong> in Udaipur, India
-              </span>
+            <h1 id="hero-heading" className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
+              Hi, I&rsquo;m <span className="accent-text font-mono-code whitespace-nowrap">{state.name}</span>.
             </h1>
+            <p className="text-xl sm:text-2xl" style={{ color: 'var(--text-secondary)' }}>
+              <strong style={{ color: 'var(--text-primary)' }}>DevOps &amp; Cloud Engineer</strong> in Udaipur, India
+            </p>
 
-            <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-base sm:text-lg leading-relaxed max-w-[62ch]" style={{ color: 'var(--text-secondary)' }}>
               I run AWS infrastructure, CI/CD pipelines and containerized apps for live client sites as a <strong style={{ color: 'var(--text-primary)' }}>React &amp; Cloud Engineer at Brandskey Creative Studio</strong>. I automate releases with GitHub Actions and Jenkins, manage infrastructure with Terraform, and deploy Docker images to Amazon ECS on Fargate. Oracle Cloud Infrastructure Foundations certified, preparing for AWS Solutions Architect – Associate.
             </p>
           </div>

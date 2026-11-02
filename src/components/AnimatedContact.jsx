@@ -37,7 +37,9 @@ export const AnimatedContact = () => {
 
     // Send email
     const subject = `DevOps Engineer Inquiry: ${formData.role}`;
-    const body = `From: ${formData.name} (${formData.email})\nOrganization: ${formData.org}\nRole: ${formData.role}\n\nMessage:\n${formData.message}`;
+    // Values are trimmed and URL-encoded below; nothing is sent to a server.
+    const f = Object.fromEntries(Object.entries(formData).map(([k, v]) => [k, String(v).trim()]));
+    const body = `From: ${f.name} (${f.email})\nOrganization: ${f.org}\nRole: ${f.role}\n\nMessage:\n${f.message}`;
     window.location.href = `mailto:${state.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     // Reset
@@ -59,7 +61,7 @@ export const AnimatedContact = () => {
     <section id="contact" aria-labelledby="contact-heading" className="space-y-6" data-anim-scope>
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b pb-4" style={{ borderColor: 'var(--border-subtle)' }}>
         <div>
-          <p className="font-mono-code text-xs accent-text uppercase tracking-wider">07 // Contact &amp; Recruiter Dispatch</p>
+          <p className="font-mono-code text-xs accent-text uppercase tracking-wider">05 // Contact</p>
           <h2 id="contact-heading" className="text-2xl sm:text-3xl font-bold mt-1">Initialize Connection</h2>
         </div>
       </div>
@@ -84,7 +86,7 @@ export const AnimatedContact = () => {
               <button
                 type="button"
                 onClick={() => navigator.clipboard.writeText(state.email)}
-                className="px-2.5 py-1 rounded surface-card accent-text hover:underline text-[11px]"
+                className="px-2.5 py-1 rounded surface-card accent-text hover:underline text-xs"
               >
                 Copy
               </button>
@@ -98,7 +100,7 @@ export const AnimatedContact = () => {
               <button
                 type="button"
                 onClick={() => navigator.clipboard.writeText(state.github)}
-                className="px-2.5 py-1 rounded surface-card accent-text hover:underline text-[11px]"
+                className="px-2.5 py-1 rounded surface-card accent-text hover:underline text-xs"
               >
                 Copy
               </button>
@@ -112,7 +114,7 @@ export const AnimatedContact = () => {
               <button
                 type="button"
                 onClick={() => navigator.clipboard.writeText(state.linkedin)}
-                className="px-2.5 py-1 rounded surface-card accent-text hover:underline text-[11px]"
+                className="px-2.5 py-1 rounded surface-card accent-text hover:underline text-xs"
               >
                 Copy
               </button>
@@ -141,6 +143,8 @@ export const AnimatedContact = () => {
                   name="name"
                   type="text"
                   required
+                  maxLength={100}
+                  autoComplete="name"
                   value={formData.name}
                   onChange={handleChange}
                   disabled={submitState !== 'idle'}
@@ -156,6 +160,8 @@ export const AnimatedContact = () => {
                   name="email"
                   type="email"
                   required
+                  maxLength={254}
+                  autoComplete="email"
                   value={formData.email}
                   onChange={handleChange}
                   disabled={submitState !== 'idle'}
@@ -173,6 +179,8 @@ export const AnimatedContact = () => {
                   id="contact-org"
                   name="org"
                   type="text"
+                  maxLength={120}
+                  autoComplete="organization"
                   value={formData.org}
                   onChange={handleChange}
                   disabled={submitState !== 'idle'}
@@ -207,6 +215,8 @@ export const AnimatedContact = () => {
                 name="message"
                 rows="3"
                 required
+                // mailto: links much past ~2,000 characters fail in some mail apps.
+                maxLength={1500}
                 value={formData.message}
                 onChange={handleChange}
                 disabled={submitState !== 'idle'}

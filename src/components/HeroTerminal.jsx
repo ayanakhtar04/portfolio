@@ -69,7 +69,7 @@ export const HeroTerminal = ({ ready }) => {
       timer = i < TYPED.length ? setTimeout(tick, TYPE_MS) : setTimeout(settle, 250);
     }, 300);
     return () => clearTimeout(timer);
-    // state.name may change in the customizer; the intro only runs once.
+    // The intro runs once; it doesn't need to re-run if state changes later.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready, reduced]);
 
@@ -153,7 +153,7 @@ export const HeroTerminal = ({ ready }) => {
               type="button"
               disabled={!interactive}
               onClick={() => run(cmd)}
-              className="px-2 py-0.5 rounded text-[11px] font-mono-code surface-card disabled:opacity-50"
+              className="px-2 py-0.5 rounded text-xs font-mono-code surface-card disabled:opacity-50"
             >
               {cmd}
             </button>

@@ -34,3 +34,6 @@ build/
 
 # OS
 Thumbs.db
+
+# Local design-review output (screenshots, reports)
+.taste-skill/

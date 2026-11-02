@@ -1,28 +1,26 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePortfolio } from './context/PortfolioContext';
-import { Header } from './components/Header';
 import { Backdrop } from './components/Backdrop';
 import { AnimatedHero } from './components/AnimatedHero';
 import { AnimatedPipeline } from './components/AnimatedPipeline';
-import { AnimatedSkills } from './components/AnimatedSkills';
-import { Projects } from './components/Projects';
+import { AnimatedSkills, SKILL_BEATS } from './components/AnimatedSkills';
+import { Projects, PROJECT_BEATS } from './components/Projects';
 import { Certifications } from './components/Certifications';
 import { AnimatedContact } from './components/AnimatedContact';
 import { Footer } from './components/Footer';
-import { CustomizerModal, ResumeModal } from './components/Modals';
+import { LinuxDock } from './components/LinuxDock';
+import { Workspaces } from './components/Workspaces';
+import { ResumeModal } from './components/Modals';
 import { CommandPalette } from './components/CommandPalette';
 import { Observability } from './components/Observability';
-import { BootIntro, shouldShowBoot } from './components/BootIntro';
 import { initMotion } from './motion/motion';
+import { initSectionBuild } from './motion/sectionBuild';
 import { initSmoothScroll } from './motion/smoothScroll';
 
 function App() {
   const { state, updateState } = usePortfolio();
-  const [customizerOpen, setCustomizerOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
-  const [booting, setBooting] = useState(shouldShowBoot);
-  const finishBoot = useCallback(() => setBooting(false), []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -45,27 +43,34 @@ function App() {
 
   // Scroll reveals, off-screen pausing, cursor spotlight.
   useEffect(() => initMotion(document.getElementById('root')), []);
+  useEffect(() => initSectionBuild(document.getElementById('root')), []);
   useEffect(() => initSmoothScroll(), []);
+
+  const footer = <Footer onViewBlueprint={() => { updateState({ activeView: 'blueprint' }); window.scrollTo(0, 0); }} />;
 
   return (
     <div className="min-h-screen" style={{ color: 'var(--text-primary)' }}>
       <Backdrop />
-      <Header onOpenPalette={() => setCommandPaletteOpen(true)} />
+      {/* No top bar: navigation, search and the theme/colour toggles live in the
+          bottom dock, so nothing sits over the top of the stage. A hairline
+          along the top edge shows how far through the page you are. */}
+      <div className="scroll-progress" aria-hidden="true" />
 
       <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {state.activeView === 'portfolio' ? (
-          <div className="space-y-16 sm:space-y-24">
-            <AnimatedHero
-              ready={!booting}
-              onOpenCustomizer={() => setCustomizerOpen(true)}
-              onOpenResume={() => setResumeOpen(true)}
+          <div className="space-y-16 sm:space-y-24 ws-flow">
+            <Workspaces
+              scenes={[
+                { id: 'hero', label: 'Intro', node: <AnimatedHero ready onOpenResume={() => setResumeOpen(true)} /> },
+                { id: 'observability', label: 'Impact', node: <Observability /> },
+                { id: 'pipeline', label: 'Journey', beats: 5, node: <AnimatedPipeline /> },
+                { id: 'skills', label: 'Skills', beats: SKILL_BEATS, node: <AnimatedSkills /> },
+                { id: 'pods', label: 'Projects', beats: PROJECT_BEATS, node: <Projects /> },
+                { id: 'certs', label: 'Education', node: <Certifications /> },
+                { id: 'contact', label: 'Contact', node: <AnimatedContact /> },
+                { id: 'footer', label: 'Bye', node: footer },
+              ]}
             />
-            <Observability />
-            <AnimatedPipeline />
-            <AnimatedSkills />
-            <Projects />
-            <Certifications />
-            <AnimatedContact />
           </div>
         ) : (
           <div className="surface-card rounded-xl p-6 space-y-4" data-reveal>
@@ -87,12 +92,11 @@ function App() {
         )}
       </main>
 
-      <Footer onViewBlueprint={() => { updateState({ activeView: 'blueprint' }); window.scrollTo(0, 0); }} />
+      {state.activeView !== 'portfolio' && footer}
 
-      <CustomizerModal isOpen={customizerOpen} onClose={() => setCustomizerOpen(false)} />
       <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
+      <LinuxDock onShowApps={() => setCommandPaletteOpen(true)} />
       <CommandPalette isOpen={commandPaletteOpen} onClose={() => setCommandPaletteOpen(false)} />
-      {booting && <BootIntro onDone={finishBoot} />}
 
     </div>
   );

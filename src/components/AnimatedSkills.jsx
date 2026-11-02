@@ -1,7 +1,7 @@
 import React from 'react';
 import { skills } from '../data/portfolio';
+import { Deck } from './Deck';
 
-const byPod = Object.fromEntries(skills.map((s) => [s.pod, s]));
 const toolCount = new Set(skills.flatMap((s) => s.items)).size;
 
 // Simple line glyphs, one per skill group.
@@ -22,25 +22,11 @@ const Glyph = ({ pod }) => (
   </svg>
 );
 
-// Bento placement on large screens (4 columns).
-const LAYOUT = [
-  { pod: 'aws-cloud', span: 'lg:col-span-2 lg:row-span-2', reveal: 'left' },
-  { pod: 'kubectl', span: 'lg:col-span-2 lg:row-span-2', reveal: 'right' },
-  { pod: 'cicd', span: '', reveal: 'scale' },
-  { pod: 'iac-terraform', span: '', reveal: 'scale' },
-  { pod: 'containers', span: '', reveal: 'scale' },
-  { pod: 'linux-networking', span: '', reveal: 'scale' },
-  { pod: 'security', span: 'lg:col-span-2', reveal: 'left' },
-  { pod: 'tools-languages', span: '', reveal: 'up' },
-  { pod: 'kubernetes', span: '', reveal: 'right' },
-];
-
-const SkillCard = ({ skill, span, reveal, large }) => {
+const SkillCard = ({ skill, large }) => {
   const learning = skill.proficiency === 'Learning';
   return (
     <article
-      className={`skill-card surface-card spotlight rounded-2xl p-5 flex flex-col gap-4 ${span} ${learning ? 'is-learning' : ''}`}
-      data-reveal={reveal}
+      className={`skill-card surface-card spotlight rounded-2xl p-6 flex flex-col gap-4 ${learning ? 'is-learning' : ''}`}
     >
       <header className="space-y-3">
         <div className="flex items-center justify-between gap-3">
@@ -60,7 +46,7 @@ const SkillCard = ({ skill, span, reveal, large }) => {
       </ul>
 
       <footer className="mt-auto pt-3 border-t text-xs" style={{ borderColor: 'var(--border-subtle)' }}>
-        <span className="font-mono-code uppercase tracking-wider text-[10px]" style={{ color: 'var(--text-muted)' }}>
+        <span className="font-mono-code uppercase tracking-wider text-xs" style={{ color: 'var(--text-muted)' }}>
           {learning ? 'Status' : 'Proven in'}
         </span>
         <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1" style={{ color: 'var(--text-secondary)' }}>
@@ -71,66 +57,13 @@ const SkillCard = ({ skill, span, reveal, large }) => {
   );
 };
 
-// The kubectl view of the same data: one row per skill group.
-const KubectlCard = ({ span, reveal }) => (
-  <article className={`surface-card rounded-2xl overflow-clip flex flex-col ${span}`} data-reveal={reveal}>
-    <div className="px-4 py-3 border-b surface-elevated font-mono-code text-xs flex items-center justify-between gap-2" style={{ borderColor: 'var(--border-subtle)' }}>
-      <span className="flex items-center gap-1.5" aria-hidden="true">
-        <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-        <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-      </span>
-      <span style={{ color: 'var(--text-muted)' }}>skills · {skills.length} pods</span>
-    </div>
-    <div className="p-4 sm:p-5 font-mono-code text-xs flex-1 flex flex-col" style={{ backgroundColor: 'var(--bg-base)' }}>
-      <div className="mb-3"><span className="accent-text">$</span> kubectl get pods -n skills</div>
-      <div className="kube-grid kube-head" style={{ color: 'var(--text-muted)' }} aria-hidden="true">
-        <span>NAME</span><span>READY</span><span>STATUS</span><span className="text-right">TOOLS</span>
-      </div>
-      <ul className="flex-1" aria-label="Skill groups and status">
-        {skills.map((s) => {
-          const ok = s.proficiency === 'Proficient';
-          return (
-            <li key={s.pod} className="kube-grid kube-row">
-              <span className="truncate" style={{ color: 'var(--text-primary)' }}>{s.pod}</span>
-              <span>{ok ? '1/1' : '0/1'}</span>
-              <span className="inline-flex items-center gap-2 min-w-0" style={{ color: ok ? 'var(--status-ok)' : 'var(--status-warn)' }}>
-                <span className="pulse-dot" aria-hidden="true" />
-                <span className="truncate">{ok ? 'Running' : 'Creating'}</span>
-              </span>
-              <span className="text-right" style={{ color: 'var(--text-secondary)' }}>{s.items.length}</span>
-            </li>
-          );
-        })}
-      </ul>
-      <p className="mt-3 pt-3 border-t text-[11px]" style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-muted)' }}>
-        Running = used in real work · Creating = currently learning
-      </p>
-    </div>
-  </article>
-);
-
-// Two rows of every tool that slide in opposite directions as the section scrolls by.
-const ToolTicker = () => {
-  const tools = [...new Set(skills.flatMap((s) => s.items))];
-  const half = Math.ceil(tools.length / 2);
-  const rows = [tools.slice(0, half), tools.slice(half)];
-  return (
-    <div className="ticker" aria-hidden="true" data-reveal="scale">
-      {rows.map((row, r) => (
-        <div key={r} className={`ticker-row ${r ? 'is-reverse' : ''}`}>
-          {[...row, ...row].map((t, i) => <span key={`${t}-${i}`} className="ticker-item font-mono-code">{t}</span>)}
-        </div>
-      ))}
-    </div>
-  );
-};
+export const SKILL_BEATS = skills.length;
 
 export const AnimatedSkills = () => (
-  <section id="skills" aria-labelledby="skills-heading" className="space-y-8" data-anim-scope>
+  <section id="skills" aria-labelledby="skills-heading" className="space-y-6" data-anim-scope>
     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b pb-4" style={{ borderColor: 'var(--border-subtle)' }}>
       <div>
-        <p className="font-mono-code text-xs accent-text uppercase tracking-wider">03 // Skills</p>
+        <p className="font-mono-code text-xs accent-text uppercase tracking-wider">02 // Skills</p>
         <h2 id="skills-heading" className="text-2xl sm:text-3xl font-bold mt-1">What I work with</h2>
         <p className="text-sm mt-2 max-w-2xl" style={{ color: 'var(--text-secondary)' }}>
           Every skill below is backed by my job at Brandskey or one of my published projects.
@@ -141,19 +74,27 @@ export const AnimatedSkills = () => (
           <div key={label}>
             <dt className="sr-only">{label}</dt>
             <dd className="text-2xl font-bold accent-text leading-none">{n}</dd>
-            <dd className="text-[11px] mt-1" style={{ color: 'var(--text-muted)' }}>{label}</dd>
+            <dd className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>{label}</dd>
           </div>
         ))}
       </dl>
     </div>
 
-    <ToolTicker />
-
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
-      {LAYOUT.map(({ pod, span, reveal }) => (pod === 'kubectl'
-        ? <KubectlCard key={pod} span={span} reveal={reveal} />
-        : <SkillCard key={pod} skill={byPod[pod]} span={span} reveal={reveal} large={span.includes('row-span-2')} />
-      ))}
-    </div>
+    {/* The kubectl pod list is the index; each skill area is a card in the deck. */}
+    <Deck
+      sceneId="skills"
+      indexLabel="kubectl get pods -n skills"
+      items={skills.map((s) => ({ key: s.pod, label: s.pod, skill: s, node: <SkillCard skill={s} large /> }))}
+      renderIndex={(item) => {
+        const ok = item.skill.proficiency === 'Proficient';
+        return (
+          <>
+            <span className="pulse-dot" style={{ color: ok ? 'var(--status-ok)' : 'var(--status-warn)' }} aria-hidden="true" />
+            <span className="deck-index-text font-mono-code">{item.label}</span>
+            <span className="deck-index-meta font-mono-code" style={{ color: ok ? 'var(--status-ok)' : 'var(--status-warn)' }}>{ok ? 'Running' : 'Creating'}</span>
+          </>
+        );
+      }}
+    />
   </section>
 );

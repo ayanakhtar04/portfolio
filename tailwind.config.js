@@ -23,6 +23,20 @@ export default {
         'status-warn': 'var(--status-warn)',
         'status-err': 'var(--status-err)',
       },
+      // Smooth curves: every rounded-* class maps to the site's radius tokens.
+      borderRadius: {
+        DEFAULT: '8px',
+        md: 'var(--radius-chip)',
+        lg: 'var(--radius-control)',
+        xl: 'var(--radius-card)',
+        '2xl': 'calc(var(--radius-card) + 4px)',
+      },
+      // Readable floor: labels never below 13px, running text at 16px or more.
+      fontSize: {
+        xs: ['0.8125rem', { lineHeight: '1.25rem' }],
+        sm: ['1rem', { lineHeight: '1.6rem' }],
+        base: ['1.0625rem', { lineHeight: '1.7rem' }],
+      },
       fontFamily: {
         'mono-code': "'JetBrains Mono', monospace",
       },

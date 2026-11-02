@@ -33,7 +33,7 @@ export const Certifications = () => (
   <section id="certs" aria-labelledby="certs-heading" className="space-y-6">
     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b pb-4" style={{ borderColor: 'var(--border-subtle)' }}>
       <div>
-        <p className="font-mono-code text-xs accent-text uppercase tracking-wider">05 // Education &amp; Certifications</p>
+        <p className="font-mono-code text-xs accent-text uppercase tracking-wider">04 // Education</p>
         <h2 id="certs-heading" className="text-2xl sm:text-3xl font-bold mt-1">Degree, Certifications &amp; Training</h2>
       </div>
     </div>
@@ -51,7 +51,7 @@ export const Certifications = () => (
                 <div className="font-mono-code text-xs" style={{ color: col.color }}>{item.kicker}</div>
                 <h3 className="font-bold text-sm">{item.title}</h3>
                 <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>{item.body}</p>
-                {item.meta && <p className="text-[11px] font-mono-code" style={{ color: 'var(--text-muted)' }}>{item.meta}</p>}
+                {item.meta && <p className="text-xs font-mono-code" style={{ color: 'var(--text-muted)' }}>{item.meta}</p>}
               </div>
             ))}
           </div>
