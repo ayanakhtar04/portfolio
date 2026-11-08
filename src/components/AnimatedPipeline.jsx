@@ -65,10 +65,9 @@ export const AnimatedPipeline = () => {
   const finalStatus = { learn: 'passed', test: 'passed', build: 'passed', deploy: 'running', monitor: 'pending' };
   const keys = Object.keys(stages);
   const reduced = useReducedMotion();
-  const [status, setStatus] = useState(() => (
-    // The build-time render (no window) shows the finished timeline.
-    reduced || typeof window === 'undefined' ? finalStatus : Object.fromEntries(keys.map((k) => [k, 'pending']))
-  ));
+  // Starts finished (the build-time HTML shows it, and hydration must match);
+  // on the stage the scroll position sets each step from there.
+  const [status, setStatus] = useState(finalStatus);
 
   // Scroll-scrubbed: the connector draws with the scroll position and each
   // stage moves pending -> running -> its final status as the line reaches it.

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark ws-mode">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -7,10 +7,20 @@
          data are written in by the seo-head plugin (vite.config.js) from
          site.config.js. -->
     <style>
-      /* The pre-rendered copy stays hidden until the live page replaces it. */
-      #root[data-prerendered] { visibility: hidden; }
+      /* The pre-rendered intro paints in its stage position (html.ws-mode).
+         With reduced motion the page becomes a plain document once the script
+         runs, so until then the copy stays hidden to avoid a jump. */
+      @media (prefers-reduced-motion: reduce) { #root[data-prerendered] { visibility: hidden; } }
     </style>
-    <noscript><style>#root[data-prerendered] { visibility: visible; }</style></noscript>
+    <noscript>
+      <style>
+        /* Without JavaScript: every section shown as a normal scrolling page. */
+        #root[data-prerendered] { visibility: visible !important; }
+        html.ws-mode .ws-scene { position: static !important; visibility: visible !important; }
+        html.ws-mode .ws-window { position: static !important; transform: none !important; width: auto !important; height: auto !important; margin: 0 auto 6rem !important; }
+        html.ws-mode .ws-body { height: auto !important; display: block !important; overflow: visible !important; }
+      </style>
+    </noscript>
   </head>
   <body class="antialiased">
     <div id="root"></div>

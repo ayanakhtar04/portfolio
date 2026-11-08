@@ -15,8 +15,9 @@ const easeOut = (t) => 1 - (1 - t) ** 3;
 
 const CountUp = ({ to, run }) => {
   const reduced = useReducedMotion();
-  // The build-time render (no window) shows the real figure, not 0.
-  const [val, setVal] = useState(reduced || typeof window === 'undefined' ? to : 0);
+  // Starts at the real figure (the build-time HTML shows it, and hydration
+  // must match); the count-up runs from 0 when the panel comes into view.
+  const [val, setVal] = useState(to);
 
   useEffect(() => {
     if (!run) return undefined;

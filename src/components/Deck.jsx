@@ -10,7 +10,11 @@ import { scrollToElement } from '../motion/smoothScroll';
 // items: [{ key, label, meta, node }]
 export const Deck = ({ sceneId, items, indexLabel, renderIndex }) => {
   const [active, setActive] = useState(0);
+  // The stage is known only in the browser: render like the build-time HTML
+  // first (so hydration matches), then switch to stage mode.
+  const [onStage, setOnStage] = useState(false);
   useEffect(() => {
+    setOnStage(WS_ENABLED);
     if (!WS_ENABLED) return undefined;
     return onSceneProgress(sceneId, (p, beat) => setActive(Math.round(beat)));
   }, [sceneId]);
@@ -55,7 +59,7 @@ export const Deck = ({ sceneId, items, indexLabel, renderIndex }) => {
             style={{ '--i': i }}
             data-beat-index={i}
             // Cards behind the front one can't be focused; the index reaches them.
-            inert={WS_ENABLED && i !== active ? '' : undefined}
+            inert={onStage && i !== active ? '' : undefined}
           >
             {item.node}
             <span className="deck-dim" aria-hidden="true" />

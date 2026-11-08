@@ -288,7 +288,9 @@ html.reveal-native [data-sec-head]::after {
   animation: hero-in 600ms var(--ease-out) backwards;
   animation-delay: calc(var(--i, 0) * 90ms);
 }
-@keyframes hero-in { from { opacity: 0; translate: 0 24px; } }
+/* Slide only: the intro is the page's largest text, and fading it in from 0
+   would hold back its first paint (LCP) until the fade begins. */
+@keyframes hero-in { from { translate: 0 24px; } }
 .hero-load > :nth-child(2) { --i: 1; }
 .hero-load > :nth-child(3) { --i: 2; }
 .hero-load > :nth-child(4) { --i: 3; }

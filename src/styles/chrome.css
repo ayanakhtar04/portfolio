@@ -977,3 +977,34 @@ html.light.ws-mode .ws-scene .surface-card {
 html:not(.ws-mode) .ws-main + .ws-scene { margin-top: 6rem; }
 .contact-error { margin-top: 6px; font-size: 14px; font-weight: 500; color: var(--status-err); }
 .contact-field[aria-invalid="true"] { border-color: var(--status-err); }
+
+/* Centre a scene's content when it fits and start it at the top when it is
+   taller than the stage, so the build-time HTML (painted before the stage
+   script measures anything) already sits where the stage will put it. */
+.ws-mode .ws-body { justify-content: safe center; }
+
+/* Section marks: the same thin bars, but each button is a 24x24 target
+   (WCAG 2.5.8). The bar is drawn inside, against the right edge. */
+.ws-mode .ws-pager { gap: 0; }
+.ws-dot,
+.ws-dot:hover,
+.ws-dot[aria-current] { width: 24px; height: 24px; background: none; transform: none; box-shadow: none; }
+.ws-dot::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 14px;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 3px;
+  background: rgba(174, 184, 214, 0.3);
+  transform-origin: right center;
+  transition: transform 300ms var(--ease-liquid), background-color 300ms ease;
+}
+.ws-dot:hover::before { background: rgba(174, 184, 214, 0.7); }
+.ws-dot[aria-current]::before { background: var(--accent-primary); transform: scaleX(1.8); }
+.ws-dot-label { right: calc(100% + 2px); }
+.ws-dot[aria-current] .ws-dot-label { transform: translate(0, -50%); }
+html.light .ws-dot::before { background: rgba(15, 23, 42, 0.25); }
+html.light .ws-dot[aria-current]::before { background: var(--accent-primary); }

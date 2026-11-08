@@ -20,11 +20,13 @@ const DOWNLOAD = <path d="M12 4v11M7 10l5 5 5-5M5 20h14" />;
 const UP = <path d="M12 19V5M6 11l6-6 6 6" />;
 const EXTERNAL = <path d="M7 17 17 7M9 7h8v8" />;
 
-// Local time in Udaipur, refreshed each minute.
+// Local time in Udaipur, refreshed each minute. Set in the browser only: the
+// build-time HTML can't know the visitor's "now".
 const useUdaipurTime = () => {
   const fmt = () => new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' }).format(new Date());
-  const [time, setTime] = useState(fmt);
+  const [time, setTime] = useState('--:--');
   useEffect(() => {
+    setTime(fmt());
     const id = setInterval(() => setTime(fmt()), 30000);
     return () => clearInterval(id);
   }, []);

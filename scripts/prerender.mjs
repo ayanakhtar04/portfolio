@@ -4,30 +4,50 @@
 import { readFile, writeFile, readdir, rm } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { join } from 'node:path';
+import { createHash } from 'node:crypto';
 import { site, absolute } from '../site.config.js';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = join(root, 'dist');
 const ssrDir = join(root, 'dist-ssr');
 
-// 1. Render the app and put it inside #root. The page script replaces this
-// markup when it starts; until then it stays hidden (CSS in index.html), so
-// the switch to the scroll stage never shows as a layout shift.
+// 1. Render the app and put it inside #root; the page script hydrates it in
+// place. The intro scene is marked as the one on stage, so with
+// html.ws-mode (index.html) it paints straight away where the stage shows it.
 const { render } = await import(pathToFileURL(join(ssrDir, 'entry-server.js')).href);
-const appHtml = render();
+const heroScene = 'class="ws-scene" data-scene="hero"';
+const rendered = render();
+if (!rendered.includes(heroScene)) throw new Error('prerender: intro scene markup not found');
+const appHtml = rendered.replace(heroScene, 'class="ws-scene is-on" data-scene="hero"');
 let html = await readFile(join(dist, 'index.html'), 'utf8');
 if (!html.includes('<div id="root"></div>')) throw new Error('prerender: <div id="root"></div> not found in dist/index.html');
 html = html.replace('<div id="root"></div>', `<div id="root" data-prerendered>${appHtml}</div>`);
 
-// 2. Preload the one font file the first screen's body text needs.
+// 2. Start the app after the first frame. The intro is already in the HTML,
+// so the bundle doesn't need to compete with the first paint for bandwidth:
+// a tiny boot script imports it once a frame has been drawn (or after 1s if
+// the tab is in the background, where frames don't run).
+const entry = html.match(/<script type="module" crossorigin src="\.\/assets\/(index-[\w-]+\.js)"><\/script>/);
+if (!entry) throw new Error('prerender: entry <script> not found in dist/index.html');
+const boot = `// Imports the app once the first frame is on screen.
+let started = false;
+const start = () => { if (!started) { started = true; import('./${entry[1]}'); } };
+requestAnimationFrame(() => setTimeout(start, 0));
+setTimeout(start, 1000);
+`;
+const bootName = `boot-${createHash('sha256').update(boot).digest('hex').slice(0, 8)}.js`;
+await writeFile(join(dist, 'assets', bootName), boot);
+html = html.replace(entry[0], `<script type="module" src="./assets/${bootName}"></script>`);
+
+// 3. Preload the one font file the first screen's text needs.
 const assets = await readdir(join(dist, 'assets'));
-const bodyFont = assets.find((f) => /^inter-latin-400-normal-.*\.woff2$/.test(f));
+const bodyFont = assets.find((f) => /^inter-latin-wght-normal-.*\.woff2$/.test(f));
 if (bodyFont) {
   html = html.replace('</title>', `</title>\n    <link rel="preload" href="./assets/${bodyFont}" as="font" type="font/woff2" crossorigin>`);
 }
 await writeFile(join(dist, 'index.html'), html);
 
-// 3. Sitemap from the routes that exist (one page today), dated by this build.
+// 4. Sitemap from the routes that exist (one page today), dated by this build.
 const routes = ['/'];
 const lastmod = new Date().toISOString().slice(0, 10);
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -38,7 +58,7 @@ ${routes.map((r) => `  <url>\n    <loc>${absolute(r)}</loc>\n    <lastmod>${last
 await writeFile(join(dist, 'sitemap.xml'), sitemap);
 await writeFile(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${absolute('/sitemap.xml')}\n`);
 
-// 4. A small, self-contained 404 page (no script, works even if assets move).
+// 5. A small, self-contained 404 page (no script, works even if assets move).
 const notFound = `<!DOCTYPE html>
 <html lang="en">
   <head>

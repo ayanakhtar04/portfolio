@@ -20,7 +20,9 @@ import { prefersReducedMotion } from './motion';
 import { setScrollResolver, isSmoothScrolling } from './smoothScroll';
 
 export const WS_ENABLED = typeof window !== 'undefined' && !prefersReducedMotion();
-if (WS_ENABLED) document.documentElement.classList.add('ws-mode');
+// The build-time HTML already carries ws-mode (index.html) so the intro paints
+// in its stage position; reduced motion takes it off for the plain document.
+if (typeof window !== 'undefined') document.documentElement.classList.toggle('ws-mode', WS_ENABLED);
 
 const SMOOTH_MS = 110; // time constant for the shown position catching up with the real scroll
 const listeners = new Map(); // scene id -> Set of (p, beat) callbacks
