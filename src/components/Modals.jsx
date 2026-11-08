@@ -25,7 +25,7 @@ export const ResumeModal = ({ isOpen, onClose }) => {
     >
       <div role="dialog" aria-modal="true" aria-labelledby="resume-title" className="ui-scaled surface-card rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl">
         <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
-          <h3 id="resume-title" className="font-bold text-lg">Resume at a glance</h3>
+          <h2 id="resume-title" className="font-bold text-lg">Resume at a glance</h2>
           <button ref={closeRef} type="button" onClick={onClose} className="btn-chip">Close</button>
         </div>
 

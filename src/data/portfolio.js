@@ -14,9 +14,12 @@ export const skills = [
   { pod: 'kubernetes', level: 'Learning', summary: 'What I am learning next, now that I have run containers on ECS and want to go further.', evidence: ['Working through the basics'], domain: 'Kubernetes', proficiency: 'Learning', items: ['Kubernetes basics'] },
 ];
 
+// `repo` is the repository name under the GitHub profile; null when the
+// project has no public repository yet (the card then links to the profile).
 export const projects = [
   {
     title: 'FargateFlow: Serverless Container Delivery Pipeline',
+    repo: 'FargatFlow',
     description: 'Takes a commit all the way to production: it builds a container, pushes it to ECR and deploys it to ECS on Fargate, with no manual steps.',
     highlights: [
       'Nothing faces the internet directly: tasks run in private subnets with least-privilege IAM roles and tight security groups.',
@@ -26,6 +29,7 @@ export const projects = [
   },
   {
     title: 'Terraform Reusable AWS Modules',
+    repo: null,
     description: 'Four reusable Terraform modules (EC2, VPC subnets, S3 and IAM), written so I stop building the same infrastructure by hand.',
     highlights: [
       'State lives in S3 with DynamoDB locking, so two people can never overwrite each other’s changes.',
@@ -35,6 +39,7 @@ export const projects = [
   },
   {
     title: 'DockerDeploy: Multi-Stage CI/CD Pipeline',
+    repo: 'DockerDeploy',
     description: 'A five-step pipeline (install, lint, test, build, deploy) that runs on every push, so a release no longer depends on someone remembering the steps.',
     highlights: [
       'The production image is over 60% smaller: a two-stage Dockerfile ships only the built files on Nginx and leaves the Node.js tooling behind.',
@@ -44,6 +49,7 @@ export const projects = [
   },
   {
     title: 'AWS IAM Security Automation',
+    repo: 'AWS-IAM-User-Management',
     description: 'Setting up a new IAM user used to take six manual steps. Now one command creates the account, adds it to the right groups and enforces MFA.',
     highlights: [
       'Every account gets the same least-privilege policies.',
@@ -53,6 +59,7 @@ export const projects = [
   },
   {
     title: 'EC2 Auto Scaling Web Application',
+    repo: 'Dynamic-Web-App-on-EC2-with-Auto-Scaling',
     description: 'A web app spread across 2 availability zones behind a load balancer, so losing one server does not take the site down.',
     highlights: [
       'CloudWatch CPU alarms add and remove servers as traffic changes.',
@@ -62,6 +69,7 @@ export const projects = [
   },
   {
     title: 'Jenkins and Nginx CI/CD Server',
+    repo: null,
     description: 'Jenkins on Red Hat Linux, running as a systemd service behind Nginx with HTTPS, so it comes back on its own after a reboot.',
     highlights: [
       'Fixed 5 outages by reading the systemd journal and Nginx logs, then correcting the service and proxy config.',
@@ -70,6 +78,7 @@ export const projects = [
   },
   {
     title: 'Serverless Text-to-Speech API',
+    repo: 'AWS-Project-TextToSpeech',
     description: 'A small serverless API that turns text into speech with Amazon Polly and answers in under 300 ms.',
     highlights: [
       'The Lambda function can call Polly and write logs, and nothing else.',

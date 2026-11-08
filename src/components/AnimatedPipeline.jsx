@@ -44,7 +44,7 @@ export const AnimatedPipeline = () => {
       meta: '7 on GitHub',
       title: 'Side projects and certifications',
       logs: [
-        '[done] 7 cloud and DevOps projects on GitHub, each with code and a write-up',
+        '[done] 7 cloud and DevOps projects, most with their code and a write-up on GitHub',
         '[done] AWS courses on Coursera: DevOps on AWS, and AWS Cloud Technical Essentials (2025)',
         '[now] Studying for AWS Certified Solutions Architect – Associate, aiming to pass in 2026'
       ]
@@ -130,7 +130,7 @@ export const AnimatedPipeline = () => {
       {/* The story in plain words */}
       <div className="surface-card rounded-xl p-6 sm:p-7" data-reveal>
         <p className="text-base sm:text-lg leading-relaxed max-w-[72ch]" style={{ color: 'var(--text-primary)' }}>
-          I studied Computer Applications in Udaipur. My first job was a QA internship at Websenor, and hunting bugs taught me how releases go wrong. After that I was a Web Developer &amp; Cloud Engineer at Brandskey Creative Studio: I built React sites, hosted them on AWS, and swapped our 20-minute manual release for a pipeline that took under 3. Now I&rsquo;m building cloud projects (seven so far, all on GitHub), studying for the AWS Solutions Architect exam, and looking for my next role.
+          I studied Computer Applications in Udaipur. My first job was a QA internship at Websenor, and hunting bugs taught me how releases go wrong. After that I was a Web Developer &amp; Cloud Engineer at Brandskey Creative Studio: I built React sites, hosted them on AWS, and swapped our 20-minute manual release for a pipeline that took under 3. Now I&rsquo;m building cloud projects (seven so far, most of them on GitHub), studying for the AWS Solutions Architect exam, and looking for my next role.
         </p>
       </div>
 

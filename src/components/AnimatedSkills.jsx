@@ -65,7 +65,7 @@ export const AnimatedSkills = () => (
       <div>
         <h2 id="skills-heading" className="sec-title">What I work with</h2>
         <p className="sec-lede">
-          Each area shows where I have actually used it: in my job at Brandskey or in a project on GitHub.
+          AWS, CI/CD, Terraform, Docker, Linux and security. Each area shows where I have actually used it: in my job at Brandskey or in a project on GitHub.
         </p>
       </div>
       <dl className="flex gap-7">

@@ -24,7 +24,7 @@ export const AnimatedHero = ({ onOpenResume, ready }) => {
 
             <p className="hero-status">
               <span className="pulse-dot" style={{ color: 'var(--status-ok)' }} aria-hidden="true" />
-              Open to work. Available to join immediately.
+              Open to work · Based in Udaipur, India · Available to join immediately
             </p>
           </div>
 
