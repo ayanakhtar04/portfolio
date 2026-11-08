@@ -42,6 +42,9 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // The live page has replaced the pre-rendered copy: show it.
+  useEffect(() => { document.getElementById('root')?.removeAttribute('data-prerendered'); }, []);
+
   // Scroll reveals, off-screen pausing, cursor spotlight.
   useEffect(() => initMotion(document.getElementById('root')), []);
   useEffect(() => initSectionBuild(document.getElementById('root')), []);

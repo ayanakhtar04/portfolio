@@ -66,7 +66,8 @@ export const AnimatedPipeline = () => {
   const keys = Object.keys(stages);
   const reduced = useReducedMotion();
   const [status, setStatus] = useState(() => (
-    reduced ? finalStatus : Object.fromEntries(keys.map((k) => [k, 'pending']))
+    // The build-time render (no window) shows the finished timeline.
+    reduced || typeof window === 'undefined' ? finalStatus : Object.fromEntries(keys.map((k) => [k, 'pending']))
   ));
 
   // Scroll-scrubbed: the connector draws with the scroll position and each

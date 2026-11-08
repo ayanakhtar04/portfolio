@@ -15,7 +15,8 @@ const easeOut = (t) => 1 - (1 - t) ** 3;
 
 const CountUp = ({ to, run }) => {
   const reduced = useReducedMotion();
-  const [val, setVal] = useState(reduced ? to : 0);
+  // The build-time render (no window) shows the real figure, not 0.
+  const [val, setVal] = useState(reduced || typeof window === 'undefined' ? to : 0);
 
   useEffect(() => {
     if (!run) return undefined;
