@@ -21,7 +21,7 @@ export const site = {
   credentials: [
     { name: 'Oracle Cloud Infrastructure Foundations Associate', issuer: 'Oracle', year: '2025' },
   ],
-  sameAs: ['https://www.linkedin.com/in/ayan-akhtar', 'https://github.com/ayanakhtar04'],
+  sameAs: ['https://www.linkedin.com/in/ayan-akhtar2004', 'https://github.com/ayanakhtar04'],
   ogImage: '/og-image.png',
   ogImageAlt: 'Ayan Akhtar, DevOps & Cloud Engineer. Open to work.',
 };

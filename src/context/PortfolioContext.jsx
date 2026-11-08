@@ -15,7 +15,7 @@ export const PortfolioProvider = ({ children }) => {
     name: "Ayan Akhtar",
     email: "ayanakhtar37.35@gmail.com",
     github: "https://github.com/ayanakhtar04",
-    linkedin: "https://www.linkedin.com/in/ayan-akhtar",
+    linkedin: "https://www.linkedin.com/in/ayan-akhtar2004",
     resume: `${import.meta.env.BASE_URL}Ayan_Akhtar_Resume.pdf`,
     theme: "dark",
     accent: "cyan",
