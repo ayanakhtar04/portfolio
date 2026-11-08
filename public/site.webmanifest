@@ -1,0 +1,16 @@
+{
+  "name": "Ayan Akhtar | DevOps & Cloud Engineer",
+  "short_name": "Ayan Akhtar",
+  "description": "DevOps and Cloud Engineer with production AWS experience in CI/CD, Terraform, Docker, ECS and Fargate.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#070a14",
+  "background_color": "#070a14",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
