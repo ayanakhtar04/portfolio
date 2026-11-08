@@ -16,11 +16,36 @@ export const AnimatedContact = () => {
   const [formData, setFormData] = useState(EMPTY);
   const [submitState, setSubmitState] = useState('idle'); // idle, building, deploying, live
   const [copied, setCopied] = useState('');
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
+
+  // Plain-language errors, shown under each field and announced (role=alert);
+  // focus moves to the first field that needs fixing.
+  const validate = () => {
+    const next = {};
+    if (!formData.name.trim()) next.name = 'Please enter your name.';
+    if (!formData.email.trim()) next.email = 'Please enter your email address.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) next.email = 'Please enter an email address like name@company.com.';
+    if (!formData.message.trim()) next.message = 'Please write a short message.';
+    setErrors(next);
+    const first = ['name', 'email', 'message'].find((k) => next[k]);
+    if (first) document.getElementById(`contact-${first}`)?.focus();
+    return !first;
+  };
+
+  // Props that tie a field to its error message.
+  const errorProps = (key) => ({
+    'aria-invalid': errors[key] ? 'true' : undefined,
+    'aria-describedby': errors[key] ? `contact-${key}-error` : undefined,
+  });
+  const errorText = (key) => (errors[key]
+    ? <p id={`contact-${key}-error`} role="alert" className="contact-error">{errors[key]}</p>
+    : null);
 
   const copy = (key, value) => {
     navigator.clipboard?.writeText(value).then(() => {
@@ -31,6 +56,7 @@ export const AnimatedContact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
 
     // Three short steps, then the mail app opens; reduced motion skips to the end.
     if (prefersReducedMotion()) {
@@ -109,7 +135,7 @@ export const AnimatedContact = () => {
             <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>This opens your email app with everything filled in.</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="contact-name" className="contact-label">Your name</label>
@@ -125,7 +151,9 @@ export const AnimatedContact = () => {
                   disabled={submitState !== 'idle'}
                   placeholder="Priya Sharma"
                   className={FIELD}
+                  {...errorProps('name')}
                 />
+                {errorText('name')}
               </div>
               <div>
                 <label htmlFor="contact-email" className="contact-label">Your email</label>
@@ -141,7 +169,9 @@ export const AnimatedContact = () => {
                   disabled={submitState !== 'idle'}
                   placeholder="priya@company.com"
                   className={FIELD}
+                  {...errorProps('email')}
                 />
+                {errorText('email')}
               </div>
             </div>
 
@@ -194,7 +224,9 @@ export const AnimatedContact = () => {
                 disabled={submitState !== 'idle'}
                 placeholder="Hi Ayan, we saw your portfolio and would like to set up a short call…"
                 className={FIELD}
+                {...errorProps('message')}
               />
+              {errorText('message')}
             </div>
 
             {/* Progress */}

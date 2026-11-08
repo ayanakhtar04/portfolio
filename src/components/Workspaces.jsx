@@ -5,21 +5,30 @@ import { initWorkspaces } from '../motion/workspaces';
 // plays a scene's beats in place, then the next scene surfaces where it was.
 // With reduced motion the wrappers are plain blocks and the page scrolls
 // as a normal document.
+//
+// Content scenes sit inside <main>; a scene marked `outside` (the footer)
+// follows it, so the page footer is its own landmark. Scenes are fixed on
+// the stage, so the split doesn't change the layout.
+const Scene = ({ scene }) => (
+  <div className="ws-scene" data-scene={scene.id} data-beats={scene.beats || 1}>
+    <div className="ws-window">
+      <div className="ws-body">
+        <div className="ws-content">{scene.node}</div>
+      </div>
+    </div>
+  </div>
+);
+
 export const Workspaces = ({ scenes }) => {
   const rootRef = useRef(null);
   useEffect(() => initWorkspaces(rootRef.current), []);
 
   return (
     <div ref={rootRef} className="ws-root">
-      {scenes.map((scene) => (
-        <div key={scene.id} className="ws-scene" data-scene={scene.id} data-beats={scene.beats || 1}>
-          <div className="ws-window">
-            <div className="ws-body">
-              <div className="ws-content">{scene.node}</div>
-            </div>
-          </div>
-        </div>
-      ))}
+      <main id="main-content" tabIndex={-1} className="ws-main">
+        {scenes.filter((s) => !s.outside).map((scene) => <Scene key={scene.id} scene={scene} />)}
+      </main>
+      {scenes.filter((s) => s.outside).map((scene) => <Scene key={scene.id} scene={scene} />)}
       <div className="ws-spacer" aria-hidden="true" />
 
       {/* Where you are: one mark per scene. */}

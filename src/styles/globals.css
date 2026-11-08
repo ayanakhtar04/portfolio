@@ -134,7 +134,7 @@ body {
 }
 
 /* Reveal offsets and wide terminal rows must never widen the page. */
-#main-content { overflow-x: clip; }
+#page { overflow-x: clip; }
 
 .font-mono-code {
   font-family: 'JetBrains Mono', monospace;
