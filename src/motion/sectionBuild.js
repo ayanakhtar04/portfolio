@@ -21,7 +21,7 @@ import { prefersReducedMotion } from './motion';
 import { matrixReveal } from './matrixBuild';
 
 const COMMANDS = {
-  observability: ['kubectl top pods -n brandskey', '4 numbers from my time there'],
+  observability: ['systemctl list-units --type=service', '4 services · all active (running)'],
   pipeline: ['git log --oneline career', '5 steps · HEAD -> next-role'],
   skills: ['kubectl get pods -n skills', '8 areas · 7 in use · 1 still learning'],
   pods: ['terraform apply', 'Apply complete! 7 projects added.'],

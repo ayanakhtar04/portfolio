@@ -70,18 +70,15 @@ export const AnimatedPipeline = () => {
   const [status, setStatus] = useState(finalStatus);
 
   // Scroll-scrubbed: the connector draws with the scroll position and each
-  // stage moves pending -> running -> its final status as the line reaches it.
-  // Scrolling back up rewinds both.
+  // stage shows its real status as the line reaches it (a finished job never
+  // reads "In progress"). Scrolling back up rewinds both.
   const lastKey = useRef('');
   useEffect(() => {
     if (reduced) { setStatus(finalStatus); return undefined; }
     const n = keys.length;
-    const statusAt = (p) => Object.fromEntries(keys.map((k, i) => {
-      const final = finalStatus[k];
-      if (final === 'pending' || p < i / n + 0.02) return [k, 'pending'];
-      if (final === 'running' || p < (i + 1) / n) return [k, 'running'];
-      return [k, final];
-    }));
+    const statusAt = (p) => Object.fromEntries(keys.map((k, i) => (
+      [k, p < i / n + 0.02 ? 'pending' : finalStatus[k]]
+    )));
     const apply = (p) => {
       const next = statusAt(p);
       const key = Object.values(next).join();

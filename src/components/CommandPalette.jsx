@@ -38,6 +38,7 @@ export const CommandPalette = ({ isOpen, onClose }) => {
 
   const commands = useMemo(() => [
     { label: 'About me', description: 'Back to the top of the page', action: () => scrollToId('hero') },
+    { label: 'What I do', description: 'Release automation, AWS hosting, Terraform and containers', action: () => scrollToId('observability') },
     { label: 'My journey', description: 'From web developer to cloud engineer', action: () => scrollToId('pipeline') },
     { label: 'Skills', description: 'What I can do, and what I am learning', action: () => scrollToId('skills') },
     { label: 'Projects', description: 'Things I have built', action: () => scrollToId('pods') },

@@ -1008,3 +1008,7 @@ html:not(.ws-mode) .ws-main + .ws-scene { margin-top: 6rem; }
 .ws-dot[aria-current] .ws-dot-label { transform: translate(0, -50%); }
 html.light .ws-dot::before { background: rgba(15, 23, 42, 0.25); }
 html.light .ws-dot[aria-current]::before { background: var(--accent-primary); }
+
+/* Without the stage (reduced motion) the deck index is hidden, so the cards
+   take the full width instead of the index column. */
+html:not(.ws-mode) .deck { grid-template-columns: minmax(0, 1fr); }

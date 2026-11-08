@@ -1,13 +1,38 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useInViewOnce, useReducedMotion } from '../motion/motion';
 
-// Measured results from my work at Brandskey Creative Studio (see the résumé).
-// `before`/`after` draw a comparison bar; other metrics carry a one-line note.
-const METRICS = [
-  { label: 'Time to deploy', value: 3, unit: 'min', before: 20, after: 3, beforeLabel: 'By hand: about 20 min', afterLabel: 'GitHub Actions: under 3 min' },
-  { label: 'Page load time', value: 40, unit: '% faster', before: 100, after: 60, beforeLabel: 'Before caching', afterLabel: 'With CloudFront caching' },
-  { label: 'Outages reported by clients', value: 0, unit: '', note: 'Across every client site I hosted on S3 and CloudFront while I was there.' },
-  { label: 'Repos with code review', value: 8, unit: '', note: 'Every change went through a pull request. Five React apps shipped this way.' },
+// What I do, each backed by one real result: from my job at Brandskey
+// Creative Studio (see the résumé) or from a project on GitHub.
+// `before`/`after` draw a comparison bar; otherwise `note` explains the figure.
+const SERVICES = [
+  {
+    title: 'Automate releases',
+    text: 'CI/CD pipelines in GitHub Actions and Jenkins that test, build and ship every push, so nobody deploys by hand.',
+    source: 'At Brandskey',
+    value: 3, unit: 'min',
+    before: 20, after: 3, beforeLabel: 'By hand: about 20 min', afterLabel: 'GitHub Actions: under 3 min',
+  },
+  {
+    title: 'Run fast sites on AWS',
+    text: 'Hosting on S3, CloudFront and Route 53 with HTTPS, caching and compression set up properly.',
+    source: 'At Brandskey',
+    value: 40, unit: '% faster',
+    before: 100, after: 60, beforeLabel: 'Before caching', afterLabel: 'With CloudFront caching',
+  },
+  {
+    title: 'Write infrastructure as code',
+    text: 'Reusable Terraform modules with remote state and locking, so environments are rebuilt, never hand-made.',
+    source: 'In my Terraform modules',
+    value: 5, unit: 'min',
+    note: 'Under 5 minutes to bring the whole stack back with one terraform apply.',
+  },
+  {
+    title: 'Ship containers',
+    text: 'Small Docker images deployed to Amazon ECS and AWS Fargate with rolling updates that keep traffic flowing.',
+    source: 'In DockerDeploy',
+    value: 60, unit: '% smaller',
+    before: 100, after: 40, beforeLabel: 'Single-stage image', afterLabel: 'Multi-stage image',
+  },
 ];
 
 const COUNT_MS = 900;
@@ -58,22 +83,28 @@ export const Observability = () => {
     // is-drawn sits on the section: the reveal script owns the panel's classes.
     <section ref={ref} id="observability" aria-labelledby="obs-heading" className={`space-y-6 ${inView ? 'is-drawn' : ''}`} data-anim-scope>
       <div className="sec-head">
-        <h2 id="obs-heading" className="sec-title">What I changed at Brandskey</h2>
-        <p className="sec-lede">Real numbers from my time as Web Developer &amp; Cloud Engineer there, June to October 2026.</p>
+        <h2 id="obs-heading" className="sec-title">What I do</h2>
+        <p className="sec-lede">The work I&rsquo;m best at, each with a real result from my job at Brandskey or one of my projects.</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-stagger>
-        {METRICS.map((m) => (
-          <div key={m.label} className="surface-card rounded-xl p-5 sm:p-6 flex flex-col gap-4">
-            <div className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{m.label}</div>
-            <div className="font-bold text-5xl tracking-tight tabular-nums leading-none">
-              <CountUp to={m.value} run={inView} />
-              {m.unit && <span className="text-base font-medium ml-1.5 tracking-normal" style={{ color: 'var(--text-secondary)' }}>{m.unit}</span>}
+        {SERVICES.map((s) => (
+          <article key={s.title} className="surface-card rounded-xl p-5 sm:p-6 flex flex-col gap-4">
+            <div className="space-y-2">
+              <h3 className="text-lg font-bold leading-snug">{s.title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{s.text}</p>
             </div>
-            {m.before
-              ? <Compare before={m.before} after={m.after} beforeLabel={m.beforeLabel} afterLabel={m.afterLabel} />
-              : <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{m.note}</p>}
-          </div>
+            <div className="mt-auto space-y-3">
+              <div className="text-sm font-medium" style={{ color: 'var(--accent-primary)' }}>{s.source}</div>
+              <div className="font-bold text-5xl tracking-tight tabular-nums leading-none">
+                <CountUp to={s.value} run={inView} />
+                <span className="text-base font-medium ml-1.5 tracking-normal" style={{ color: 'var(--text-secondary)' }}>{s.unit}</span>
+              </div>
+              {s.before
+                ? <Compare before={s.before} after={s.after} beforeLabel={s.beforeLabel} afterLabel={s.afterLabel} />
+                : <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{s.note}</p>}
+            </div>
+          </article>
         ))}
       </div>
     </section>
