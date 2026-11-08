@@ -133,7 +133,7 @@ Modify colors, spacing, and typography in:
 ### Contact Section
 - Direct email/GitHub/LinkedIn endpoints
 - Contact form with JSON payload preview
-- Relocation status
+- Availability status
 
 ## Technologies
 

@@ -55,7 +55,7 @@ export const AnimatedPipeline = () => {
       title: 'Next: a full-time DevOps or cloud role',
       logs: [
         '[next] Looking for a DevOps Engineer, Cloud Engineer (AWS), Junior SRE or Platform Engineer role',
-        '[next] Remote, hybrid or on-site · happy to relocate within India',
+        '[next] Remote, hybrid or on-site · based in Udaipur, India',
         '[next] Can join immediately · English (professional), Hindi (native)'
       ]
     }

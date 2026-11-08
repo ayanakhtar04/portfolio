@@ -123,7 +123,7 @@ export const AnimatedContact = () => {
               <span className="pulse-dot" aria-hidden="true" /> Available
             </div>
             <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Based in Udaipur, India. Open to remote, hybrid or on-site roles, and happy to relocate within India. I can join immediately and speak English and Hindi.
+              Based in Udaipur, India, and open to remote, hybrid or on-site roles. I can join immediately and speak English and Hindi.
             </p>
           </div>
         </div>
