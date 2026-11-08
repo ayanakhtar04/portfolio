@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { usePortfolio } from './context/PortfolioContext';
 import { Backdrop } from './components/Backdrop';
 import { AnimatedHero } from './components/AnimatedHero';
@@ -21,6 +21,7 @@ function App() {
   const { state, updateState } = usePortfolio();
   const [resumeOpen, setResumeOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const closeResume = useCallback(() => setResumeOpen(false), []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -94,7 +95,7 @@ function App() {
 
       {state.activeView !== 'portfolio' && footer}
 
-      <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
+      <ResumeModal isOpen={resumeOpen} onClose={closeResume} />
       <LinuxDock onShowApps={() => setCommandPaletteOpen(true)} />
       <CommandPalette isOpen={commandPaletteOpen} onClose={() => setCommandPaletteOpen(false)} />
 

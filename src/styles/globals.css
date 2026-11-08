@@ -195,17 +195,53 @@ body {
   .surface-card { background: var(--bg-surface); }
 }
 
+/* Buttons: one shape and size everywhere, set in the text face. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform 150ms ease, background-color 200ms ease, color 200ms ease;
+}
+.btn:active { transform: scale(0.97); }
+
 .btn-primary-lime {
   background-color: var(--lime);
   color: var(--on-lime);
   font-weight: 700;
-  transition: transform 150ms ease, box-shadow 200ms ease;
+  transition: transform 150ms ease, background-color 200ms ease;
 }
 
-.btn-primary-lime:hover {
-  filter: brightness(1.06);
-  box-shadow: 0 0 32px rgba(190, 242, 100, 0.38);
+.btn-primary-lime:hover { background-color: #d4f78f; }
+
+.btn-quiet {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.07);
 }
+.btn-quiet:hover { background: rgba(255, 255, 255, 0.13); }
+html.light .btn-quiet { background: rgba(15, 23, 42, 0.06); }
+html.light .btn-quiet:hover { background: rgba(15, 23, 42, 0.11); }
+
+/* Small inline action (Copy, Close). */
+.btn-chip {
+  flex: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  background: rgba(255, 255, 255, 0.06);
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+.btn-chip:hover { background: rgba(255, 255, 255, 0.12); }
+.btn-chip:active { transform: scale(0.95); }
+html.light .btn-chip { background: rgba(15, 23, 42, 0.06); }
 
 .aurora-text {
   background: var(--gradient-aurora);

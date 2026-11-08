@@ -155,13 +155,12 @@ section[id] { scroll-margin-top: 80px; }
 
 /* Live network layer (NetworkCanvas.jsx). Screen blend lets packets glow
    through the aurora instead of sitting on top of it. */
-.bd-network { position: absolute; inset: 0; mix-blend-mode: screen; }
-html.light .bd-network { mix-blend-mode: multiply; opacity: 0.8; }
+/* No blend mode: on the dark ground screen blending looked the same, but it
+   made the compositor blend the whole screen every frame. */
+.bd-network { position: absolute; inset: 0; opacity: 0.8; }
+html.light .bd-network { opacity: 0.7; }
 /* On phones content fills the width, so the network steps back. */
-@media (max-width: 640px) { .bd-network { opacity: 0.55; } }
-
-/* Open headings sit straight on the network: a soft halo keeps them crisp. */
-html:not(.light) main h2, html:not(.light) main h1 { text-shadow: 0 0 18px rgba(7, 10, 20, 0.95), 0 0 4px rgba(7, 10, 20, 0.9); }
+@media (max-width: 640px) { .bd-network { opacity: 0.5; } }
 
 
 /* Light theme: paper-white base, softer tints, ink-blue grid. */
@@ -265,7 +264,7 @@ html[data-accent="green"]:not(.light) .bd-floor-grid {
 /* Section headings: text staggers in, the divider draws across with scroll. */
 [data-sec-head] { position: relative; border-bottom-color: transparent !important; view-timeline: --head block; }
 [data-sec-head]::after {
-  content: '';
+  content: none;
   position: absolute;
   left: 0;
   right: 0;
@@ -424,9 +423,7 @@ html.reveal-io .is-visible .arch-step { opacity: 1; transform: none; }
   padding: 3px 8px;
   border-radius: 999px;
   font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-weight: 600;
   color: var(--status-ok);
   background: rgba(52, 211, 153, 0.12);
 }
@@ -527,7 +524,6 @@ h2[data-wipe] { animation: build-wipe 1150ms var(--ease-liquid) backwards; }
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8em;
   color: var(--accent-primary);
-  text-shadow: 0 0 8px color-mix(in srgb, var(--accent-primary) 60%, transparent);
   pointer-events: none;
   transform: translate(var(--x0, 0), -50%);
   animation: build-caret 1150ms var(--ease-liquid) forwards;

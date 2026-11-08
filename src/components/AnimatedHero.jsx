@@ -4,78 +4,52 @@ import { HeroTerminal } from './HeroTerminal';
 
 export const AnimatedHero = ({ onOpenResume, ready }) => {
   const { state } = usePortfolio();
+  const handle = state.github.replace(/^https?:\/\/(www\.)?/, '');
 
   return (
     <section id="hero" aria-labelledby="hero-heading" className="space-y-6 relative isolate" data-anim-scope>
       <div className={`hero-load ${ready ? 'is-ready' : ''} grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch`}>
 
-        {/* Left Column: Recruiter Pitch */}
-        <div className="lg:col-span-7 surface-card spotlight rounded-xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
-          <div className={`hero-load ${ready ? 'is-ready' : ''} space-y-4`}>
-            <div className="flex flex-wrap items-center gap-2 font-mono-code text-xs">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full surface-elevated">
-                <span className="pulse-dot" style={{ color: 'var(--status-ok)' }} aria-hidden="true" />
-                <span>Open to DevOps / Cloud Engineer roles (Europe) · 1-month notice</span>
-              </span>
-            </div>
-
-            <h1 id="hero-heading" className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
-              Hi, I&rsquo;m <span className="accent-text font-mono-code whitespace-nowrap">{state.name}</span>.
+        {/* Left column: who I am and what to do next */}
+        <div className="lg:col-span-7 surface-card spotlight rounded-xl p-6 sm:p-9 flex flex-col justify-between gap-8">
+          <div className={`hero-load ${ready ? 'is-ready' : ''} space-y-5`}>
+            <h1 id="hero-heading" className="hero-title">
+              Hi, I&rsquo;m <span className="accent-text whitespace-nowrap">{state.name}</span>.
             </h1>
-            <p className="text-xl sm:text-2xl" style={{ color: 'var(--text-secondary)' }}>
-              <strong style={{ color: 'var(--text-primary)' }}>DevOps &amp; Cloud Engineer</strong> in Udaipur, India
+            <p className="hero-role">I build the infrastructure that gets code to production fast, safely and every time.</p>
+
+            <p className="hero-lede">
+              I&rsquo;m a <strong>DevOps &amp; Cloud Engineer</strong> who has automated releases, provisioned AWS with Terraform and shipped containers to ECS and Fargate for live client workloads. My last pipeline cut deployment time from 20 minutes to under 3.
             </p>
 
-            <p className="text-base sm:text-lg leading-relaxed max-w-[62ch]" style={{ color: 'var(--text-secondary)' }}>
-              I run AWS infrastructure, CI/CD pipelines and containerized apps for live client sites as a <strong style={{ color: 'var(--text-primary)' }}>React &amp; Cloud Engineer at Brandskey Creative Studio</strong>. I automate releases with GitHub Actions and Jenkins, manage infrastructure with Terraform, and deploy Docker images to Amazon ECS on Fargate. Oracle Cloud Infrastructure Foundations certified, preparing for AWS Solutions Architect – Associate.
+            <p className="hero-status">
+              <span className="pulse-dot" style={{ color: 'var(--status-ok)' }} aria-hidden="true" />
+              Open to work. Available to join immediately.
             </p>
           </div>
 
-          {/* Action Bar */}
-          <div className="space-y-4 pt-2 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
+          {/* Actions */}
+          <div className="space-y-5">
             <div className={`hero-load ${ready ? 'is-ready' : ''} flex flex-wrap items-center gap-3`}>
-              <a
-                href="#pods"
-                className="btn-primary-lime px-5 py-2.5 rounded-lg font-mono-code text-xs sm:text-sm transition-[opacity,transform] transform active:scale-95 hover:shadow-lg"
-              >
-                kubectl get pods // View Projects
-              </a>
-              <button
-                type="button"
-                onClick={onOpenResume}
-                className="px-4 py-2.5 rounded-lg font-mono-code text-xs sm:text-sm font-medium surface-elevated hover:opacity-90 transition-[opacity,transform]"
-              >
-                View Resume
-              </button>
-              <a
-                href="#contact"
-                className="px-4 py-2.5 rounded-lg font-mono-code text-xs sm:text-sm font-medium surface-elevated hover:opacity-90 transition-[opacity,transform]"
-              >
-                Contact Endpoint
-              </a>
+              <a href="#pods" className="btn btn-primary-lime">See my projects</a>
+              <button type="button" onClick={onOpenResume} className="btn btn-quiet">Resume</button>
+              <a href="#contact" className="btn btn-quiet">Get in touch</a>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs font-mono-code" style={{ color: 'var(--text-secondary)' }}>
-              <span>GitHub: <a href={state.github} className="accent-text underline" target="_blank" rel="noopener noreferrer">{state.github}</a></span>
-              <span>•</span>
-              <span>Email: <a href={`mailto:${state.email}`} className="accent-text underline">{state.email}</a></span>
+            <div className="hero-links">
+              <a href={state.github} target="_blank" rel="noopener noreferrer">{handle}</a>
+              <a href={`mailto:${state.email}`}>{state.email}</a>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Animated Terminal */}
-        <div className="lg:col-span-5 surface-card rounded-xl overflow-clip flex flex-col justify-between">
-          {/* Terminal Titlebar */}
-          <div
-            className="px-4 py-2.5 border-b flex items-center justify-between surface-elevated"
-            style={{ borderColor: 'var(--border-subtle)' }}
-          >
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
-              <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
-              <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
-              <span className="ml-2 font-mono-code text-xs" style={{ color: 'var(--text-secondary)' }}>zsh — portfolio-cli@eu-central-1</span>
-            </div>
+        {/* Right column: a working terminal */}
+        <div className="lg:col-span-5 surface-card rounded-xl overflow-clip flex flex-col">
+          <div className="px-4 py-3 flex items-center gap-2 surface-elevated term-titlebar">
+            <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block" aria-hidden="true"></span>
+            <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" aria-hidden="true"></span>
+            <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" aria-hidden="true"></span>
+            <span className="ml-2 font-mono-code text-xs" style={{ color: 'var(--text-secondary)' }}>ayan@udaipur: ~</span>
           </div>
 
           <HeroTerminal ready={ready} />

@@ -9,49 +9,60 @@ export const AnimatedPipeline = () => {
 
   const stages = {
     learn: {
-      title: "Stage 01: Learn — BCA @ Sir Padampat Singhania University (Aug 2023 – Jun 2026)",
+      name: 'Studied',
+      meta: 'SPSU · 2023–26',
+      title: 'BCA at Sir Padampat Singhania University, Udaipur · Aug 2023 – Jun 2026',
       logs: [
-        "[INFO] Bachelor of Computer Applications, Udaipur, India · CGPA 7.0/10",
-        "[INFO] Coursework: Cloud Computing, Operating Systems, Computer Networks, DBMS, Web Technologies, Data Structures, Software Engineering",
-        "[SUCCESS] Red Hat Linux Fundamentals (RH104), 2024 · Oracle Cloud Infrastructure Foundations Associate, 2025"
+        '[done] Bachelor of Computer Applications · CGPA 7.0/10',
+        '[done] The subjects I enjoyed most: cloud computing, operating systems and computer networks',
+        '[done] Red Hat Linux Fundamentals (RH104) in 2024, Oracle Cloud Infrastructure Foundations in 2025'
       ]
     },
     test: {
-      title: "Stage 02: Test — Quality Assurance Intern @ Websenor (May – Jun 2026)",
+      name: 'First job',
+      meta: 'Websenor · 2026',
+      title: 'QA Intern at Websenor · May – Jun 2026',
       logs: [
-        "[INFO] Logged 50+ defects with reproduction steps and severity ratings across manual, exploratory and regression testing",
-        "[INFO] Verified bug fixes on staging and production builds across 3 deployment cycles",
-        "[SUCCESS] Fewer regressions reaching end users"
+        '[done] Logged 50+ bugs, each with clear steps to reproduce and a severity',
+        '[done] Re-tested fixes on staging and production across 3 release cycles',
+        '[done] Learned to ask what could break before users find out'
       ]
     },
     build: {
-      title: "Stage 03: Build — React & Cloud Engineer @ Brandskey Creative Studio (Jun 2026 – present)",
+      name: 'Web & cloud job',
+      meta: 'Brandskey · Jun–Oct 2026',
+      title: 'Web Developer & Cloud Engineer at Brandskey Creative Studio · Jun – Oct 2026',
       logs: [
-        "[RUNNING] Cut deployment time from 20 minutes to under 3 with GitHub Actions on every push to main",
-        "[RUNNING] Host all live client sites on AWS (S3, CloudFront, Route 53) with HTTPS and zero customer-reported outages",
-        "[RUNNING] 40% faster page loads through CloudFront caching, compression and lazy loading",
-        "[RUNNING] Feature-branch workflow and PR review across 8 repositories · 5 React.js apps shipped"
+        '[done] Moved our releases to GitHub Actions: from about 20 minutes by hand to under 3',
+        '[done] Hosted every client site on AWS (S3, CloudFront, Route 53) with HTTPS; no client reported an outage',
+        '[done] Pages loaded about 40% faster after I added CloudFront caching, compression and lazy loading',
+        '[done] 8 repos on a pull-request workflow · 5 React apps shipped'
       ]
     },
     deploy: {
-      title: "Stage 04: Deploy — 7 cloud & DevOps projects + AWS certification",
+      name: 'Side projects',
+      meta: '7 on GitHub',
+      title: 'Side projects and certifications',
       logs: [
-        "[SUCCESS] 7 projects with source and docs on GitHub: ECS Fargate pipeline, Terraform modules, Jenkins server and more",
-        "[SUCCESS] AWS / Coursera: DevOps on AWS (Code, Build and Test) and AWS Cloud Technical Essentials, 2025",
-        "[RUNNING] Preparing for AWS Certified Solutions Architect – Associate (target 2026)"
+        '[done] 7 cloud and DevOps projects on GitHub, each with code and a write-up',
+        '[done] AWS courses on Coursera: DevOps on AWS, and AWS Cloud Technical Essentials (2025)',
+        '[now] Studying for AWS Certified Solutions Architect – Associate, aiming to pass in 2026'
       ]
     },
     monitor: {
-      title: "Stage 05: Next — DevOps / Cloud Engineer role",
+      name: 'Next',
+      meta: 'Open to work',
+      title: 'Next: a full-time DevOps or cloud role',
       logs: [
-        "[TARGET] Looking for a DevOps or Cloud Engineer role in Europe",
-        "[TARGET] Notice period: 1 month · English (professional), Hindi (native)"
+        '[next] Looking for a DevOps Engineer, Cloud Engineer (AWS), Junior SRE or Platform Engineer role',
+        '[next] Remote, hybrid or on-site · happy to relocate within India',
+        '[next] Can join immediately · English (professional), Hindi (native)'
       ]
     }
   };
 
-  // Final states: degree and internship done, current job and AWS cert in progress, next role queued.
-  const finalStatus = { learn: 'passed', test: 'passed', build: 'running', deploy: 'running', monitor: 'pending' };
+  // Final states: degree, internship and Brandskey done, AWS cert in progress, next role queued.
+  const finalStatus = { learn: 'passed', test: 'passed', build: 'passed', deploy: 'running', monitor: 'pending' };
   const keys = Object.keys(stages);
   const reduced = useReducedMotion();
   const [status, setStatus] = useState(() => (
@@ -103,25 +114,22 @@ export const AnimatedPipeline = () => {
   }, [reduced]);
 
   const badge = {
-    pending: { text: '○ PENDING', color: 'var(--text-muted)', bg: 'transparent' },
-    running: { text: 'RUNNING', color: 'var(--status-warn)', bg: 'rgba(251, 191, 36, 0.15)' },
-    passed: { text: '✓ PASSED', color: 'var(--status-ok)', bg: 'rgba(16, 185, 129, 0.15)' },
+    pending: { text: 'Up next', color: 'var(--text-muted)', bg: 'rgba(174, 184, 214, 0.1)' },
+    running: { text: 'In progress', color: 'var(--status-warn)', bg: 'rgba(251, 191, 36, 0.15)' },
+    passed: { text: 'Done', color: 'var(--status-ok)', bg: 'rgba(16, 185, 129, 0.15)' },
   };
 
   return (
     <section id="pipeline" aria-labelledby="pipeline-heading" className="space-y-6" data-anim-scope>
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b pb-4" style={{ borderColor: 'var(--border-subtle)' }}>
-        <div>
-          <p className="font-mono-code text-xs accent-text uppercase tracking-wider">01 // Career pipeline</p>
-          <h2 id="pipeline-heading" className="text-2xl sm:text-3xl font-bold mt-1">Career Pipeline: Student → QA → Cloud Engineer</h2>
-        </div>
+      <div className="sec-head">
+        <h2 id="pipeline-heading" className="sec-title">How I got here</h2>
+        <p className="sec-lede">From student to QA intern to working on the cloud, in five steps.</p>
       </div>
 
-      {/* Human Story */}
-      <div className="surface-card rounded-xl p-6 space-y-3" data-reveal>
-        <span className="font-mono-code text-xs font-semibold accent-text">README.md // HUMAN STORY</span>
-        <p className="text-base sm:text-lg leading-relaxed max-w-[68ch]" style={{ color: 'var(--text-primary)' }}>
-          I studied Computer Applications at Sir Padampat Singhania University in Udaipur, then started out in quality assurance at Websenor, where I learned how releases break and how to catch problems before users do. Today I am a React and Cloud Engineer at Brandskey Creative Studio, where I host every client site on AWS, replaced a 20-minute manual release with a GitHub Actions pipeline that runs in under 3 minutes, and keep 8 repositories on a reviewed, feature-branch workflow. Outside work I build cloud and DevOps projects (seven so far, all on GitHub) and I am preparing for the AWS Solutions Architect – Associate exam.
+      {/* The story in plain words */}
+      <div className="surface-card rounded-xl p-6 sm:p-7" data-reveal>
+        <p className="text-base sm:text-lg leading-relaxed max-w-[72ch]" style={{ color: 'var(--text-primary)' }}>
+          I studied Computer Applications in Udaipur. My first job was a QA internship at Websenor, and hunting bugs taught me how releases go wrong. After that I was a Web Developer &amp; Cloud Engineer at Brandskey Creative Studio: I built React sites, hosted them on AWS, and swapped our 20-minute manual release for a pipeline that took under 3. Now I&rsquo;m building cloud projects (seven so far, all on GitHub), studying for the AWS Solutions Architect exam, and looking for my next role.
         </p>
       </div>
 
@@ -144,30 +152,21 @@ export const AnimatedPipeline = () => {
               data-beat-index={index}
               // On the stage, a click also moves the scroll to that stage's beat.
               onClick={(e) => { setActiveStage(key); if (WS_ENABLED) scrollToElement(e.currentTarget); }}
-              className="pipeline-stage text-left surface-card spotlight rounded-xl p-4 flex flex-col justify-between gap-3 transition-[opacity,transform]"
-              style={{
-                borderColor: activeStage === key ? 'var(--accent-primary)' : 'var(--border-subtle)',
-                borderWidth: activeStage === key ? '2px' : '1px',
-                transformOrigin: 'center',
-              }}
+              aria-pressed={activeStage === key}
+              className="pipeline-stage text-left surface-card spotlight rounded-xl p-4 flex flex-col justify-between gap-4 transition-[opacity,transform]"
+              style={{ transformOrigin: 'center' }}
             >
-              <div className="flex items-center justify-between w-full font-mono-code text-xs">
-                <span
-                  key={status[key]}
-                  className="term-line inline-flex items-center gap-1.5 px-2 py-0.5 rounded font-bold text-xs whitespace-nowrap"
-                  style={{ backgroundColor: badge[status[key]].bg, color: badge[status[key]].color }}
-                >
-                  {status[key] === 'running' && <span className="pulse-dot" style={{ width: 6, height: 6 }} aria-hidden="true" />}
-                  {badge[status[key]].text}
-                </span>
-                <span style={{ color: 'var(--text-muted)' }}>Stage {index + 1}</span>
-              </div>
+              <span
+                key={status[key]}
+                className="term-line self-start inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full font-semibold text-xs whitespace-nowrap"
+                style={{ backgroundColor: badge[status[key]].bg, color: badge[status[key]].color }}
+              >
+                {status[key] === 'running' && <span className="pulse-dot" style={{ width: 6, height: 6 }} aria-hidden="true" />}
+                {badge[status[key]].text}
+              </span>
               <div>
-                <h3 className="font-mono-code font-bold text-sm">{index + 1}. {key.charAt(0).toUpperCase() + key.slice(1)}</h3>
-              </div>
-              <div className="font-mono-code text-xs pt-2 border-t flex justify-between" style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-muted)' }}>
-                <span>{['SPSU · 2026', 'Websenor', 'Brandskey', '7 projects', 'Next role'][index]}</span>
-                <span>{status[key] === 'passed' ? 'exit 0' : status[key] === 'running' ? 'in progress' : 'queued'}</span>
+                <h3 className="font-bold text-lg leading-tight">{stage.name}</h3>
+                <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>{stage.meta}</p>
               </div>
             </button>
           ))}
@@ -175,11 +174,11 @@ export const AnimatedPipeline = () => {
       </div>
 
       {/* Stage Detail */}
-      <div className="surface-elevated rounded-xl p-5 font-mono-code text-xs space-y-2" aria-live="polite" data-reveal>
-        <h3 className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>
+      <div className="surface-elevated rounded-xl p-5 sm:p-6 space-y-3" aria-live="polite" data-reveal>
+        <h3 className="font-bold text-base sm:text-lg" style={{ color: 'var(--text-primary)' }}>
           {stages[activeStage].title}
         </h3>
-        <div style={{ color: 'var(--text-secondary)' }}>
+        <div className="font-mono-code text-[13px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
           {stages[activeStage].logs.map((log, idx) => (
             <div key={activeStage + idx} className="term-line py-1">
               {log}

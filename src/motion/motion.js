@@ -59,7 +59,7 @@ const AUTO_STAGGER = [
 ].join(',');
 
 const autoTag = (scope) => {
-  scope.querySelectorAll('main section > .border-b:first-child').forEach((el) => {
+  scope.querySelectorAll('main section > .sec-head').forEach((el) => {
     el.setAttribute('data-sec-head', '');
   });
   scope.querySelectorAll(AUTO_STAGGER).forEach((el) => {

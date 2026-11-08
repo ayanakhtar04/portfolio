@@ -7,29 +7,23 @@ import { Deck } from './Deck';
 // How many beats the Projects scene has: the diagram plus every project.
 export const PROJECT_BEATS = projects.length + 1;
 
-const ProjectCard = ({ project, index, github }) => (
+const ProjectCard = ({ project, github }) => (
   <article className="project-card surface-card spotlight rounded-2xl p-6 sm:p-7 flex flex-col gap-4">
-    <div className="flex items-center justify-between gap-3 font-mono-code text-xs" style={{ color: 'var(--text-muted)' }}>
-      <span><span className="accent-text">~/projects/</span>{String(index).padStart(2, '0')}</span>
-      <span>{project.tags.length} tools</span>
-    </div>
-    <h3 className="text-xl sm:text-2xl font-bold leading-snug">{project.title}</h3>
-    <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
-    <ul className="text-sm space-y-1.5 list-disc pl-5" style={{ color: 'var(--text-secondary)' }}>
+    <h3 className="text-2xl sm:text-[1.75rem] font-bold leading-tight tracking-tight">{project.title}</h3>
+    <p className="text-base sm:text-lg leading-relaxed max-w-[64ch]" style={{ color: 'var(--text-primary)' }}>{project.description}</p>
+    <ul className="text-base space-y-2 list-disc pl-5 max-w-[64ch]" style={{ color: 'var(--text-secondary)' }}>
       {project.highlights.map((h) => <li key={h}>{h}</li>)}
     </ul>
-    <div className="flex flex-wrap gap-2">
-      {project.tags.map((tag) => (
-        <span key={tag} className="px-2.5 py-1 rounded text-xs font-mono-code surface-elevated accent-text">{tag}</span>
-      ))}
-    </div>
+    <ul className="flex flex-wrap gap-1.5" aria-label="Built with">
+      {project.tags.map((tag) => <li key={tag} className="skill-chip">{tag}</li>)}
+    </ul>
     <a
       href={github}
       target="_blank"
       rel="noopener noreferrer"
-      className="mt-auto self-start px-4 py-2 rounded-lg font-mono-code text-xs font-semibold surface-elevated hover:opacity-90 transition-[opacity,transform]"
+      className="btn btn-quiet mt-auto self-start"
     >
-      View source on GitHub ↗
+      View on GitHub <span aria-hidden="true">↗</span>
     </a>
   </article>
 );
@@ -37,24 +31,21 @@ const ProjectCard = ({ project, index, github }) => (
 export const Projects = () => {
   const { state } = usePortfolio();
   const items = [
-    { key: 'architecture', label: 'How I host client sites', node: <ArchitectureDiagram /> },
-    ...projects.map((p, i) => ({
+    { key: 'architecture', label: 'How I hosted client sites', node: <ArchitectureDiagram /> },
+    ...projects.map((p) => ({
       key: p.title,
       label: p.title.split(':')[0],
-      node: <ProjectCard project={p} index={i + 1} github={state.github} />,
+      node: <ProjectCard project={p} github={state.github} />,
     })),
   ];
 
   return (
     <section id="pods" aria-labelledby="pods-heading" className="space-y-6" data-anim-scope>
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b pb-4" style={{ borderColor: 'var(--border-subtle)' }}>
-        <div>
-          <p className="font-mono-code text-xs accent-text uppercase tracking-wider">03 // Projects</p>
-          <h2 id="pods-heading" className="text-2xl sm:text-3xl font-bold mt-1">Cloud &amp; DevOps Projects</h2>
-          <p className="text-sm mt-2" style={{ color: 'var(--text-secondary)' }}>
-            Seven projects, each with source code and documentation on GitHub.
-          </p>
-        </div>
+      <div className="sec-head">
+        <h2 id="pods-heading" className="sec-title">Things I&rsquo;ve built</h2>
+        <p className="sec-lede">
+          How I hosted client sites at Brandskey, plus seven cloud projects of my own. Each one has its code and a write-up on GitHub.
+        </p>
       </div>
 
       <Deck

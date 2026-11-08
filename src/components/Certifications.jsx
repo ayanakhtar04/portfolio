@@ -2,56 +2,51 @@ import React from 'react';
 
 const COLUMNS = [
   {
-    heading: '● ACHIEVED',
-    note: 'completed',
+    heading: 'Done',
     color: 'var(--status-ok)',
     items: [
-      { kicker: 'Degree · 2023 – 2026', title: 'Bachelor of Computer Applications (BCA)', body: 'Sir Padampat Singhania University, Udaipur · CGPA 7.0/10', meta: 'Cloud Computing, Operating Systems, Networks, DBMS, Web Technologies, Data Structures, Software Engineering' },
-      { kicker: 'Oracle · 2025', title: 'Oracle Cloud Infrastructure Foundations Associate', body: 'Oracle certification' },
+      { kicker: 'Degree · 2023 – 2026', title: 'Bachelor of Computer Applications (BCA)', body: 'Sir Padampat Singhania University, Udaipur · CGPA 7.0/10', meta: 'Cloud computing, operating systems, networks, databases, web technologies, data structures and software engineering.' },
+      { kicker: 'Oracle · 2025', title: 'Oracle Cloud Infrastructure Foundations Associate', body: 'My first cloud certification: compute, networking, storage and identity on Oracle Cloud.' },
     ],
   },
   {
-    heading: '◐ IN PROGRESS',
-    note: 'preparing',
+    heading: 'In progress',
     color: 'var(--accent-secondary)',
     items: [
-      { kicker: 'AWS · target 2026', title: 'AWS Certified Solutions Architect – Associate', body: 'Backed by daily hands-on work with EC2, S3, VPC, IAM, CloudFront, Route 53, ECS and Fargate' },
+      { kicker: 'AWS · aiming for 2026', title: 'AWS Certified Solutions Architect – Associate', body: 'Studying for it on top of hands-on work with EC2, S3, VPC, IAM, CloudFront, Route 53 and ECS.' },
     ],
   },
   {
-    heading: '✓ TRAINING',
-    note: 'courses',
+    heading: 'Courses',
     color: 'var(--accent-primary)',
     items: [
-      { kicker: 'Red Hat · 2024', title: 'Getting Started with Linux Fundamentals (RH104)', body: 'Linux administration basics on RHEL' },
-      { kicker: 'AWS / Coursera · 2025', title: 'DevOps on AWS: Code, Build and Test', body: 'Plus AWS Cloud Technical Essentials' },
+      { kicker: 'Red Hat · 2024', title: 'Getting Started with Linux Fundamentals (RH104)', body: 'The basics of running Red Hat Enterprise Linux.' },
+      { kicker: 'AWS on Coursera · 2025', title: 'DevOps on AWS: Code, Build and Test', body: 'Also finished AWS Cloud Technical Essentials.' },
     ],
   },
 ];
 
 export const Certifications = () => (
   <section id="certs" aria-labelledby="certs-heading" className="space-y-6">
-    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b pb-4" style={{ borderColor: 'var(--border-subtle)' }}>
-      <div>
-        <p className="font-mono-code text-xs accent-text uppercase tracking-wider">04 // Education</p>
-        <h2 id="certs-heading" className="text-2xl sm:text-3xl font-bold mt-1">Degree, Certifications &amp; Training</h2>
-      </div>
+    <div className="sec-head">
+      <h2 id="certs-heading" className="sec-title">Education and certifications</h2>
+      <p className="sec-lede">A computer applications degree, one cloud certification done and the next one on the way.</p>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
       {COLUMNS.map((col) => (
-        <div key={col.heading} className="surface-card spotlight rounded-xl p-5 space-y-4" data-reveal="scale">
-          <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
-            <span className="font-mono-code text-xs font-bold" style={{ color: col.color }}>{col.heading}</span>
-            <span className="font-mono-code text-xs" style={{ color: 'var(--text-muted)' }}>{col.note}</span>
-          </div>
+        <div key={col.heading} className="surface-card spotlight rounded-xl p-5 sm:p-6 space-y-4" data-reveal="scale">
+          <h3 className="flex items-center gap-2 text-base font-semibold" style={{ color: col.color }}>
+            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: col.color }} aria-hidden="true" />
+            {col.heading}
+          </h3>
           <div className="space-y-3" data-stagger>
             {col.items.map((item) => (
-              <div key={item.title} className="p-3.5 rounded-lg surface-elevated space-y-1.5">
-                <div className="font-mono-code text-xs" style={{ color: col.color }}>{item.kicker}</div>
-                <h3 className="font-bold text-sm">{item.title}</h3>
-                <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>{item.body}</p>
-                {item.meta && <p className="text-xs font-mono-code" style={{ color: 'var(--text-muted)' }}>{item.meta}</p>}
+              <div key={item.title} className="p-4 rounded-lg surface-elevated space-y-1.5">
+                <div className="text-sm font-medium" style={{ color: col.color }}>{item.kicker}</div>
+                <h4 className="font-bold text-base leading-snug">{item.title}</h4>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{item.body}</p>
+                {item.meta && <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>{item.meta}</p>}
               </div>
             ))}
           </div>

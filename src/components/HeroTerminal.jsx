@@ -14,6 +14,7 @@ const buildCommands = (state) => ({
     lines: [
       'Available commands:',
       '  whoami     who is behind this portfolio',
+      '  now        what I am up to at the moment',
       '  skills     kubectl get pods -n skills',
       '  projects   list my projects',
       '  contact    how to reach me',
@@ -21,7 +22,16 @@ const buildCommands = (state) => ({
     ],
   }),
   whoami: () => ({
-    lines: [`${state.name}`, 'DevOps & Cloud Engineer · Udaipur, India', 'React & Cloud Engineer at Brandskey Creative Studio'],
+    lines: [`${state.name}`, 'DevOps & Cloud Engineer · Udaipur, India', 'Previously Web Developer & Cloud Engineer at Brandskey Creative Studio'],
+  }),
+  now: () => ({
+    lines: [
+      `${pad('building', 12)}cloud projects with Terraform, Docker and ECS`,
+      `${pad('studying', 12)}AWS Solutions Architect – Associate`,
+      `${pad('learning', 12)}Kubernetes`,
+      `${pad('looking', 12)}for a DevOps, cloud, SRE or platform role`,
+      `${pad('available', 12)}immediately · remote, hybrid or on-site`,
+    ],
   }),
   skills: () => ({
     lines: [
@@ -54,10 +64,14 @@ export const HeroTerminal = ({ ready }) => {
   // Intro: type `$ whoami`, print the answer, then hand over the prompt.
   useEffect(() => {
     if (!ready) return undefined;
-    const answer = buildCommands(state).whoami().lines;
+    const commands = buildCommands(state);
     const settle = () => {
       setTyped(TYPED);
-      setHistory([{ cmd: TYPED, lines: answer }, { cmd: null, lines: ['Type "help" to list commands.'] }]);
+      setHistory([
+        { cmd: TYPED, lines: commands.whoami().lines },
+        { cmd: 'now', lines: commands.now().lines },
+        { cmd: null, lines: ['Type "help" to see what else you can ask.'] },
+      ]);
       setInteractive(true);
     };
     if (reduced) { settle(); return undefined; }
@@ -104,10 +118,10 @@ export const HeroTerminal = ({ ready }) => {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col flex-1 min-h-0">
       <div
         ref={outputRef}
-        className="p-4 font-mono-code text-xs space-y-2 overflow-y-auto h-64 sm:h-72 whitespace-pre-wrap"
+        className="term-output p-4 sm:p-5 font-mono-code space-y-3 overflow-y-auto flex-1 whitespace-pre-wrap"
         style={{ backgroundColor: 'var(--bg-base)' }}
         onClick={() => inputRef.current?.focus()}
         aria-live="polite"
@@ -129,8 +143,8 @@ export const HeroTerminal = ({ ready }) => {
         ))}
       </div>
 
-      <div className="p-3 border-t surface-elevated space-y-2" style={{ borderColor: 'var(--border-subtle)' }}>
-        <label className="flex items-center gap-2 font-mono-code text-xs">
+      <div className="p-3 sm:px-4 surface-elevated term-input space-y-2.5">
+        <label className="flex items-center gap-2 font-mono-code text-sm">
           <span className="accent-text" aria-hidden="true">$</span>
           <span className="sr-only">Terminal command</span>
           <input
@@ -147,13 +161,13 @@ export const HeroTerminal = ({ ready }) => {
           />
         </label>
         <div className="flex flex-wrap items-center gap-1.5">
-          {['help', 'skills', 'projects', 'contact'].map((cmd) => (
+          {['help', 'now', 'skills', 'projects', 'contact'].map((cmd) => (
             <button
               key={cmd}
               type="button"
               disabled={!interactive}
               onClick={() => run(cmd)}
-              className="px-2 py-0.5 rounded text-xs font-mono-code surface-card disabled:opacity-50"
+              className="term-chip font-mono-code disabled:opacity-50"
             >
               {cmd}
             </button>

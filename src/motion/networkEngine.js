@@ -190,7 +190,8 @@ export const createNetwork = (canvas, { reduced = false } = {}) => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2.6, 0, Math.PI * 2);
         ctx.fill();
-        ctx.fillStyle = n.glow > 0.05 ? `rgba(${c.accent}, ${0.6 + n.glow * 0.4})` : `rgba(${c.node}, 0.55)`;
+        // Names stay faint at rest so they never compete with the page's text.
+        ctx.fillStyle = n.glow > 0.05 ? `rgba(${c.accent}, ${0.45 + n.glow * 0.5})` : `rgba(${c.node}, 0.3)`;
         ctx.fillText(n.hub, p.x + 12, p.y + 4);
       } else if (n.box) ctx.fillRect(p.x - s, p.y - s, s * 2, s * 2);
       else { ctx.beginPath(); ctx.arc(p.x, p.y, s, 0, Math.PI * 2); ctx.fill(); }

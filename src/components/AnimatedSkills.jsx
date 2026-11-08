@@ -31,23 +31,23 @@ const SkillCard = ({ skill, large }) => {
       <header className="space-y-3">
         <div className="flex items-center justify-between gap-3">
           <span className="skill-icon" aria-hidden="true"><Glyph pod={skill.pod} /></span>
-          <span className={`skill-status font-mono-code ${learning ? 'is-learning' : ''}`}>
+          <span className={`skill-status ${learning ? 'is-learning' : ''}`}>
             <span className="pulse-dot" aria-hidden="true" />
-            {learning ? 'Learning' : 'Proficient'}
+            {skill.level}
           </span>
         </div>
         <h3 className={`font-bold leading-snug ${large ? 'text-2xl' : 'text-base'}`}>{skill.domain}</h3>
       </header>
 
-      <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{skill.summary}</p>
+      <p className="text-base leading-relaxed max-w-[60ch]" style={{ color: 'var(--text-primary)' }}>{skill.summary}</p>
 
       <ul className="flex flex-wrap gap-1.5" aria-label={`${skill.domain} tools`}>
-        {skill.items.map((item) => <li key={item} className="skill-chip font-mono-code">{item}</li>)}
+        {skill.items.map((item) => <li key={item} className="skill-chip">{item}</li>)}
       </ul>
 
-      <footer className="mt-auto pt-3 border-t text-xs" style={{ borderColor: 'var(--border-subtle)' }}>
-        <span className="font-mono-code uppercase tracking-wider text-xs" style={{ color: 'var(--text-muted)' }}>
-          {learning ? 'Status' : 'Proven in'}
+      <footer className="skill-foot mt-auto pt-4 text-sm">
+        <span className="font-medium" style={{ color: 'var(--text-muted)' }}>
+          {learning ? 'Where I am' : 'Where I have used it'}
         </span>
         <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1" style={{ color: 'var(--text-secondary)' }}>
           {skill.evidence.map((e) => <span key={e} className="evidence">{e}</span>)}
@@ -61,20 +61,19 @@ export const SKILL_BEATS = skills.length;
 
 export const AnimatedSkills = () => (
   <section id="skills" aria-labelledby="skills-heading" className="space-y-6" data-anim-scope>
-    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b pb-4" style={{ borderColor: 'var(--border-subtle)' }}>
+    <div className="sec-head flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
-        <p className="font-mono-code text-xs accent-text uppercase tracking-wider">02 // Skills</p>
-        <h2 id="skills-heading" className="text-2xl sm:text-3xl font-bold mt-1">What I work with</h2>
-        <p className="text-sm mt-2 max-w-2xl" style={{ color: 'var(--text-secondary)' }}>
-          Every skill below is backed by my job at Brandskey or one of my published projects.
+        <h2 id="skills-heading" className="sec-title">What I work with</h2>
+        <p className="sec-lede">
+          Each area shows where I have actually used it: in my job at Brandskey or in a project on GitHub.
         </p>
       </div>
-      <dl className="flex gap-6 font-mono-code">
+      <dl className="flex gap-7">
         {[[skills.length, 'skill areas'], [toolCount, 'tools'], [7, 'projects']].map(([n, label]) => (
           <div key={label}>
             <dt className="sr-only">{label}</dt>
-            <dd className="text-2xl font-bold accent-text leading-none">{n}</dd>
-            <dd className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>{label}</dd>
+            <dd className="text-3xl font-bold accent-text leading-none tabular-nums">{n}</dd>
+            <dd className="text-sm mt-1.5" style={{ color: 'var(--text-muted)' }}>{label}</dd>
           </div>
         ))}
       </dl>

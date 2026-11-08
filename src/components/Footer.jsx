@@ -46,13 +46,13 @@ export const Footer = ({ onViewBlueprint }) => {
             <div className="lg:col-span-7 flex flex-col">
               <p className="footer-prompt font-mono-code">
                 <span className="accent-text">$</span> exit <span className="footer-ok">0</span>
-                <span className="footer-dim"> · thanks for scrolling all the way down</span>
+                <span className="footer-dim"> · you made it to the end</span>
               </p>
               <h2 id="footer-heading" className="footer-title">
-                Let&apos;s build infrastructure that <span className="aurora-text">just works.</span>
+                Thanks for stopping by.
               </h2>
               <p className="footer-lede">
-                Open to DevOps and Cloud Engineer roles. I reply within a day, and I can start after a one-month notice period.
+                If you&rsquo;re hiring for a DevOps or cloud role, I&rsquo;d love to hear from you. I usually reply within a day and can start right away.
               </p>
               <div className="flex flex-wrap gap-3 mt-7">
                 <a href={`mailto:${state.email}`} className="footer-btn is-primary">
@@ -70,7 +70,7 @@ export const Footer = ({ onViewBlueprint }) => {
             {/* Link columns and live status */}
             <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-8">
               <div>
-                <h3 className="footer-head font-mono-code">Navigate</h3>
+                <h3 className="footer-head">On this page</h3>
                 <ul className="footer-list">
                   {NAV.map(([id, label]) => (
                     <li key={id}><a href={`#${id}`} className="footer-link">{label}</a></li>
@@ -78,7 +78,7 @@ export const Footer = ({ onViewBlueprint }) => {
                 </ul>
               </div>
               <div>
-                <h3 className="footer-head font-mono-code">Elsewhere</h3>
+                <h3 className="footer-head">Elsewhere</h3>
                 <ul className="footer-list">
                   <li><a href={state.github} target="_blank" rel="noopener noreferrer" className="footer-link">GitHub</a></li>
                   <li><a href={state.linkedin} target="_blank" rel="noopener noreferrer" className="footer-link">LinkedIn</a></li>
@@ -87,12 +87,12 @@ export const Footer = ({ onViewBlueprint }) => {
                 </ul>
               </div>
               <div className="col-span-2 sm:col-span-1">
-                <h3 className="footer-head font-mono-code">Right now</h3>
+                <h3 className="footer-head">Right now</h3>
                 <dl className="footer-status">
                   <div><dt>Status</dt><dd><span className="pulse-dot" style={{ color: 'var(--status-ok)' }} aria-hidden="true" /> Available</dd></div>
                   <div><dt>Based in</dt><dd>Udaipur, India</dd></div>
                   <div><dt>Local time</dt><dd className="font-mono-code">{time} IST</dd></div>
-                  <div><dt>Notice</dt><dd>1 month</dd></div>
+                  <div><dt>Can start</dt><dd>Now</dd></div>
                 </dl>
               </div>
             </div>

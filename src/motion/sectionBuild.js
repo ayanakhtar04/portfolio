@@ -21,12 +21,12 @@ import { prefersReducedMotion } from './motion';
 import { matrixReveal } from './matrixBuild';
 
 const COMMANDS = {
-  observability: ['watch -n1 kubectl top pods -n brandskey', '4 metrics streaming · all healthy'],
-  pipeline: ['git log --oneline --graph career', '5 stages · HEAD -> cloud-engineer'],
-  skills: ['kubectl get pods -n skills', '8 pods · 7 Running · 1 ContainerCreating'],
-  pods: ['terraform apply -auto-approve', 'Apply complete! Resources: 7 added, 0 changed, 0 destroyed.'],
-  certs: ['cat ~/education.yaml | yq ".records"', '5 records loaded'],
-  contact: ['ping ayan-akhtar --region eu', 'reply < 24h · ready to relocate'],
+  observability: ['kubectl top pods -n brandskey', '4 numbers from my time there'],
+  pipeline: ['git log --oneline career', '5 steps · HEAD -> next-role'],
+  skills: ['kubectl get pods -n skills', '8 areas · 7 in use · 1 still learning'],
+  pods: ['terraform apply', 'Apply complete! 7 projects added.'],
+  certs: ['cat ~/education.yaml', '1 degree · 1 certification · 1 in progress'],
+  contact: ['ping ayan', 'usually replies within a day'],
 };
 
 // ASCII only for decoded text: every glyph has the same advance in a monospace face.
@@ -253,8 +253,6 @@ export const initSectionBuild = (root = document.body) => {
     typeCommand(section);
     const heading = section.querySelector('h2');
     if (heading) buildHeading(decoder, heading);
-    const eyebrow = heading?.previousElementSibling;
-    if (eyebrow) monoTextNodes(eyebrow, 4).forEach((n) => decodeText(decoder, n, 120));
     setTimeout(() => { if (section.dataset.build === 'building') section.dataset.build = 'built'; }, WIPE_MS + 500);
   };
 

@@ -823,3 +823,129 @@ button, a { -webkit-tap-highlight-color: transparent; }
    shared grid cell for every card; it scrolls sideways inside itself. */
 .deck-stage { grid-template-columns: minmax(0, 1fr); }
 .deck-card { min-width: 0; }
+/* ==========================================================================
+   Readability pass
+   One type scale for every section, nothing meant to be read under 13px,
+   solid surfaces so the network never runs through text, no glows.
+   ========================================================================== */
+
+/* Tailwind's text-xs (12px) is the smallest size used for reading: lift it. */
+.text-xs { font-size: 0.8125rem; line-height: 1.25rem; }
+
+/* Section heading block: a large title and one plain sentence under it. */
+.sec-head { position: relative; }
+.sec-title {
+  font-size: clamp(1.875rem, 1.2rem + 2.2vw, 2.875rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+.sec-lede {
+  margin-top: 12px;
+  max-width: 62ch;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* Hero */
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.hero-title {
+  font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.hero-role { font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5rem); font-weight: 600; color: var(--text-primary); }
+.hero-lede {
+  max-width: 58ch;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.hero-lede strong { color: var(--text-primary); font-weight: 600; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; }
+.hero-links a { color: var(--text-secondary); text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 4px; transition: color 150ms ease; }
+.hero-links a:hover { color: var(--accent-primary); }
+
+/* Hero terminal: readable output that fills the card, tone steps not lines. */
+.term-output { min-height: 15rem; font-size: 13px; line-height: 1.6; background: color-mix(in srgb, var(--bg-base) 85%, transparent); }
+.term-titlebar, .term-input { border: 0; }
+.term-chip {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.07);
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+.term-chip:hover:not(:disabled) { background: rgba(255, 255, 255, 0.14); }
+.term-chip:active:not(:disabled) { transform: scale(0.95); }
+html.light .term-chip { background: rgba(15, 23, 42, 0.06); }
+
+/* Journey: the chosen step is marked by its fill, not a thicker border. */
+.pipeline-stage[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--accent-primary) 70%, transparent);
+  background: color-mix(in srgb, var(--accent-primary) 10%, var(--bg-surface));
+}
+
+/* Skills and project cards */
+.skill-chip { border: 0; background: rgba(255, 255, 255, 0.07); }
+.skill-chip:hover { border-color: transparent; background: rgba(255, 255, 255, 0.12); }
+html.light .skill-chip { background: rgba(15, 23, 42, 0.06); }
+.skill-foot { border-top: 0; }
+
+/* Contact */
+.contact-label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+.contact-field {
+  color: var(--text-primary);
+  background: var(--bg-base);
+  border: 1px solid var(--border-subtle);
+  transition: border-color 150ms ease;
+}
+.contact-field::placeholder { color: color-mix(in srgb, var(--text-muted) 75%, transparent); }
+.contact-field:focus { border-color: var(--accent-primary); }
+.contact-availability { background: rgba(52, 211, 153, 0.08); }
+
+/* Small labels that were 10-11px */
+.deck-counter-label, .deck-index-num, .deck-index-meta, .ws-dot-label { font-size: 13px; }
+.deck-index-item { font-size: 14px; }
+.dock-app-label { font-size: 13px; }
+.dock-app-label span { font-size: 13px; }
+.footer-head { font-size: 13px; letter-spacing: 0; text-transform: none; font-weight: 600; }
+.footer-status dt { font-size: 13px; }
+.deck-track-fill { background: var(--accent-primary); }
+
+/* Cards on the stage: dense enough that the network never shows through text. */
+.ws-mode .ws-scene .surface-card {
+  background:
+    linear-gradient(160deg, var(--glass-sheen) 0%, transparent 38%),
+    color-mix(in srgb, var(--bg-surface) 95%, transparent);
+}
+html.light.ws-mode .ws-scene .surface-card {
+  background: color-mix(in srgb, var(--bg-surface) 96%, transparent);
+}
+
+/* Quieter at rest: no glow on the active dot or the primary footer button. */
+.ws-dot[aria-current] { box-shadow: none; }
+.footer-btn.is-primary { box-shadow: none; }
+.footer-btn.is-primary:hover { background: #d4f78f; }
+
+/* Cards on the stage sit flat: a tone step from the page, no drop shadow. */
+.ws-mode .ws-scene .surface-card { box-shadow: inset 0 1px 0 var(--glass-highlight); }
+
+/* Footer sign-off: balanced lines, no orphaned last word. */
+.footer-title { max-width: 20ch; text-wrap: balance; }
+
+/* Hero tagline: a full sentence now, so keep its lines even. */
+.hero-role { max-width: 34ch; line-height: 1.3; text-wrap: balance; }
