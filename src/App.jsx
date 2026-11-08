@@ -108,6 +108,7 @@ function App() {
               The engineering blueprint view (architecture diagrams, design system details, and implementation roadmap) is currently under construction.
             </p>
             <button
+              type="button"
               onClick={() => { updateState({ activeView: 'portfolio' }); window.scrollTo(0, 0); }}
               className="px-4 py-2 rounded-lg font-mono-code text-xs font-semibold"
               style={{ backgroundColor: 'var(--accent-primary)', color: '#0B0F14' }}

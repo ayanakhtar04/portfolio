@@ -1,0 +1,66 @@
+# Checks every pull request: lint, build (with pre-rendering), valid HTML,
+# working links and Lighthouse scores. Deployment stays with Zoho Catalyst
+# Slate's Git auto-deploy on pushes to main (see DEPLOYMENT.md).
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Validate HTML
+        run: npx --yes html-validate@9 dist/index.html dist/404.html
+
+      # The canonical domain may not be live yet, and LinkedIn refuses bots,
+      # so both are skipped; every other link (repos, files, anchors) is checked.
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --root-dir ${{ github.workspace }}/dist
+            --exclude 'linkedin\.com'
+            --exclude 'ayanakhtar\.dev'
+            --accept '200,429'
+            './dist/**/*.html'
+          fail: true
+
+      # Fails the check if any category's median score is below 90 (mobile).
+      # Reports are kept as a build artifact, not uploaded anywhere public.
+      - name: Lighthouse CI
+        run: npx --yes @lhci/cli@0.14.x autorun
+
+      - name: Keep Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci
+          if-no-files-found: ignore

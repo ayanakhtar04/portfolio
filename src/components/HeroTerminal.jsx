@@ -149,6 +149,7 @@ export const HeroTerminal = ({ ready }) => {
           <span className="sr-only">Terminal command</span>
           <input
             ref={inputRef}
+            type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={onKeyDown}

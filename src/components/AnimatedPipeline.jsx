@@ -149,6 +149,7 @@ export const AnimatedPipeline = () => {
           {Object.entries(stages).map(([key, stage], index) => (
             <button
               key={key}
+              type="button"
               data-beat-index={index}
               // On the stage, a click also moves the scroll to that stage's beat.
               onClick={(e) => { setActiveStage(key); if (WS_ENABLED) scrollToElement(e.currentTarget); }}
@@ -164,10 +165,11 @@ export const AnimatedPipeline = () => {
                 {status[key] === 'running' && <span className="pulse-dot" style={{ width: 6, height: 6 }} aria-hidden="true" />}
                 {badge[status[key]].text}
               </span>
-              <div>
-                <h3 className="font-bold text-lg leading-tight">{stage.name}</h3>
-                <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>{stage.meta}</p>
-              </div>
+              {/* Buttons hold phrasing content only, so spans rather than a heading. */}
+              <span className="block">
+                <span className="block font-bold text-lg leading-tight">{stage.name}</span>
+                <span className="block text-sm mt-1" style={{ color: 'var(--text-muted)' }}>{stage.meta}</span>
+              </span>
             </button>
           ))}
         </div>

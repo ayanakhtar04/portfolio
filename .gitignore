@@ -37,3 +37,6 @@ Thumbs.db
 
 # Local design-review output (screenshots, reports)
 .taste-skill/
+
+# Lighthouse CI output
+.lighthouseci/

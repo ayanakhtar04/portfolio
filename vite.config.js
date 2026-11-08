@@ -94,15 +94,19 @@ const jsonLd = () => {
 
 // Title, description, canonical, social cards, icons and JSON-LD, all from
 // site.config.js so the domain is set in one place.
+// Vite writes tag text and attribute values as given, so escape them here.
+const escapeHtml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
+
 const seoHead = () => ({
   name: 'seo-head',
   transformIndexHtml: () => {
     const url = absolute('/')
     const image = absolute(site.ogImage)
-    const meta = (attrs) => ({ tag: 'meta', attrs, injectTo: 'head' })
-    const link = (attrs) => ({ tag: 'link', attrs, injectTo: 'head' })
+    const escaped = (attrs) => Object.fromEntries(Object.entries(attrs).map(([k, v]) => [k, escapeHtml(v)]))
+    const meta = (attrs) => ({ tag: 'meta', attrs: escaped(attrs), injectTo: 'head' })
+    const link = (attrs) => ({ tag: 'link', attrs: escaped(attrs), injectTo: 'head' })
     return [
-      { tag: 'title', children: site.title, injectTo: 'head' },
+      { tag: 'title', children: escapeHtml(site.title), injectTo: 'head' },
       meta({ name: 'description', content: site.description }),
       meta({ name: 'author', content: site.name }),
       meta({ name: 'robots', content: 'index, follow, max-image-preview:large' }),
