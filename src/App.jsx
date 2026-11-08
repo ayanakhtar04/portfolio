@@ -14,6 +14,7 @@ import { Observability } from './components/Observability';
 import { initMotion } from './motion/motion';
 import { initSectionBuild } from './motion/sectionBuild';
 import { initSmoothScroll } from './motion/smoothScroll';
+import { initBootScreen } from './motion/bootScreen';
 
 // The dialogs load on first use, keeping them out of the first download.
 const ResumeModal = lazy(() => import('./components/Modals').then((m) => ({ default: m.ResumeModal })));
@@ -61,6 +62,7 @@ function App() {
 
   // The live page has replaced the pre-rendered copy: show it.
   useEffect(() => { document.getElementById('root')?.removeAttribute('data-prerendered'); }, []);
+  useEffect(() => initBootScreen(), []);
 
   // Scroll reveals, off-screen pausing, cursor spotlight.
   useEffect(() => initMotion(document.getElementById('root')), []);
@@ -88,7 +90,7 @@ function App() {
             <Workspaces
               scenes={[
                 { id: 'hero', label: 'Intro', node: <AnimatedHero ready onOpenResume={openResume} /> },
-                { id: 'observability', label: 'Impact', node: <Observability /> },
+                { id: 'observability', label: 'What I do', node: <Observability /> },
                 { id: 'pipeline', label: 'Journey', beats: 5, node: <AnimatedPipeline /> },
                 { id: 'skills', label: 'Skills', beats: SKILL_BEATS, node: <AnimatedSkills /> },
                 { id: 'pods', label: 'Projects', beats: PROJECT_BEATS, node: <Projects /> },
